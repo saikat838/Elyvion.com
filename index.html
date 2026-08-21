@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elyvion</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f6f2ff;color:#211437;padding-bottom:85px}
+header{
+  background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+  color:white;padding:18px 16px;border-radius:0 0 24px 24px
+}
+.brand{font-size:26px;font-weight:800}
+.subtitle{opacity:.85;font-size:13px;margin-top:5px}
+.container{max-width:700px;margin:auto;padding:15px}
+.card{
+  background:white;border-radius:18px;padding:16px;margin:12px 0;
+  box-shadow:0 5px 20px rgba(91,33,182,.08)
+}
+.balance{font-size:30px;font-weight:bold;color:#6d28d9;margin:8px 0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#f4efff;border-radius:14px;padding:14px}
+.stat small{color:#777}.stat b{display:block;margin-top:6px;color:#5b21b6}
+.section-title{font-size:20px;font-weight:bold;margin:20px 0 10px}
+.plan{
+  background:white;border-radius:18px;padding:16px;margin-bottom:12px;
+  border:1px solid #e9ddff
+}
+.plan-top{display:flex;justify-content:space-between;align-items:center}
+.rank{font-weight:bold;font-size:18px;color:#5b21b6}
+.price{font-size:20px;font-weight:bold}
+.plan-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.info{background:#f7f3ff;padding:10px;border-radius:10px;font-size:13px}
+.info b{display:block;color:#5b21b6;margin-top:4px}
+button{
+  border:0;border-radius:12px;padding:12px 15px;font-weight:bold;
+  cursor:pointer;font-size:15px
+}
+.primary{background:#6d28d9;color:white;width:100%}
+.secondary{background:#ede9fe;color:#5b21b6;width:100%}
+.danger{background:#fee2e2;color:#b91c1c;width:100%}
+.flex{display:flex;gap:10px}.flex>*{flex:1}
+.hidden{display:none!important}
+
+.nav{
+  position:fixed;bottom:0;left:0;right:0;background:white;
+  display:flex;justify-content:space-around;padding:10px 4px 14px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.1);z-index:20
+}
+.nav button{
+  background:transparent;color:#777;font-size:11px;padding:5px
+}
+.nav button.active{color:#6d28d9}
+.nav span{display:block;font-size:20px;margin-bottom:2px}
+
+.modal{
+  position:fixed;inset:0;background:rgba(20,10,40,.55);
+  display:flex;align-items:flex-end;justify-content:center;z-index:50
+}
+.modal-box{
+  background:white;width:100%;max-width:700px;border-radius:24px 24px 0 0;
+  padding:20px;max-height:92vh;overflow:auto
+}
+.modal-title{text-align:center;font-size:20px;font-weight:bold;margin-bottom:8px}
+.modal-sub{text-align:center;color:#777;font-size:13px;margin-bottom:16px}
+.confirm-row{
+  display:flex;justify-content:space-between;padding:13px 0;
+  border-bottom:1px solid #eee
+}
+.confirm-row b{color:#5b21b6}
+.notice{
+  background:#fff7ed;color:#9a3412;padding:12px;border-radius:12px;
+  font-size:13px;margin:14px 0
+}
+input,select,textarea{
+  width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;
+  margin:7px 0 12px;font-size:15px
+}
+label{font-size:13px;font-weight:bold;color:#555}
+.task{
+  background:white;border-radius:16px;padding:15px;margin:10px 0;
+  display:flex;justify-content:space-between;align-items:center
+}
+.task-left b{display:block;margin-bottom:6px}
+.task-left small{color:#777}
+.task button{background:#6d28d9;color:white;padding:10px 13px}
+.progress{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:10px 0}
+.progress>div{height:100%;background:#7c3aed;width:0%;transition:.3s}
+.status{font-size:12px;padding:5px 9px;border-radius:20px;background:#ede9fe;color:#6d28d9}
+.big-icon{font-size:40px;text-align:center;margin:10px}
+.center{text-align:center}
+.history{font-size:13px;padding:12px 0;border-bottom:1px solid #eee}
+.history:last-child{border:0}
+.success{color:#15803d}
+.pending{color:#b45309}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">💜 Elyvion</div>
+  <div class="subtitle">Task & Reward Platform</div>
+</header>
+
+<!-- HOME -->
+<div id="homePage" class="page container">
+  <div class="card">
+    <small>Available Balance</small>
+    <div class="balance">৳<span id="balance">200</span></div>
+    <div class="flex">
+      <button class="primary" onclick="openDeposit()">＋ Deposit</button>
+      <button class="secondary" onclick="showPage('withdrawPage')">💸 Withdraw</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><small>Active Plan</small><b id="activePlan">কোনো Plan নেই</b></div>
+    <div class="stat"><small>Today's Reward</small><b>৳<span id="todayEarn">0</span></b></div>
+    <div class="stat"><small>Completed Tasks</small><b><span id="completed">0</span></b></div>
+    <div class="stat"><small>Plan Status</small><b id="planStatus">Inactive</b></div>
+  </div>
+
+  <div class="section-title">দ্রুত শুরু করুন</div>
+  <div class="card">
+    <b>📦 একটি Plan নির্বাচন করুন</b>
+    <p style="font-size:13px;color:#777;margin:8px 0">আপনার উপযোগী plan নির্বাচন করে purchase request দিন।</p>
+    <button class="primary" onclick="showPage('packagesPage')">Packages দেখুন</button>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<div id="packagesPage" class="page container hidden">
+  <div class="section-title">প্যাকেজ</div>
+  <div id="plans"></div>
+</div>
+
+<!-- TASKS -->
+<div id="tasksPage" class="page container hidden">
+  <div class="section-title">কাজ</div>
+  <p style="color:#777;font-size:13px">কাজ সম্পন্ন করুন এবং আপনার নির্ধারিত reward অর্জন করুন।</p>
+
+  <div id="taskEmpty" class="card center">
+    <div class="big-icon">📦</div>
+    <b>কোনো Active Plan নেই</b>
+    <p style="font-size:13px;color:#777;margin:10px 0">Task শুরু করতে একটি plan activate করুন।</p>
+    <button class="primary" onclick="showPage('packagesPage')">Plan দেখুন</button>
+  </div>
+
+  <div id="taskContent" class="hidden">
+    <div class="card">
+      <div class="flex">
+        <div><small>Active Plan</small><b id="taskRank"></b></div>
+        <div style="text-align:right"><small>আজকের আয়</small><b>৳<span id="taskEarn">0</span></b></div>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="center" style="font-size:13px"><span id="taskDone">0</span> / <span id="taskTotal">0</span> টি সম্পন্ন</div>
+    </div>
+
+    <div class="card">
+      <small>প্রতি Task Reward</small>
+      <div class="balance" style="font-size:22px">৳<span id="perTask">0</span></div>
+      <small>Daily Target: ৳<span id="dailyTarget">0</span></small>
+    </div>
+
+    <div class="section-title">আজকের টাস্ক</div>
+    <div id="taskList"></div>
+  </div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="withdrawPage" class="page container hidden">
+  <div class="section-title">💸 Withdraw</div>
+
+  <div class="card">
+    <small>Available Balance</small>
+    <div class="balance">৳<span id="withdrawBalance">200</span></div>
+  </div>
+
+  <div class="card">
+    <label>Withdrawal Amount</label>
+    <input id="withdrawAmount" type="number" placeholder="Amount লিখুন">
+
+    <label>Payment Method</label>
+    <select id="withdrawMethod">
+      <option>bKash</option>
+      <option>Nagad</option>
+      <option>Rocket</option>
+    </select>
+
+    <label>Account Number</label>
+    <input id="withdrawNumber" placeholder="আপনার নম্বর">
+
+    <label>Account Holder Name</label>
+    <input id="withdrawName" placeholder="নাম লিখুন">
+
+    <button class="primary" onclick="submitWithdraw()">Withdraw Request Submit</button>
+  </div>
+
+  <div class="section-title">Withdrawal History</div>
+  <div class="card" id="withdrawHistory">
+    <div class="center" style="color:#777">এখনো কোনো request নেই</div>
+  </div>
+</div>
+
+<!-- SUPPORT -->
+<div id="supportPage" class="page container hidden">
+  <div class="section-title">🎧 Customer Service</div>
+
+  <div class="card">
+    <b>আমরা কীভাবে সাহায্য করতে পারি?</b>
+    <p style="font-size:13px;color:#777;margin:8px 0">আপনার সমস্যা বা প্রশ্ন আমাদের জানান।</p>
+
+    <label>Subject</label>
+    <input id="supportSubject" placeholder="সমস্যার বিষয়">
+
+    <label>Message</label>
+    <textarea id="supportMessage" rows="5" placeholder="আপনার বিস্তারিত লিখুন"></textarea>
+
+    <button class="primary" onclick="submitTicket()">Support Ticket Submit</button>
+  </div>
+
+  <div class="card">
+    <b>যোগাযোগ</b>
+    <p style="font-size:13px;margin-top:10px">Admin Panel থেকে WhatsApp/Telegram/Support তথ্য edit করা যাবে।</p>
+  </div>
+
+  <div class="section-title">My Tickets</div>
+  <div class="card" id="ticketHistory">
+    <div class="center" style="color:#777">কোনো ticket নেই</div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="profilePage" class="page container hidden">
+  <div class="card center">
+    <div class="big-icon">👤</div>
+    <h3>Demo User</h3>
+    <p style="color:#777;font-size:13px;margin-top:5px">demo@elyvion.com</p>
+  </div>
+
+  <div class="card">
+    <div class="history"><b>Current Plan:</b> <span id="profilePlan">কোনো Plan নেই</span></div>
+    <div class="history"><b>Balance:</b> ৳<span id="profileBalance">200</span></div>
+    <div class="history"><b>Total Task Completed:</b> <span id="profileTasks">0</span></div>
+  </div>
+
+  <button class="danger" onclick="alert('Firebase version-এ Logout system যুক্ত হবে')">Logout</button>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="nav">
+  <button class="active" onclick="showPage('homePage',this)"><span>🏠</span>হোম</button>
+  <button onclick="showPage('packagesPage',this)"><span>📦</span>প্যাকেজ</button>
+  <button onclick="showPage('tasksPage',this)"><span>✅</span>টাস্ক</button>
+  <button onclick="showPage('withdrawPage',this)"><span>💸</span>Withdraw</button>
+  <button onclick="showPage('supportPage',this)"><span>🎧</span>Service</button>
+  <button onclick="showPage('profilePage',this)"><span>👤</span>প্রোফাইল</button>
+</div>
+
+<!-- PLAN CONFIRM MODAL -->
+<div id="planModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-title">প্যাকেজ নিশ্চিত করুন</div>
+    <div class="modal-sub">নিচের তথ্য যাচাই করে কনফার্ম করুন</div>
+
+    <div class="confirm-row"><span>প্যাকেজ</span><b id="modalRank"></b></div>
+    <div class="confirm-row"><span>পরিমাণ</span><b>৳<span id="modalPrice"></span></b></div>
+    <div class="confirm-row"><span>দৈনিক রিওয়ার্ড</span><b>৳<span id="modalDaily"></span></b></div>
+    <div class="confirm-row"><span>মেয়াদ</span><b>21 দিন</b></div>
+    <div class="confirm-row"><span>মোট নির্ধারিত রিওয়ার্ড</span><b>৳<span id="modalTotal"></span></b></div>
+    <div class="confirm-row"><span>আপনার ব্যালেন্স</span><b>৳<span id="modalBalance"></span></b></div>
+    <div class="confirm-row"><span>প্রয়োজন আরও</span><b>৳<span id="modalNeed"></span></b></div>
+
+    <div class="notice" id="balanceNotice"></div>
+
+    <div class="flex">
+      <button class="secondary" onclick="closePlanModal()">বাতিল</button>
+      <button id="modalAction" class="primary"></button>
+    </div>
+  </div>
+</div>
+
+<!-- DEPOSIT MODAL -->
+<div id="depositModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-title">Deposit Request</div>
+    <div class="modal-sub">Payment method নির্বাচন করে তথ্য দিন</div>
+
+    <label>Payment Method</label>
+    <select id="depositMethod">
+      <option>bKash</option>
+      <option>Nagad</option>
+      <option>Rocket</option>
+    </select>
+
+    <label>Amount</label>
+    <input id="depositAmount" type="number" placeholder="Deposit amount">
+
+    <label>Transaction ID</label>
+    <input id="trxId" placeholder="Transaction ID / TrxID">
+
+    <label>Payment Screenshot (Demo)</label>
+    <input id="paymentProof" type="file">
+
+    <button class="primary" onclick="submitDeposit()">Deposit Request Submit</button>
+    <button class="secondary" style="margin-top:10px" onclick="closeDeposit()">বাতিল</button>
+  </div>
+</div>
+
+<script>
+const plans = [
+ {rank:"Rank 01",price:300,daily:200,total:4200,tasks:2,reward:100},
+ {rank:"Rank 02",price:500,daily:300,total:6300,tasks:3,reward:100},
+ {rank:"Rank 03",price:1000,daily:600,total:12600,tasks:6,reward:100},
+ {rank:"Rank 04",price:1500,daily:900,total:18900,tasks:6,reward:150},
+ {rank:"Rank 05",price:2000,daily:1200,total:25200,tasks:6,reward:200},
+ {rank:"Rank 06",price:3000,daily:1800,total:37800,tasks:6,reward:300},
+ {rank:"Rank 07",price:4000,daily:2400,total:50400,tasks:6,reward:400},
+ {rank:"Rank 08",price:5000,daily:3000,total:63000,tasks:6,reward:500},
+ {rank:"Rank 09",price:10000,daily:6000,total:126000,tasks:6,reward:1000},
+ {rank:"Rank 10",price:15000,daily:9000,total:189000,tasks:6,reward:1500},
+ {rank:"Rank 11",price:20000,daily:12000,total:252000,tasks:6,reward:2000}
+];
+
+let balance = 200;
+let selectedPlan = null;
+let activePlan = null;
+let completedTasks = 0;
+let todayEarn = 0;
+let withdrawals = [];
+let tickets = [];
+
+function money(n){return Number(n).toLocaleString("en-US")}
+
+function renderPlans(){
+  const box=document.getElementById("plans");
+  box.innerHTML=plans.map((p,i)=>`
+    <div class="plan">
+      <div class="plan-top">
+        <div class="rank">${p.rank}</div>
+        <div class="price">৳${money(p.price)}</div>
+      </div>
+      <div class="plan-info">
+        <div class="info">দৈনিক রিওয়ার্ড<b>৳${money(p.daily)}</b></div>
+        <div class="info">মেয়াদ<b>21 দিন</b></div>
+        <div class="info">Daily Tasks<b>${p.tasks} টি</b></div>
+        <div class="info">মোট রিওয়ার্ড<b>৳${money(p.total)}</b></div>
+      </div>
+      <button class="primary" onclick="openPlan(${i})">কিনুন</button>
+    </div>
+  `).join("");
+}
+
+function showPage(id,btn){
+  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  if(btn){
+    document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+  updateUI();
+}
+
+function openPlan(i){
+  selectedPlan=plans[i];
+  document.getElementById("modalRank").innerText=selectedPlan.rank;
+  document.getElementById("modalPrice").innerText=money(selectedPlan.price);
+  document.getElementById("modalDaily").innerText=money(selectedPlan.daily);
+  document.getElementById("modalTotal").innerText=money(selectedPlan.total);
+  document.getElementById("modalBalance").innerText=money(balance);
+
+  const need=Math.max(0,selectedPlan.price-balance);
+  document.getElementById("modalNeed").innerText=money(need);
+
+  const action=document.getElementById("modalAction");
+  const notice=document.getElementById("balanceNotice");
+
+  if(balance<selectedPlan.price){
+    notice.innerText="ব্যালেন্স অপর্যাপ্ত। ডিপোজিট করুন চাপলে ডিপোজিট পেজে নেওয়া হবে।";
+    action.innerText="ডিপোজিট করুন";
+    action.onclick=()=>{
+      closePlanModal();
+      openDeposit(selectedPlan.price-balance);
+    };
+  }else{
+    notice.innerText="আপনার ব্যালেন্স যথেষ্ট। Confirm করলে demo plan active হবে।";
+    action.innerText="Confirm করুন";
+    action.onclick=activatePlan;
+  }
+
+  document.getElementById("planModal").classList.remove("hidden");
+}
+
+function closePlanModal(){
+  document.getElementById("planModal").classList.add("hidden");
+}
+
+function activatePlan(){
+  balance-=selectedPlan.price;
+  activePlan={...selectedPlan};
+  completedTasks=0;
+  todayEarn=0;
+  closePlanModal();
+  updateUI();
+  alert("🎉 অভিনন্দন! "+activePlan.rank+" সফলভাবে Active হয়েছে।");
+  showPage("tasksPage");
+}
+
+function openDeposit(amount=0){
+  document.getElementById("depositAmount").value=amount||"";
+  document.getElementById("depositModal").classList.remove("hidden");
+}
+
+function closeDeposit(){
+  document.getElementById("depositModal").classList.add("hidden");
+}
+
+function submitDeposit(){
+  const amount=Number(document.getElementById("depositAmount").value);
+  const trx=document.getElementById("trxId").value.trim();
+
+  if(!amount || amount<=0 || !trx){
+    alert("Amount এবং Transaction ID দিন");
+    return;
+  }
+
+  alert("Demo: Deposit request submitted. বাস্তব version-এ এটি Admin Approval-এ যাবে।");
+  closeDeposit();
+}
+
+function renderTasks(){
+  const empty=document.getElementById("taskEmpty");
+  const content=document.getElementById("taskContent");
+
+  if(!activePlan){
+    empty.classList.remove("hidden");
+    content.classList.add("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+  content.classList.remove("hidden");
+
+  document.getElementById("taskRank").innerText=activePlan.rank;
+  document.getElementById("taskEarn").innerText=money(todayEarn);
+  document.getElementById("taskDone").innerText=completedTasks;
+  document.getElementById("taskTotal").innerText=activePlan.tasks;
+  document.getElementById("perTask").innerText=money(activePlan.reward);
+  document.getElementById("dailyTarget").innerText=money(activePlan.daily);
+
+  const percent=(completedTasks/activePlan.tasks)*100;
+  document.getElementById("progressBar").style.width=percent+"%";
+
+  const list=document.getElementById("taskList");
+  list.innerHTML=Array.from({length:activePlan.tasks},(_,i)=>{
+    const done=i<completedTasks;
+    return `
+      <div class="task">
+        <div class="task-left">
+          <b>Task #${i+1}</b>
+          <small>${done ? "টাস্ক সম্পন্ন হয়েছে" : "নির্ধারিত কনটেন্ট দেখুন এবং টাস্ক সম্পন্ন করুন"} — ৳${money(activePlan.reward)}</small>
+        </div>
+        ${done
+          ? '<span class="status">✓ সম্পন্ন</span>'
+          : `<button onclick="completeTask(${i})">শুরু করুন</button>`}
+      </div>
+    `;
+  }).join("");
+}
+
+function completeTask(i){
+  if(i!==completedTasks){
+    alert("আগের Task আগে সম্পন্ন করুন");
+    return;
+  }
+
+  // Demo completion. Real system should use legitimate task/ad verification.
+  completedTasks++;
+  todayEarn+=activePlan.reward;
+  balance+=activePlan.reward;
+  updateUI();
+
+  if(completedTasks===activePlan.tasks){
+    alert("🎉 আজকের সব Task সম্পন্ন হয়েছে!");
+  }
+}
+
+function submitWithdraw(){
+  const amount=Number(document.getElementById("withdrawAmount").value);
+  const method=document.getElementById("withdrawMethod").value;
+  const number=document.getElementById("withdrawNumber").value.trim();
+  const name=document.getElementById("withdrawName").value.trim();
+
+  if(!amount || amount<=0 || !number || !name){
+    alert("সব তথ্য পূরণ করুন");
+    return;
+  }
+
+  if(amount>balance){
+    alert("আপনার পর্যাপ্ত balance নেই");
+    return;
+  }
+
+  withdrawals.unshift({
+    amount,method,number,status:"Pending",
+    date:new Date().toLocaleString()
+  });
+
+  document.getElementById("withdrawAmount").value="";
+  document.getElementById("withdrawNumber").value="";
+  document.getElementById("withdrawName").value="";
+
+  renderWithdrawHistory();
+  alert("Withdrawal request submitted. বাস্তব version-এ Admin approval প্রয়োজন হবে।");
+}
+
+function renderWithdrawHistory(){
+  const box=document.getElementById("withdrawHistory");
+
+  if(!withdrawals.length){
+    box.innerHTML='<div class="center" style="color:#777">এখনো কোনো request নেই</div>';
+    return;
+  }
+
+  box.innerHTML=withdrawals.map(w=>`
+    <div class="history">
+      <b>৳${money(w.amount)}</b> — ${w.method}<br>
+      <small class="pending">● ${w.status}</small>
+    </div>
+  `).join("");
+}
+
+function submitTicket(){
+  const subject=document.getElementById("supportSubject").value.trim();
+  const message=document.getElementById("supportMessage").value.trim();
+
+  if(!subject || !message){
+    alert("Subject এবং Message লিখুন");
+    return;
+  }
+
+  tickets.unshift({
+    subject,message,status:"Open",
+    date:new Date().toLocaleString()
+  });
+
+  document.getElementById("supportSubject").value="";
+  document.getElementById("supportMessage").value="";
+  renderTickets();
+  alert("আপনার Support Ticket Submit হয়েছে।");
+}
+
+function renderTickets(){
+  const box=document.getElementById("ticketHistory");
+
+  if(!tickets.length){
+    box.innerHTML='<div class="center" style="color:#777">কোনো ticket নেই</div>';
+    return;
+  }
+
+  box.innerHTML=tickets.map(t=>`
+    <div class="history">
+      <b>${t.subject}</b><br>
+      <small>${t.message}</small><br>
+      <small class="pending">● ${t.status}</small>
+    </div>
+  `).join("");
+}
+
+function updateUI(){
+  document.getElementById("balance").innerText=money(balance);
+  document.getElementById("withdrawBalance").innerText=money(balance);
+  document.getElementById("profileBalance").innerText=money(balance);
+  document.getElementById("todayEarn").innerText=money(todayEarn);
+  document.getElementById("completed").innerText=completedTasks;
+  document.getElementById("profileTasks").innerText=completedTasks;
+
+  const name=activePlan?activePlan.rank:"কোনো Plan নেই";
+  document.getElementById("activePlan").innerText=name;
+  document.getElementById("profilePlan").innerText=name;
+  document.getElementById("planStatus").innerText=activePlan?"Active":"Inactive";
+
+  renderTasks();
+}
+
+renderPlans();
+updateUI();
+</script>
+
+</body>
+</html>
