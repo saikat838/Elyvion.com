@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Elyvion — Admin Panel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f6f2ff;
+  color:#211437;
+  padding-bottom:40px;
+}
+
+header{
+  background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+  color:white;
+  padding:20px;
+}
+
+header h1{
+  font-size:24px;
+}
+
+header p{
+  opacity:.85;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
+}
+
+.card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  margin:14px 0;
+  box-shadow:0 5px 20px rgba(91,33,182,.08);
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(91,33,182,.08);
+}
+
+.stat small{
+  color:#777;
+}
+
+.stat b{
+  display:block;
+  color:#5b21b6;
+  font-size:25px;
+  margin-top:8px;
+}
+
+.section-title{
+  font-size:21px;
+  font-weight:bold;
+  margin:25px 0 12px;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#6d28d9;
+  color:white;
+}
+
+.success{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.gray{
+  background:#eee;
+  color:#444;
+}
+
+.flex{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.request{
+  border:1px solid #eadfff;
+  border-radius:14px;
+  padding:15px;
+  margin:10px 0;
+}
+
+.request b{
+  color:#5b21b6;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  background:#fff7ed;
+  color:#b45309;
+}
+
+.status.approved{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.status.rejected{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.screenshot{
+  width:180px;
+  max-height:180px;
+  object-fit:contain;
+  border-radius:10px;
+  border:1px solid #ddd;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.login{
+  max-width:420px;
+  margin:70px auto;
+  padding:20px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin:7px 0 12px;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+  color:#555;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:20px;
+}
+
+@media(max-width:800px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:500px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+
+  <div class="card login">
+
+    <h2 style="text-align:center;color:#5b21b6">
+      💜 Elyvion Admin
+    </h2>
+
+    <p style="text-align:center;color:#777;margin:8px 0 20px">
+      Admin Login
+    </p>
+
+    <label>Email</label>
+    <input
+      id="adminEmail"
+      type="email"
+      placeholder="Admin email"
+    >
+
+    <label>Password</label>
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      class="primary"
+      style="width:100%"
+      onclick="adminLogin()"
+    >
+      Login
+    </button>
+
+    <p
+      id="loginError"
+      style="color:#b91c1c;text-align:center;margin-top:12px"
+    ></p>
+
+  </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+
+<header>
+
+  <h1>💜 Elyvion Admin Panel</h1>
+
+  <p id="adminEmailText"></p>
+
+  <button
+    class="danger"
+    style="margin-top:12px"
+    onclick="adminLogout()"
+  >
+    Logout
+  </button>
+
+</header>
+
+
+<div class="container">
+
+<!-- STATS -->
+
+<div class="stats">
+
+  <div class="stat">
+    <small>Total Users</small>
+    <b id="totalUsers">0</b>
+  </div>
+
+  <div class="stat">
+    <small>Deposit Requests</small>
+    <b id="totalDeposits">0</b>
+  </div>
+
+  <div class="stat">
+    <small>Plan Requests</small>
+    <b id="totalPlans">0</b>
+  </div>
+
+  <div class="stat">
+    <small>Withdraw Requests</small>
+    <b id="totalWithdraws">0</b>
+  </div>
+
+</div>
+
+
+<!-- DEPOSITS -->
+
+<div class="section-title">
+  📥 Deposit Requests
+</div>
+
+<div class="card">
+
+  <div id="depositList">
+    <div class="empty">
+      Loading...
+    </div>
+  </div>
+
+</div>
+
+
+<!-- PLAN REQUESTS -->
+
+<div class="section-title">
+  📦 Plan Requests
+</div>
+
+<div class="card">
+
+  <div id="planList">
+    <div class="empty">
+      Loading...
+    </div>
+  </div>
+
+</div>
+
+
+<!-- WITHDRAW -->
+
+<div class="section-title">
+  💸 Withdrawal Requests
+</div>
+
+<div class="card">
+
+  <div id="withdrawList">
+    <div class="empty">
+      Loading...
+    </div>
+  </div>
+
+</div>
+
+
+<!-- TASKS -->
+
+<div class="section-title">
+  ✅ Task Verification
+</div>
+
+<div class="card">
+
+  <div id="taskList">
+    <div class="empty">
+      Loading...
+    </div>
+  </div>
+
+</div>
+
+
+<!-- SUPPORT -->
+
+<div class="section-title">
+  🎧 Support Tickets
+</div>
+
+<div class="card">
+
+  <div id="ticketList">
+    <div class="empty">
+      Loading...
+    </div>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  doc,
+  getDoc,
+  updateDoc,
+  increment,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
+
+  authDomain:
+  "elyvioncom.firebaseapp.com",
+
+  projectId:
+  "elyvioncom",
+
+  storageBucket:
+  "elyvioncom.firebasestorage.app",
+
+  messagingSenderId:
+  "696113174945",
+
+  appId:
+  "1:696113174945:web:7dd53b1d9e47d6d05613e0",
+
+  measurementId:
+  "G-059RB98EPD"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
+
+
+/* =========================
+   ADMIN EMAIL
+========================= */
+
+/*
+  এখানে আপনার Firebase Admin
+  account-এর email লিখুন।
+*/
+
+const ADMIN_EMAIL =
+  "YOUR_ADMIN_EMAIL@gmail.com";
+
+
+/* =========================
+   GLOBAL
+========================= */
+
+window.adminLogin =
+  adminLogin;
+
+window.adminLogout =
+  adminLogout;
+
+window.approveDeposit =
+  approveDeposit;
+
+window.rejectDeposit =
+  rejectDeposit;
+
+window.approvePlan =
+  approvePlan;
+
+window.rejectPlan =
+  rejectPlan;
+
+window.approveWithdraw =
+  approveWithdraw;
+
+window.rejectWithdraw =
+  rejectWithdraw;
+
+window.approveTask =
+  approveTask;
+
+window.rejectTask =
+  rejectTask;
+
+window.updateTicket =
+  updateTicket;
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(auth, user => {
+
+  if(!user){
+
+    document
+      .getElementById("loginPage")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("dashboard")
+      .classList.add("hidden");
+
+    return;
+
+  }
+
+
+  if(
+    ADMIN_EMAIL !== "YOUR_ADMIN_EMAIL@gmail.com" &&
+    user.email !== ADMIN_EMAIL
+  ){
+
+    alert(
+      "এই account-এর Admin access নেই।"
+    );
+
+    signOut(auth);
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("adminEmailText")
+    .innerText =
+    user.email || "";
+
+  loadDashboard();
+
+});
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function adminLogin(){
+
+  const email =
+    document
+      .getElementById("adminEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("adminPassword")
+      .value;
+
+  const error =
+    document
+      .getElementById("loginError");
+
+  error.innerText="";
+
+
+  if(!email || !password){
+
+    error.innerText =
+      "Email এবং password দিন।";
+
+    return;
+
+  }
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }
+  catch(e){
+
+    console.error(e);
+
+    error.innerText =
+      "Login failed: " + e.message;
+
+  }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function adminLogout(){
+
+  await signOut(auth);
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function loadDashboard(){
+
+  loadUsers();
+
+  loadDeposits();
+
+  loadPlans();
+
+  loadWithdrawals();
+
+  loadTasks();
+
+  loadTickets();
+
+}
+
+
+/* =========================
+   USERS
+========================= */
+
+function loadUsers(){
+
+  const q =
+    query(
+      collection(db,"users")
+    );
+
+  onSnapshot(q,snap=>{
+
+    document
+      .getElementById("totalUsers")
+      .innerText =
+      snap.size;
+
+  });
+
+}
+
+
+/* =========================
+   DEPOSITS
+========================= */
+
+function loadDeposits(){
+
+  const q =
+    query(
+      collection(db,"depositRequests"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(q,snap=>{
+
+    document
+      .getElementById("totalDeposits")
+      .innerText =
+      snap.size;
+
+
+    const box =
+      document
+        .getElementById("depositList");
+
+
+    if(snap.empty){
+
+      box.innerHTML =
+        '<div class="empty">কোনো Deposit Request নেই</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snap.docs.map(d=>{
+
+        const x=d.data();
+
+        const status =
+          x.status || "Pending";
+
+
+        return `
+
+        <div class="request">
+
+          <div class="row">
+            <span>User</span>
+            <b>${escapeHTML(x.email || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Amount</span>
+            <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+          </div>
+
+          <div class="row">
+            <span>Method</span>
+            <b>${escapeHTML(x.method || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Sender Last 4</span>
+            <b>${escapeHTML(x.senderLast4 || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Status</span>
+            <span class="status ${
+              status==="Approved"
+                ?"approved"
+                :status==="Rejected"
+                ?"rejected"
+                :""
+            }">
+              ${status}
+            </span>
+          </div>
+
+          ${
+            x.screenshotURL
+            ?
+            `<img
+              class="screenshot"
+              src="${x.screenshotURL}"
+              onclick="window.open('${x.screenshotURL}','_blank')"
+            >`
+            :
+            ""
+          }
+
+          ${
+            status==="Pending"
+            ?
+            `<div class="flex">
+
+              <button
+                class="success"
+                onclick="approveDeposit('${d.id}')">
+                ✓ Approve
+              </button>
+
+              <button
+                class="danger"
+                onclick="rejectDeposit('${d.id}')">
+                ✕ Reject
+              </button>
+
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  });
+
+}
+
+
+/* =========================
+   APPROVE DEPOSIT
+========================= */
+
+async function approveDeposit(id){
+
+  if(!confirm(
+    "এই Deposit approve করবেন?"
+  )) return;
+
+
+  try{
+
+    const requestRef =
+      doc(
+        db,
+        "depositRequests",
+        id
+      );
+
+    const snap =
+      await getDoc(requestRef);
+
+
+    if(!snap.exists()){
+
+      alert("Request পাওয়া যায়নি।");
+
+      return;
+
+    }
+
+
+    const data =
+      snap.data();
+
+
+    if(data.status==="Approved"){
+
+      alert("Already approved.");
+
+      return;
+
+    }
+
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        data.uid
+      );
+
+
+    await updateDoc(
+      userRef,
+      {
+        balance:
+          increment(
+            Number(data.amount || 0)
+          ),
+        updatedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    await updateDoc(
+      requestRef,
+      {
+        status:"Approved",
+        approvedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "✅ Deposit approved এবং balance update হয়েছে।"
+    );
+
+  }
+  catch(e){
+
+    console.error(e);
+
+    alert(
+      "Approve failed: " + e.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   REJECT DEPOSIT
+========================= */
+
+async function rejectDeposit(id){
+
+  if(!confirm(
+    "এই Deposit reject করবেন?"
+  )) return;
+
+
+  await updateDoc(
+    doc(
+      db,
+      "depositRequests",
+      id
+    ),
+    {
+      status:"Rejected",
+      rejectedAt:
+        serverTimestamp()
+    }
+  );
+
+}
+
+
+/* =========================
+   PLAN REQUESTS
+========================= */
+
+function loadPlans(){
+
+  const q =
+    query(
+      collection(db,"planRequests"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(q,snap=>{
+
+    document
+      .getElementById("totalPlans")
+      .innerText =
+      snap.size;
+
+
+    const box =
+      document
+        .getElementById("planList");
+
+
+    if(snap.empty){
+
+      box.innerHTML =
+        '<div class="empty">কোনো Plan Request নেই</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snap.docs.map(d=>{
+
+        const x=d.data();
+
+        const p=x.plan || {};
+
+        const status =
+          x.status || "Pending";
+
+
+        return `
+
+        <div class="request">
+
+          <div class="row">
+            <span>User</span>
+            <b>${escapeHTML(x.email || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Plan</span>
+            <b>${escapeHTML(p.rank || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Price</span>
+            <b>৳${Number(p.price || 0).toLocaleString()}</b>
+          </div>
+
+          <div class="row">
+            <span>Daily Reward</span>
+            <b>৳${Number(p.daily || 0).toLocaleString()}</b>
+          </div>
+
+          <div class="row">
+            <span>Status</span>
+            <span class="status ${
+              status==="Approved"
+              ?"approved"
+              :status==="Rejected"
+              ?"rejected"
+              :""
+            }">
+              ${status}
+            </span>
+          </div>
+
+          ${
+            status==="Pending"
+            ?
+            `<div class="flex">
+
+              <button
+                class="success"
+                onclick="approvePlan('${d.id}')">
+                ✓ Activate Plan
+              </button>
+
+              <button
+                class="danger"
+                onclick="rejectPlan('${d.id}')">
+                ✕ Reject
+              </button>
+
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  });
+
+}
+
+
+/* =========================
+   APPROVE PLAN
+========================= */
+
+async function approvePlan(id){
+
+  if(!confirm(
+    "এই Plan activate করবেন?"
+  )) return;
+
+
+  try{
+
+    const requestRef =
+      doc(
+        db,
+        "planRequests",
+        id
+      );
+
+    const snap =
+      await getDoc(requestRef);
+
+
+    if(!snap.exists()){
+
+      alert("Request পাওয়া যায়নি।");
+
+      return;
+
+    }
+
+
+    const data =
+      snap.data();
+
+
+    if(data.status==="Approved"){
+
+      alert("Already approved.");
+
+      return;
+
+    }
+
+
+    await updateDoc(
+
+      doc(
+        db,
+        "users",
+        data.uid
+      ),
+
+      {
+        activePlan:data.plan,
+        completedTasks:0,
+        todayEarn:0,
+        updatedAt:
+          serverTimestamp()
+      }
+
+    );
+
+
+    await updateDoc(
+      requestRef,
+      {
+        status:"Approved",
+        approvedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "✅ Plan successfully activated."
+    );
+
+  }
+  catch(e){
+
+    console.error(e);
+
+    alert(
+      "Plan activation failed: " +
+      e.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   REJECT PLAN
+========================= */
+
+async function rejectPlan(id){
+
+  if(!confirm(
+    "এই Plan request reject করবেন?"
+  )) return;
+
+
+  await updateDoc(
+    doc(
+      db,
+      "planRequests",
+      id
+    ),
+    {
+      status:"Rejected",
+      rejectedAt:
+        serverTimestamp()
+    }
+  );
+
+}
+
+
+/* =========================
+   WITHDRAWALS
+========================= */
+
+function loadWithdrawals(){
+
+  const q =
+    query(
+      collection(db,"withdrawalRequests"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(q,snap=>{
+
+    document
+      .getElementById("totalWithdraws")
+      .innerText =
+      snap.size;
+
+
+    const box =
+      document
+        .getElementById("withdrawList");
+
+
+    if(snap.empty){
+
+      box.innerHTML =
+        '<div class="empty">কোনো Withdrawal Request নেই</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snap.docs.map(d=>{
+
+        const x=d.data();
+
+        const status =
+          x.status || "Pending";
+
+
+        return `
+
+        <div class="request">
+
+          <div class="row">
+            <span>User</span>
+            <b>${escapeHTML(x.email || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Amount</span>
+            <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+          </div>
+
+          <div class="row">
+            <span>Method</span>
+            <b>${escapeHTML(x.method || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Account</span>
+            <b>${escapeHTML(x.number || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Name</span>
+            <b>${escapeHTML(x.name || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Status</span>
+            <span class="status ${
+              status==="Approved"
+              ?"approved"
+              :status==="Rejected"
+              ?"rejected"
+              :""
+            }">
+              ${status}
+            </span>
+          </div>
+
+          ${
+            status==="Pending"
+            ?
+            `<div class="flex">
+
+              <button
+                class="success"
+                onclick="approveWithdraw('${d.id}')">
+                ✓ Approve
+              </button>
+
+              <button
+                class="danger"
+                onclick="rejectWithdraw('${d.id}')">
+                ✕ Reject
+              </button>
+
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  });
+
+}
+
+
+/* =========================
+   APPROVE WITHDRAW
+========================= */
+
+async function approveWithdraw(id){
+
+  if(!confirm(
+    "এই Withdrawal approve করবেন?"
+  )) return;
+
+
+  try{
+
+    const requestRef =
+      doc(
+        db,
+        "withdrawalRequests",
+        id
+      );
+
+    const snap =
+      await getDoc(requestRef);
+
+
+    if(!snap.exists()){
+
+      alert("Request পাওয়া যায়নি.");
+
+      return;
+
+    }
+
+
+    const data=snap.data();
+
+
+    if(data.status==="Approved"){
+
+      alert("Already approved.");
+
+      return;
+
+    }
+
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        data.uid
+      );
+
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      alert("User পাওয়া যায়নি.");
+
+      return;
+
+    }
+
+
+    const balance =
+      Number(
+        userSnap.data().balance || 0
+      );
+
+
+    if(balance < Number(data.amount)){
+
+      alert(
+        "User-এর পর্যাপ্ত balance নেই।"
+      );
+
+      return;
+
+    }
+
+
+    await updateDoc(
+      userRef,
+      {
+        balance:
+          increment(
+            -Number(data.amount)
+          ),
+        updatedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    await updateDoc(
+      requestRef,
+      {
+        status:"Approved",
+        approvedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "✅ Withdrawal approved."
+    );
+
+  }
+  catch(e){
+
+    console.error(e);
+
+    alert(
+      "Approve failed: " + e.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   REJECT WITHDRAW
+========================= */
+
+async function rejectWithdraw(id){
+
+  if(!confirm(
+    "এই Withdrawal reject করবেন?"
+  )) return;
+
+
+  await updateDoc(
+    doc(
+      db,
+      "withdrawalRequests",
+      id
+    ),
+    {
+      status:"Rejected",
+      rejectedAt:
+        serverTimestamp()
+    }
+  );
+
+}
+
+
+/* =========================
+   TASKS
+========================= */
+
+function loadTasks(){
+
+  const q =
+    query(
+      collection(db,"taskCompletions"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(q,snap=>{
+
+    const box =
+      document
+        .getElementById("taskList");
+
+
+    if(snap.empty){
+
+      box.innerHTML =
+        '<div class="empty">কোনো Task Request নেই</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snap.docs.map(d=>{
+
+        const x=d.data();
+
+        const status =
+          x.status || "Pending";
+
+
+        return `
+
+        <div class="request">
+
+          <div class="row">
+            <span>User</span>
+            <b>${escapeHTML(x.email || x.uid || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Task</span>
+            <b>#${x.taskNumber || ""}</b>
+          </div>
+
+          <div class="row">
+            <span>Plan</span>
+            <b>${escapeHTML(x.plan || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Reward</span>
+            <b>৳${Number(x.reward || 0).toLocaleString()}</b>
+          </div>
+
+          <div class="row">
+            <span>Status</span>
+            <span class="status ${
+              status==="Approved"
+              ?"approved"
+              :status==="Rejected"
+              ?"rejected"
+              :""
+            }">
+              ${status}
+            </span>
+          </div>
+
+          ${
+            status==="Pending"
+            ?
+            `<div class="flex">
+
+              <button
+                class="success"
+                onclick="approveTask('${d.id}')">
+                ✓ Approve
+              </button>
+
+              <button
+                class="danger"
+                onclick="rejectTask('${d.id}')">
+                ✕ Reject
+              </button>
+
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  });
+
+}
+
+
+/* =========================
+   APPROVE TASK
+========================= */
+
+async function approveTask(id){
+
+  if(!confirm(
+    "এই Task approve করবেন?"
+  )) return;
+
+
+  try{
+
+    const taskRef =
+      doc(
+        db,
+        "taskCompletions",
+        id
+      );
+
+    const snap =
+      await getDoc(taskRef);
+
+
+    if(!snap.exists()){
+
+      alert("Task পাওয়া যায়নি.");
+
+      return;
+
+    }
+
+
+    const data=snap.data();
+
+
+    if(data.status==="Approved"){
+
+      alert("Already approved.");
+
+      return;
+
+    }
+
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        data.uid
+      );
+
+
+    await updateDoc(
+      userRef,
+      {
+        balance:
+          increment(
+            Number(data.reward || 0)
+          ),
+
+        todayEarn:
+          increment(
+            Number(data.reward || 0)
+          ),
+
+        completedTasks:
+          increment(1),
+
+        updatedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    await updateDoc(
+      taskRef,
+      {
+        status:"Approved",
+        approvedAt:
+          serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "✅ Task approved এবং reward যোগ হয়েছে."
+    );
+
+  }
+  catch(e){
+
+    console.error(e);
+
+    alert(
+      "Task approve failed: " +
+      e.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   REJECT TASK
+========================= */
+
+async function rejectTask(id){
+
+  if(!confirm(
+    "এই Task reject করবেন?"
+  )) return;
+
+
+  await updateDoc(
+    doc(
+      db,
+      "taskCompletions",
+      id
+    ),
+    {
+      status:"Rejected",
+      rejectedAt:
+        serverTimestamp()
+    }
+  );
+
+}
+
+
+/* =========================
+   SUPPORT
+========================= */
+
+function loadTickets(){
+
+  const q =
+    query(
+      collection(db,"supportTickets"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(q,snap=>{
+
+    const box =
+      document
+        .getElementById("ticketList");
+
+
+    if(snap.empty){
+
+      box.innerHTML =
+        '<div class="empty">কোনো Support Ticket নেই</div>';
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snap.docs.map(d=>{
+
+        const x=d.data();
+
+        return `
+
+        <div class="request">
+
+          <div class="row">
+            <span>User</span>
+            <b>${escapeHTML(x.email || "")}</b>
+          </div>
+
+          <div class="row">
+            <span>Subject</span>
+            <b>${escapeHTML(x.subject || "")}</b>
+          </div>
+
+          <div style="padding:10px 0">
+            ${escapeHTML(x.message || "")}
+          </div>
+
+          <div class="row">
+            <span>Status</span>
+            <b>${escapeHTML(x.status || "Open")}</b>
+          </div>
+
+          <div class="flex">
+
+            <button
+              class="success"
+              onclick="updateTicket('${d.id}','Resolved')">
+              ✓ Resolve
+            </button>
+
+            <button
+              class="gray"
+              onclick="updateTicket('${d.id}','Open')">
+              Open
+            </button>
+
+          </div>
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  });
+
+}
+
+
+async function updateTicket(id,status){
+
+  await updateDoc(
+    doc(
+      db,
+      "supportTickets",
+      id
+    ),
+    {
+      status,
+      updatedAt:
+        serverTimestamp()
+    }
+  );
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
