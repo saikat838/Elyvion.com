@@ -197,6 +197,15 @@ label{
   padding:20px;
 }
 
+.error{
+  color:#b91c1c;
+  background:#fee2e2;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:13px;
+}
+
 @media(max-width:800px){
   .stats{
     grid-template-columns:1fr 1fr;
@@ -213,7 +222,8 @@ label{
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <div id="loginPage">
 
   <div class="card login">
@@ -227,6 +237,7 @@ label{
     </p>
 
     <label>Email</label>
+
     <input
       id="adminEmail"
       type="email"
@@ -234,6 +245,7 @@ label{
     >
 
     <label>Password</label>
+
     <input
       id="adminPassword"
       type="password"
@@ -258,7 +270,8 @@ label{
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
+
 <div id="dashboard" class="hidden">
 
 <header>
@@ -280,7 +293,8 @@ label{
 
 <div class="container">
 
-<!-- STATS -->
+
+<!-- ================= STATS ================= -->
 
 <div class="stats">
 
@@ -307,7 +321,7 @@ label{
 </div>
 
 
-<!-- DEPOSITS -->
+<!-- ================= DEPOSIT ================= -->
 
 <div class="section-title">
   📥 Deposit Requests
@@ -324,7 +338,7 @@ label{
 </div>
 
 
-<!-- PLAN REQUESTS -->
+<!-- ================= PLAN ================= -->
 
 <div class="section-title">
   📦 Plan Requests
@@ -341,7 +355,7 @@ label{
 </div>
 
 
-<!-- WITHDRAW -->
+<!-- ================= WITHDRAW ================= -->
 
 <div class="section-title">
   💸 Withdrawal Requests
@@ -358,7 +372,7 @@ label{
 </div>
 
 
-<!-- TASKS -->
+<!-- ================= TASK ================= -->
 
 <div class="section-title">
   ✅ Task Verification
@@ -375,7 +389,7 @@ label{
 </div>
 
 
-<!-- SUPPORT -->
+<!-- ================= SUPPORT ================= -->
 
 <div class="section-title">
   🎧 Support Tickets
@@ -391,9 +405,12 @@ label{
 
 </div>
 
+
 </div>
 </div>
 
+
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
@@ -453,6 +470,10 @@ const firebaseConfig = {
 };
 
 
+/* =========================
+   INITIALIZE
+========================= */
+
 const app =
   initializeApp(firebaseConfig);
 
@@ -467,55 +488,34 @@ const db =
    ADMIN EMAIL
 ========================= */
 
-/*
-  এখানে আপনার Firebase Admin
-  account-এর email লিখুন।
-*/
-
 const ADMIN_EMAIL =
-  "YOUR_ADMIN_EMAIL@gmail.com";
+  "saikatmd7373@gmail.com";
 
 
 /* =========================
-   GLOBAL
+   GLOBAL FUNCTIONS
 ========================= */
 
-window.adminLogin =
-  adminLogin;
+window.adminLogin = adminLogin;
+window.adminLogout = adminLogout;
 
-window.adminLogout =
-  adminLogout;
+window.approveDeposit = approveDeposit;
+window.rejectDeposit = rejectDeposit;
 
-window.approveDeposit =
-  approveDeposit;
+window.approvePlan = approvePlan;
+window.rejectPlan = rejectPlan;
 
-window.rejectDeposit =
-  rejectDeposit;
+window.approveWithdraw = approveWithdraw;
+window.rejectWithdraw = rejectWithdraw;
 
-window.approvePlan =
-  approvePlan;
+window.approveTask = approveTask;
+window.rejectTask = rejectTask;
 
-window.rejectPlan =
-  rejectPlan;
-
-window.approveWithdraw =
-  approveWithdraw;
-
-window.rejectWithdraw =
-  rejectWithdraw;
-
-window.approveTask =
-  approveTask;
-
-window.rejectTask =
-  rejectTask;
-
-window.updateTicket =
-  updateTicket;
+window.updateTicket = updateTicket;
 
 
 /* =========================
-   AUTH
+   AUTH STATE
 ========================= */
 
 onAuthStateChanged(auth, user => {
@@ -535,10 +535,9 @@ onAuthStateChanged(auth, user => {
   }
 
 
-  if(
-    ADMIN_EMAIL !== "YOUR_ADMIN_EMAIL@gmail.com" &&
-    user.email !== ADMIN_EMAIL
-  ){
+  /* ADMIN CHECK */
+
+  if(user.email !== ADMIN_EMAIL){
 
     alert(
       "এই account-এর Admin access নেই।"
@@ -563,6 +562,7 @@ onAuthStateChanged(auth, user => {
     .getElementById("adminEmailText")
     .innerText =
     user.email || "";
+
 
   loadDashboard();
 
@@ -590,13 +590,24 @@ async function adminLogin(){
     document
       .getElementById("loginError");
 
-  error.innerText="";
+
+  error.innerText = "";
 
 
   if(!email || !password){
 
     error.innerText =
       "Email এবং password দিন।";
+
+    return;
+
+  }
+
+
+  if(email !== ADMIN_EMAIL){
+
+    error.innerText =
+      "এই email Admin account নয়।";
 
     return;
 
@@ -630,7 +641,16 @@ async function adminLogin(){
 
 async function adminLogout(){
 
-  await signOut(auth);
+  try{
+
+    await signOut(auth);
+
+  }
+  catch(e){
+
+    alert(e.message);
+
+  }
 
 }
 
@@ -666,6 +686,7 @@ function loadUsers(){
     query(
       collection(db,"users")
     );
+
 
   onSnapshot(q,snap=>{
 
@@ -718,7 +739,8 @@ function loadDeposits(){
     box.innerHTML =
       snap.docs.map(d=>{
 
-        const x=d.data();
+        const x =
+          d.data();
 
         const status =
           x.status || "Pending";
@@ -730,53 +752,63 @@ function loadDeposits(){
 
           <div class="row">
             <span>User</span>
-            <b>${escapeHTML(x.email || "")}</b>
+            <b>${escapeHTML(x.email)}</b>
           </div>
 
           <div class="row">
             <span>Amount</span>
-            <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+            <b>
+              ৳${Number(x.amount || 0).toLocaleString()}
+            </b>
           </div>
 
           <div class="row">
             <span>Method</span>
-            <b>${escapeHTML(x.method || "")}</b>
+            <b>${escapeHTML(x.method)}</b>
           </div>
 
           <div class="row">
             <span>Sender Last 4</span>
-            <b>${escapeHTML(x.senderLast4 || "")}</b>
+            <b>${escapeHTML(x.senderLast4)}</b>
           </div>
 
           <div class="row">
             <span>Status</span>
+
             <span class="status ${
-              status==="Approved"
-                ?"approved"
-                :status==="Rejected"
-                ?"rejected"
-                :""
+              status === "Approved"
+                ? "approved"
+                : status === "Rejected"
+                ? "rejected"
+                : ""
             }">
-              ${status}
+              ${escapeHTML(status)}
             </span>
+
           </div>
+
 
           ${
             x.screenshotURL
             ?
-            `<img
+            `
+            <img
               class="screenshot"
-              src="${x.screenshotURL}"
-              onclick="window.open('${x.screenshotURL}','_blank')"
-            >`
+              src="${escapeHTML(x.screenshotURL)}"
+              onclick="window.open('${escapeHTML(x.screenshotURL)}','_blank')"
+              alt="Payment Screenshot"
+            >
+            `
             :
             ""
           }
 
+
           ${
-            status==="Pending"
+            status === "Pending"
             ?
-            `<div class="flex">
+            `
+            <div class="flex">
 
               <button
                 class="success"
@@ -790,7 +822,8 @@ function loadDeposits(){
                 ✕ Reject
               </button>
 
-            </div>`
+            </div>
+            `
             :
             ""
           }
@@ -826,6 +859,7 @@ async function approveDeposit(id){
         id
       );
 
+
     const snap =
       await getDoc(requestRef);
 
@@ -843,9 +877,9 @@ async function approveDeposit(id){
       snap.data();
 
 
-    if(data.status==="Approved"){
+    if(data.status === "Approved"){
 
-      alert("Already approved.");
+      alert("এই request already approved.");
 
       return;
 
@@ -860,6 +894,19 @@ async function approveDeposit(id){
       );
 
 
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      alert("User পাওয়া যায়নি।");
+
+      return;
+
+    }
+
+
     await updateDoc(
       userRef,
       {
@@ -867,6 +914,7 @@ async function approveDeposit(id){
           increment(
             Number(data.amount || 0)
           ),
+
         updatedAt:
           serverTimestamp()
       }
@@ -877,6 +925,7 @@ async function approveDeposit(id){
       requestRef,
       {
         status:"Approved",
+
         approvedAt:
           serverTimestamp()
       }
@@ -912,24 +961,39 @@ async function rejectDeposit(id){
   )) return;
 
 
-  await updateDoc(
-    doc(
-      db,
-      "depositRequests",
-      id
-    ),
-    {
-      status:"Rejected",
-      rejectedAt:
-        serverTimestamp()
-    }
-  );
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "depositRequests",
+        id
+      ),
+
+      {
+        status:"Rejected",
+
+        rejectedAt:
+          serverTimestamp()
+      }
+
+    );
+
+  }
+  catch(e){
+
+    alert(
+      "Reject failed: " + e.message
+    );
+
+  }
 
 }
 
 
 /* =========================
-   PLAN REQUESTS
+   PLANS
 ========================= */
 
 function loadPlans(){
@@ -967,9 +1031,11 @@ function loadPlans(){
     box.innerHTML =
       snap.docs.map(d=>{
 
-        const x=d.data();
+        const x =
+          d.data();
 
-        const p=x.plan || {};
+        const p =
+          x.plan || {};
 
         const status =
           x.status || "Pending";
@@ -981,41 +1047,49 @@ function loadPlans(){
 
           <div class="row">
             <span>User</span>
-            <b>${escapeHTML(x.email || "")}</b>
+            <b>${escapeHTML(x.email)}</b>
           </div>
 
           <div class="row">
             <span>Plan</span>
-            <b>${escapeHTML(p.rank || "")}</b>
+            <b>${escapeHTML(p.rank)}</b>
           </div>
 
           <div class="row">
             <span>Price</span>
-            <b>৳${Number(p.price || 0).toLocaleString()}</b>
+            <b>
+              ৳${Number(p.price || 0).toLocaleString()}
+            </b>
           </div>
 
           <div class="row">
             <span>Daily Reward</span>
-            <b>৳${Number(p.daily || 0).toLocaleString()}</b>
+            <b>
+              ৳${Number(p.daily || 0).toLocaleString()}
+            </b>
           </div>
 
           <div class="row">
             <span>Status</span>
+
             <span class="status ${
-              status==="Approved"
-              ?"approved"
-              :status==="Rejected"
-              ?"rejected"
-              :""
+              status === "Approved"
+                ? "approved"
+                : status === "Rejected"
+                ? "rejected"
+                : ""
             }">
-              ${status}
+              ${escapeHTML(status)}
             </span>
+
           </div>
 
+
           ${
-            status==="Pending"
+            status === "Pending"
             ?
-            `<div class="flex">
+            `
+            <div class="flex">
 
               <button
                 class="success"
@@ -1029,7 +1103,8 @@ function loadPlans(){
                 ✕ Reject
               </button>
 
-            </div>`
+            </div>
+            `
             :
             ""
           }
@@ -1065,6 +1140,7 @@ async function approvePlan(id){
         id
       );
 
+
     const snap =
       await getDoc(requestRef);
 
@@ -1082,7 +1158,7 @@ async function approvePlan(id){
       snap.data();
 
 
-    if(data.status==="Approved"){
+    if(data.status === "Approved"){
 
       alert("Already approved.");
 
@@ -1091,32 +1167,48 @@ async function approvePlan(id){
     }
 
 
-    await updateDoc(
-
+    const userRef =
       doc(
         db,
         "users",
         data.uid
-      ),
+      );
 
+
+    await updateDoc(
+      userRef,
       {
-        activePlan:data.plan,
-        completedTasks:0,
-        todayEarn:0,
+
+        activePlan:
+          data.plan,
+
+        completedTasks:
+          0,
+
+        todayEarn:
+          0,
+
         updatedAt:
           serverTimestamp()
-      }
 
+      }
     );
 
 
     await updateDoc(
+
       requestRef,
+
       {
-        status:"Approved",
+
+        status:
+          "Approved",
+
         approvedAt:
           serverTimestamp()
+
       }
+
     );
 
 
@@ -1150,18 +1242,36 @@ async function rejectPlan(id){
   )) return;
 
 
-  await updateDoc(
-    doc(
-      db,
-      "planRequests",
-      id
-    ),
-    {
-      status:"Rejected",
-      rejectedAt:
-        serverTimestamp()
-    }
-  );
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "planRequests",
+        id
+      ),
+
+      {
+
+        status:
+          "Rejected",
+
+        rejectedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+  }
+  catch(e){
+
+    alert(
+      "Reject failed: " + e.message
+    );
+
+  }
 
 }
 
@@ -1205,7 +1315,8 @@ function loadWithdrawals(){
     box.innerHTML =
       snap.docs.map(d=>{
 
-        const x=d.data();
+        const x =
+          d.data();
 
         const status =
           x.status || "Pending";
@@ -1217,46 +1328,52 @@ function loadWithdrawals(){
 
           <div class="row">
             <span>User</span>
-            <b>${escapeHTML(x.email || "")}</b>
+            <b>${escapeHTML(x.email)}</b>
           </div>
 
           <div class="row">
             <span>Amount</span>
-            <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+            <b>
+              ৳${Number(x.amount || 0).toLocaleString()}
+            </b>
           </div>
 
           <div class="row">
             <span>Method</span>
-            <b>${escapeHTML(x.method || "")}</b>
+            <b>${escapeHTML(x.method)}</b>
           </div>
 
           <div class="row">
             <span>Account</span>
-            <b>${escapeHTML(x.number || "")}</b>
+            <b>${escapeHTML(x.number)}</b>
           </div>
 
           <div class="row">
             <span>Name</span>
-            <b>${escapeHTML(x.name || "")}</b>
+            <b>${escapeHTML(x.name)}</b>
           </div>
 
           <div class="row">
             <span>Status</span>
+
             <span class="status ${
-              status==="Approved"
-              ?"approved"
-              :status==="Rejected"
-              ?"rejected"
-              :""
+              status === "Approved"
+                ? "approved"
+                : status === "Rejected"
+                ? "rejected"
+                : ""
             }">
-              ${status}
+              ${escapeHTML(status)}
             </span>
+
           </div>
 
+
           ${
-            status==="Pending"
+            status === "Pending"
             ?
-            `<div class="flex">
+            `
+            <div class="flex">
 
               <button
                 class="success"
@@ -1270,7 +1387,8 @@ function loadWithdrawals(){
                 ✕ Reject
               </button>
 
-            </div>`
+            </div>
+            `
             :
             ""
           }
@@ -1306,23 +1424,25 @@ async function approveWithdraw(id){
         id
       );
 
+
     const snap =
       await getDoc(requestRef);
 
 
     if(!snap.exists()){
 
-      alert("Request পাওয়া যায়নি.");
+      alert("Request পাওয়া যায়নি।");
 
       return;
 
     }
 
 
-    const data=snap.data();
+    const data =
+      snap.data();
 
 
-    if(data.status==="Approved"){
+    if(data.status === "Approved"){
 
       alert("Already approved.");
 
@@ -1345,7 +1465,7 @@ async function approveWithdraw(id){
 
     if(!userSnap.exists()){
 
-      alert("User পাওয়া যায়নি.");
+      alert("User পাওয়া যায়নি।");
 
       return;
 
@@ -1358,7 +1478,20 @@ async function approveWithdraw(id){
       );
 
 
-    if(balance < Number(data.amount)){
+    const amount =
+      Number(data.amount || 0);
+
+
+    if(amount <= 0){
+
+      alert("Invalid withdrawal amount.");
+
+      return;
+
+    }
+
+
+    if(balance < amount){
 
       alert(
         "User-এর পর্যাপ্ত balance নেই।"
@@ -1370,25 +1503,36 @@ async function approveWithdraw(id){
 
 
     await updateDoc(
+
       userRef,
+
       {
+
         balance:
-          increment(
-            -Number(data.amount)
-          ),
+          increment(-amount),
+
         updatedAt:
           serverTimestamp()
+
       }
+
     );
 
 
     await updateDoc(
+
       requestRef,
+
       {
-        status:"Approved",
+
+        status:
+          "Approved",
+
         approvedAt:
           serverTimestamp()
+
       }
+
     );
 
 
@@ -1421,18 +1565,36 @@ async function rejectWithdraw(id){
   )) return;
 
 
-  await updateDoc(
-    doc(
-      db,
-      "withdrawalRequests",
-      id
-    ),
-    {
-      status:"Rejected",
-      rejectedAt:
-        serverTimestamp()
-    }
-  );
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "withdrawalRequests",
+        id
+      ),
+
+      {
+
+        status:
+          "Rejected",
+
+        rejectedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+  }
+  catch(e){
+
+    alert(
+      "Reject failed: " + e.message
+    );
+
+  }
 
 }
 
@@ -1470,7 +1632,8 @@ function loadTasks(){
     box.innerHTML =
       snap.docs.map(d=>{
 
-        const x=d.data();
+        const x =
+          d.data();
 
         const status =
           x.status || "Pending";
@@ -1482,41 +1645,53 @@ function loadTasks(){
 
           <div class="row">
             <span>User</span>
-            <b>${escapeHTML(x.email || x.uid || "")}</b>
+            <b>
+              ${escapeHTML(x.email || x.uid)}
+            </b>
           </div>
 
           <div class="row">
             <span>Task</span>
-            <b>#${x.taskNumber || ""}</b>
+            <b>
+              #${x.taskNumber || ""}
+            </b>
           </div>
 
           <div class="row">
             <span>Plan</span>
-            <b>${escapeHTML(x.plan || "")}</b>
+            <b>
+              ${escapeHTML(x.plan)}
+            </b>
           </div>
 
           <div class="row">
             <span>Reward</span>
-            <b>৳${Number(x.reward || 0).toLocaleString()}</b>
+            <b>
+              ৳${Number(x.reward || 0).toLocaleString()}
+            </b>
           </div>
 
           <div class="row">
             <span>Status</span>
+
             <span class="status ${
-              status==="Approved"
-              ?"approved"
-              :status==="Rejected"
-              ?"rejected"
-              :""
+              status === "Approved"
+                ? "approved"
+                : status === "Rejected"
+                ? "rejected"
+                : ""
             }">
-              ${status}
+              ${escapeHTML(status)}
             </span>
+
           </div>
 
+
           ${
-            status==="Pending"
+            status === "Pending"
             ?
-            `<div class="flex">
+            `
+            <div class="flex">
 
               <button
                 class="success"
@@ -1530,7 +1705,8 @@ function loadTasks(){
                 ✕ Reject
               </button>
 
-            </div>`
+            </div>
+            `
             :
             ""
           }
@@ -1566,25 +1742,40 @@ async function approveTask(id){
         id
       );
 
+
     const snap =
       await getDoc(taskRef);
 
 
     if(!snap.exists()){
 
-      alert("Task পাওয়া যায়নি.");
+      alert("Task পাওয়া যায়নি।");
 
       return;
 
     }
 
 
-    const data=snap.data();
+    const data =
+      snap.data();
 
 
-    if(data.status==="Approved"){
+    if(data.status === "Approved"){
 
       alert("Already approved.");
+
+      return;
+
+    }
+
+
+    const reward =
+      Number(data.reward || 0);
+
+
+    if(reward <= 0){
+
+      alert("Invalid reward.");
 
       return;
 
@@ -1599,40 +1790,61 @@ async function approveTask(id){
       );
 
 
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      alert("User পাওয়া যায়নি।");
+
+      return;
+
+    }
+
+
     await updateDoc(
+
       userRef,
+
       {
+
         balance:
-          increment(
-            Number(data.reward || 0)
-          ),
+          increment(reward),
 
         todayEarn:
-          increment(
-            Number(data.reward || 0)
-          ),
+          increment(reward),
 
         completedTasks:
           increment(1),
 
         updatedAt:
           serverTimestamp()
+
       }
+
     );
 
 
     await updateDoc(
+
       taskRef,
+
       {
-        status:"Approved",
+
+        status:
+          "Approved",
+
         approvedAt:
           serverTimestamp()
+
       }
+
     );
 
 
     alert(
-      "✅ Task approved এবং reward যোগ হয়েছে."
+      "✅ Task approved এবং reward যোগ হয়েছে।"
     );
 
   }
@@ -1661,18 +1873,36 @@ async function rejectTask(id){
   )) return;
 
 
-  await updateDoc(
-    doc(
-      db,
-      "taskCompletions",
-      id
-    ),
-    {
-      status:"Rejected",
-      rejectedAt:
-        serverTimestamp()
-    }
-  );
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "taskCompletions",
+        id
+      ),
+
+      {
+
+        status:
+          "Rejected",
+
+        rejectedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+  }
+  catch(e){
+
+    alert(
+      "Reject failed: " + e.message
+    );
+
+  }
 
 }
 
@@ -1710,7 +1940,9 @@ function loadTickets(){
     box.innerHTML =
       snap.docs.map(d=>{
 
-        const x=d.data();
+        const x =
+          d.data();
+
 
         return `
 
@@ -1718,21 +1950,27 @@ function loadTickets(){
 
           <div class="row">
             <span>User</span>
-            <b>${escapeHTML(x.email || "")}</b>
+            <b>
+              ${escapeHTML(x.email)}
+            </b>
           </div>
 
           <div class="row">
             <span>Subject</span>
-            <b>${escapeHTML(x.subject || "")}</b>
+            <b>
+              ${escapeHTML(x.subject)}
+            </b>
           </div>
 
           <div style="padding:10px 0">
-            ${escapeHTML(x.message || "")}
+            ${escapeHTML(x.message)}
           </div>
 
           <div class="row">
             <span>Status</span>
-            <b>${escapeHTML(x.status || "Open")}</b>
+            <b>
+              ${escapeHTML(x.status || "Open")}
+            </b>
           </div>
 
           <div class="flex">
@@ -1762,20 +2000,43 @@ function loadTickets(){
 }
 
 
+/* =========================
+   UPDATE TICKET
+========================= */
+
 async function updateTicket(id,status){
 
-  await updateDoc(
-    doc(
-      db,
-      "supportTickets",
-      id
-    ),
-    {
-      status,
-      updatedAt:
-        serverTimestamp()
-    }
-  );
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "supportTickets",
+        id
+      ),
+
+      {
+
+        status:
+          status,
+
+        updatedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+  }
+  catch(e){
+
+    alert(
+      "Ticket update failed: " +
+      e.message
+    );
+
+  }
 
 }
 
@@ -1787,10 +2048,15 @@ async function updateTicket(id,status){
 function escapeHTML(value){
 
   return String(value || "")
+
     .replaceAll("&","&amp;")
+
     .replaceAll("<","&lt;")
+
     .replaceAll(">","&gt;")
+
     .replaceAll('"',"&quot;")
+
     .replaceAll("'","&#039;");
 
 }
