@@ -188,16 +188,6 @@ button{
   color:#b91c1c;
 }
 
-.screenshot{
-  width:180px;
-  max-height:180px;
-  object-fit:contain;
-  border-radius:10px;
-  border:1px solid #ddd;
-  margin-top:12px;
-  cursor:pointer;
-}
-
 .empty{
   text-align:center;
   color:#777;
@@ -240,6 +230,27 @@ button{
   padding:5px 9px;
   border-radius:20px;
   font-size:12px;
+}
+
+.deposit-code{
+  background:#f4efff;
+  border:2px dashed #8b5cf6;
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px;
+  text-align:center;
+}
+
+.deposit-code small{
+  display:block;
+  color:#777;
+  margin-bottom:5px;
+}
+
+.deposit-code strong{
+  color:#5b21b6;
+  font-size:24px;
+  letter-spacing:3px;
 }
 
 @media(max-width:800px){
@@ -299,8 +310,7 @@ button{
     <button
       class="primary"
       style="width:100%"
-      onclick="adminLogin()"
-    >
+      onclick="adminLogin()">
       Login
     </button>
 
@@ -324,8 +334,7 @@ button{
   <button
     class="danger"
     style="margin-top:12px"
-    onclick="adminLogout()"
-  >
+    onclick="adminLogout()">
     Logout
   </button>
 
@@ -378,7 +387,9 @@ button{
     >
 
     <div id="userList">
-      <div class="empty">Loading users...</div>
+      <div class="empty">
+        Loading users...
+      </div>
     </div>
 
   </div>
@@ -392,12 +403,16 @@ button{
 
   <div class="card">
 
-    <button class="gray refresh" onclick="loadAll()">
+    <button
+      class="gray refresh"
+      onclick="loadAll()">
       🔄 Refresh
     </button>
 
     <div id="depositList">
-      <div class="empty">Loading...</div>
+      <div class="empty">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -412,7 +427,9 @@ button{
   <div class="card">
 
     <div id="planList">
-      <div class="empty">Loading...</div>
+      <div class="empty">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -427,7 +444,9 @@ button{
   <div class="card">
 
     <div id="withdrawList">
-      <div class="empty">Loading...</div>
+      <div class="empty">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -442,7 +461,9 @@ button{
   <div class="card">
 
     <div id="taskList">
-      <div class="empty">Loading...</div>
+      <div class="empty">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -457,7 +478,9 @@ button{
   <div class="card">
 
     <div id="ticketList">
-      <div class="empty">Loading...</div>
+      <div class="empty">
+        Loading...
+      </div>
     </div>
 
   </div>
@@ -524,15 +547,18 @@ const firebaseConfig = {
    INITIALIZE
 ========================= */
 
-const app = initializeApp(firebaseConfig);
+const app =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+  getAuth(app);
 
-const db = getFirestore(app);
+const db =
+  getFirestore(app);
 
 
 /* =========================
-   ADMIN
+   ADMIN EMAIL
 ========================= */
 
 const ADMIN_EMAIL =
@@ -540,7 +566,7 @@ const ADMIN_EMAIL =
 
 
 /* =========================
-   GLOBAL USER DATA
+   GLOBAL
 ========================= */
 
 let allUsers = [];
@@ -550,62 +576,79 @@ let allUsers = [];
    WINDOW FUNCTIONS
 ========================= */
 
-window.adminLogin = adminLogin;
-window.adminLogout = adminLogout;
-window.loadAll = loadAll;
-window.filterUsers = filterUsers;
+window.adminLogin =
+  adminLogin;
+
+window.adminLogout =
+  adminLogout;
+
+window.loadAll =
+  loadAll;
+
+window.filterUsers =
+  filterUsers;
 
 
 /* =========================
    AUTH STATE
 ========================= */
 
-onAuthStateChanged(auth,user=>{
+onAuthStateChanged(
+  auth,
+  user => {
 
-  if(!user){
+    if(!user){
+
+      document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("dashboard")
+        .classList.add("hidden");
+
+      return;
+    }
+
+
+    if(
+      user.email !==
+      ADMIN_EMAIL
+    ){
+
+      alert(
+        "এই account-এর Admin access নেই।"
+      );
+
+      signOut(auth);
+
+      return;
+    }
+
 
     document
       .getElementById("loginPage")
-      .classList.remove("hidden");
+      .classList.add("hidden");
 
     document
       .getElementById("dashboard")
-      .classList.add("hidden");
+      .classList.remove("hidden");
 
-    return;
+
+    document
+      .getElementById("adminEmailText")
+      .innerText =
+      user.email || "";
+
+
+    loadAll();
+
   }
-
-
-  if(user.email !== ADMIN_EMAIL){
-
-    alert("এই account-এর Admin access নেই।");
-
-    signOut(auth);
-
-    return;
-  }
-
-
-  document
-    .getElementById("loginPage")
-    .classList.add("hidden");
-
-  document
-    .getElementById("dashboard")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("adminEmailText")
-    .innerText =
-    user.email || "";
-
-  loadAll();
-
-});
+);
 
 
 /* =========================
-   LOGIN
+   ADMIN LOGIN
 ========================= */
 
 async function adminLogin(){
@@ -621,6 +664,7 @@ async function adminLogin(){
       .getElementById("adminPassword")
       .value;
 
+
   const error =
     document
       .getElementById("loginError");
@@ -634,8 +678,8 @@ async function adminLogin(){
 
     error.className="error";
 
-    error.innerText=
-      "Email এবং password দিন।";
+    error.innerText =
+      "Email এবং Password দিন।";
 
     return;
   }
@@ -645,8 +689,8 @@ async function adminLogin(){
 
     error.className="error";
 
-    error.innerText=
-      "এই email Admin account নয়।";
+    error.innerText =
+      "এই Email Admin account নয়।";
 
     return;
   }
@@ -661,15 +705,15 @@ async function adminLogin(){
     );
 
   }
-
   catch(e){
 
     console.error(e);
 
     error.className="error";
 
-    error.innerText=
-      "Login failed: "+e.code;
+    error.innerText =
+      "Login failed: " +
+      e.message;
 
   }
 
@@ -694,10 +738,15 @@ async function adminLogout(){
 function loadAll(){
 
   loadUsers();
+
   loadDeposits();
+
   loadPlans();
+
   loadWithdrawals();
+
   loadTasks();
+
   loadTickets();
 
 }
@@ -711,50 +760,80 @@ function loadUsers(){
 
   const q =
     query(
-      collection(db,"users")
+      collection(
+        db,
+        "users"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    allUsers =
-      snap.docs.map(doc=>({
+      allUsers =
+        snap.docs.map(
+          doc => ({
 
-        id:doc.id,
-        ...doc.data()
+            id:doc.id,
 
-      }));
+            ...doc.data()
 
-
-    /* TOTAL USER */
-
-    document
-      .getElementById("totalUsers")
-      .innerText =
-      allUsers.length;
+          })
+        );
 
 
-    renderUsers(allUsers);
+      document
+        .getElementById(
+          "totalUsers"
+        )
+        .innerText =
+        allUsers.length;
 
-  },error=>{
 
-    console.error("Users error:",error);
+      renderUsers(
+        allUsers
+      );
 
-    document
-      .getElementById("totalUsers")
-      .innerText="0";
+    },
 
-    document
-      .getElementById("userList")
-      .innerHTML=
-      `
-      <div class="empty">
-        Users data load করা যায়নি।<br><br>
-        Firestore Rules এবং users collection check করুন।
-      </div>
-      `;
+    error => {
 
-  });
+      console.error(
+        "Users error:",
+        error
+      );
+
+
+      document
+        .getElementById(
+          "totalUsers"
+        )
+        .innerText =
+        "0";
+
+
+      document
+        .getElementById(
+          "userList"
+        )
+        .innerHTML = `
+
+        <div class="empty">
+
+          Users data load করা যায়নি।
+
+          <br><br>
+
+          Firestore Rules এবং
+          users collection check করুন।
+
+        </div>
+
+        `;
+
+    }
+  );
 
 }
 
@@ -766,79 +845,145 @@ function loadUsers(){
 function renderUsers(users){
 
   const box =
-    document.getElementById("userList");
+    document
+      .getElementById(
+        "userList"
+      );
 
 
   if(!users.length){
 
-    box.innerHTML=
-      `
+    box.innerHTML = `
+
       <div class="empty">
         কোনো User পাওয়া যায়নি।
       </div>
-      `;
+
+    `;
 
     return;
   }
 
 
   box.innerHTML =
-    users.map(x=>{
-
-      return `
+    users.map(
+      x => `
 
       <div class="user-card">
 
         <div class="user-name">
-          👤 ${escapeHTML(
-            x.name ||
-            x.fullName ||
-            x.username ||
-            "User"
-          )}
+
+          👤 ${
+            escapeHTML(
+              x.name ||
+              x.fullName ||
+              x.username ||
+              "User"
+            )
+          }
+
         </div>
 
-        <div class="row">
-          <span>Email</span>
-          <b>
-            ${escapeHTML(x.email || "")}
-          </b>
-        </div>
 
         <div class="row">
-          <span>UID</span>
+
+          <span>
+            Email
+          </span>
+
           <b>
-            ${escapeHTML(x.uid || x.id || "")}
+            ${
+              escapeHTML(
+                x.email || ""
+              )
+            }
           </b>
+
         </div>
 
-        <div class="row">
-          <span>Plan</span>
-          <b>
-            ${escapeHTML(
-              x.plan ||
-              x.planName ||
-              "No Plan"
-            )}
-          </b>
-        </div>
 
         <div class="row">
-          <span>Balance</span>
+
+          <span>
+            UID
+          </span>
+
           <b>
-            ৳${Number(
-              x.balance ||
-              x.wallet ||
-              0
-            ).toLocaleString()}
+            ${
+              escapeHTML(
+                x.uid ||
+                x.id ||
+                ""
+              )
+            }
           </b>
+
+        </div>
+
+
+        <div class="row">
+
+          <span>
+            Plan
+          </span>
+
+          <b>
+            ${
+              escapeHTML(
+                x.plan ||
+                x.planName ||
+                (
+                  x.activePlan &&
+                  x.activePlan.rank
+                ) ||
+                "No Plan"
+              )
+            }
+          </b>
+
+        </div>
+
+
+        <div class="row">
+
+          <span>
+            Balance
+          </span>
+
+          <b>
+            ৳${
+              Number(
+                x.balance ||
+                x.wallet ||
+                0
+              ).toLocaleString()
+            }
+          </b>
+
+        </div>
+
+
+        <div class="row">
+
+          <span>
+            Completed Tasks
+          </span>
+
+          <b>
+            ${
+              Number(
+                x.completedTasks ||
+                0
+              )
+            }
+          </b>
+
         </div>
 
       </div>
 
-      `;
-
-    }).join("");
+      `
+    ).join("");
 
 }
 
@@ -851,34 +996,44 @@ function filterUsers(){
 
   const value =
     document
-      .getElementById("userSearch")
+      .getElementById(
+        "userSearch"
+      )
       .value
       .toLowerCase()
       .trim();
 
 
   const filtered =
-    allUsers.filter(x=>{
+    allUsers.filter(
+      x => {
 
-      const text =
-        (
-          (x.name || "") +
-          " " +
-          (x.email || "") +
-          " " +
-          (x.username || "") +
-          " " +
-          (x.uid || "") +
-          " " +
-          (x.id || "")
-        ).toLowerCase();
-
-      return text.includes(value);
-
-    });
+        const text =
+          (
+            (x.name || "") +
+            " " +
+            (x.email || "") +
+            " " +
+            (x.username || "") +
+            " " +
+            (x.uid || "") +
+            " " +
+            (x.id || "")
+          )
+          .toLowerCase();
 
 
-  renderUsers(filtered);
+        return text.includes(
+          value
+        );
+
+      }
+    );
+
+
+  renderUsers(
+    filtered
+  );
 
 }
 
@@ -891,134 +1046,237 @@ function loadDeposits(){
 
   const q =
     query(
-      collection(db,"depositRequests")
+      collection(
+        db,
+        "depositRequests"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    document
-      .getElementById("totalDeposits")
-      .innerText =
-      snap.size;
-
-
-    const box =
       document
-        .getElementById("depositList");
+        .getElementById(
+          "totalDeposits"
+        )
+        .innerText =
+        snap.size;
 
 
-    if(snap.empty){
-
-      box.innerHTML=
-        '<div class="empty">কোনো Deposit Request নেই</div>';
-
-      return;
-    }
+      const box =
+        document
+          .getElementById(
+            "depositList"
+          );
 
 
-    const docs =
-      sortByCreatedAt(snap.docs);
+      if(snap.empty){
 
+        box.innerHTML = `
 
-    box.innerHTML =
-      docs.map(d=>{
+          <div class="empty">
 
-        const x=d.data();
+            কোনো Deposit Request নেই
 
-        const status=
-          x.status || "Pending";
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(
-                x.email ||
-                x.uid ||
-                ""
-              )}
-            </b>
           </div>
 
-          <div class="row">
-            <span>Amount</span>
-            <b>
-              ৳${Number(
-                x.amount || 0
-              ).toLocaleString()}
-            </b>
-          </div>
+        `;
 
-          <div class="row">
-            <span>Method</span>
-            <b>
-              ${escapeHTML(
-                x.method || ""
-              )}
-            </b>
-          </div>
+        return;
+      }
 
-          <div class="row">
-            <span>Sender Last 4</span>
-            <b>
-              ${escapeHTML(
-                x.senderLast4 || ""
-              )}
-            </b>
-          </div>
 
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(status)}
-            </span>
-          </div>
+      const docs =
+        sortByCreatedAt(
+          snap.docs
+        );
 
-          ${
-            x.screenshotURL
-            ?
-            `
-            <img
-              class="screenshot"
-              src="${escapeHTML(
-                x.screenshotURL
-              )}"
-              onclick="window.open(
-                '${escapeHTML(x.screenshotURL)}',
-                '_blank'
-              )"
-              alt="Screenshot"
-            >
-            `
-            :
-            ""
+
+      box.innerHTML =
+        docs.map(
+          d => {
+
+            const x =
+              d.data();
+
+
+            const status =
+              x.status ||
+              "Pending";
+
+
+            return `
+
+            <div class="request">
+
+              <div class="row">
+
+                <span>
+                  User
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.email ||
+                      x.uid ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Amount
+                </span>
+
+                <b>
+                  ৳${
+                    Number(
+                      x.amount || 0
+                    ).toLocaleString()
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Payment Method
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.method || ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Payment Number
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.paymentNumber ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="deposit-code">
+
+                <small>
+                  যে নম্বর থেকে টাকা পাঠানো হয়েছে
+                </small>
+
+                <strong>
+                  ${
+                    escapeHTML(
+                      x.senderLast4 ||
+                      "----"
+                    )
+                  }
+                </strong>
+
+                <small style="margin-top:6px">
+                  Sender Last 4 Digit
+                </small>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Status
+                </span>
+
+                <span
+                  class="
+                    status
+                    ${
+                      status
+                        .toLowerCase()
+                        .includes("approved")
+                        ? "approved"
+                        : ""
+                    }
+                    ${
+                      status
+                        .toLowerCase()
+                        .includes("rejected")
+                        ? "rejected"
+                        : ""
+                    }
+                  "
+                >
+
+                  ${
+                    escapeHTML(
+                      status
+                    )
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+            `;
+
           }
+        ).join("");
+
+    },
+
+    error => {
+
+      console.error(
+        "Deposit error:",
+        error
+      );
+
+
+      document
+        .getElementById(
+          "depositList"
+        )
+        .innerHTML = `
+
+        <div class="empty">
+
+          Deposit data load করা যায়নি।
+
+          <br><br>
+
+          Firestore Rules check করুন।
 
         </div>
 
         `;
 
-      }).join("");
-
-  },error=>{
-
-    console.error("Deposit error:",error);
-
-    document
-      .getElementById("depositList")
-      .innerHTML=
-      `
-      <div class="empty">
-        Deposit data load করা যায়নি।
-      </div>
-      `;
-
-  });
+    }
+  );
 
 }
 
@@ -1031,110 +1289,178 @@ function loadPlans(){
 
   const q =
     query(
-      collection(db,"planRequests")
+      collection(
+        db,
+        "planRequests"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    document
-      .getElementById("totalPlans")
-      .innerText =
-      snap.size;
-
-
-    const box =
       document
-        .getElementById("planList");
+        .getElementById(
+          "totalPlans"
+        )
+        .innerText =
+        snap.size;
 
 
-    if(snap.empty){
-
-      box.innerHTML=
-        '<div class="empty">কোনো Plan Request নেই</div>';
-
-      return;
-    }
+      const box =
+        document
+          .getElementById(
+            "planList"
+          );
 
 
-    const docs =
-      sortByCreatedAt(snap.docs);
+      if(snap.empty){
 
+        box.innerHTML = `
 
-    box.innerHTML =
-      docs.map(d=>{
+          <div class="empty">
 
-        const x=d.data();
+            কোনো Plan Request নেই
 
-        const p=
-          x.plan || {};
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(
-                x.email ||
-                x.uid ||
-                ""
-              )}
-            </b>
           </div>
-
-          <div class="row">
-            <span>Plan</span>
-            <b>
-              ${escapeHTML(
-                p.rank ||
-                p.name ||
-                ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Price</span>
-            <b>
-              ৳${Number(
-                p.price || 0
-              ).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Daily Reward</span>
-            <b>
-              ৳${Number(
-                p.daily || 0
-              ).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(
-                x.status ||
-                "Pending"
-              )}
-            </span>
-          </div>
-
-        </div>
 
         `;
 
-      }).join("");
+        return;
+      }
 
-  },error=>{
 
-    console.error("Plan error:",error);
+      const docs =
+        sortByCreatedAt(
+          snap.docs
+        );
 
-  });
+
+      box.innerHTML =
+        docs.map(
+          d => {
+
+            const x =
+              d.data();
+
+            const p =
+              x.plan || {};
+
+
+            return `
+
+            <div class="request">
+
+              <div class="row">
+
+                <span>
+                  User
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.email ||
+                      x.uid ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Plan
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      p.rank ||
+                      p.name ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Price
+                </span>
+
+                <b>
+                  ৳${
+                    Number(
+                      p.price || 0
+                    ).toLocaleString()
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Daily Reward
+                </span>
+
+                <b>
+                  ৳${
+                    Number(
+                      p.daily || 0
+                    ).toLocaleString()
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Status
+                </span>
+
+                <span class="status">
+
+                  ${
+                    escapeHTML(
+                      x.status ||
+                      "Pending"
+                    )
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+            `;
+
+          }
+        ).join("");
+
+    },
+
+    error => {
+
+      console.error(
+        "Plan error:",
+        error
+      );
+
+    }
+  );
 
 }
 
@@ -1147,117 +1473,190 @@ function loadWithdrawals(){
 
   const q =
     query(
-      collection(db,"withdrawalRequests")
+      collection(
+        db,
+        "withdrawalRequests"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    document
-      .getElementById("totalWithdraws")
-      .innerText =
-      snap.size;
-
-
-    const box =
       document
-        .getElementById("withdrawList");
+        .getElementById(
+          "totalWithdraws"
+        )
+        .innerText =
+        snap.size;
 
 
-    if(snap.empty){
-
-      box.innerHTML=
-        '<div class="empty">কোনো Withdrawal Request নেই</div>';
-
-      return;
-    }
+      const box =
+        document
+          .getElementById(
+            "withdrawList"
+          );
 
 
-    const docs =
-      sortByCreatedAt(snap.docs);
+      if(snap.empty){
 
+        box.innerHTML = `
 
-    box.innerHTML =
-      docs.map(d=>{
+          <div class="empty">
 
-        const x=d.data();
+            কোনো Withdrawal Request নেই
 
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(
-                x.email ||
-                x.uid ||
-                ""
-              )}
-            </b>
           </div>
-
-          <div class="row">
-            <span>Amount</span>
-            <b>
-              ৳${Number(
-                x.amount || 0
-              ).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Method</span>
-            <b>
-              ${escapeHTML(
-                x.method || ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Account</span>
-            <b>
-              ${escapeHTML(
-                x.number || ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Name</span>
-            <b>
-              ${escapeHTML(
-                x.name || ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(
-                x.status ||
-                "Pending"
-              )}
-            </span>
-          </div>
-
-        </div>
 
         `;
 
-      }).join("");
+        return;
+      }
 
-  },error=>{
 
-    console.error(
-      "Withdrawal error:",
-      error
-    );
+      const docs =
+        sortByCreatedAt(
+          snap.docs
+        );
 
-  });
+
+      box.innerHTML =
+        docs.map(
+          d => {
+
+            const x =
+              d.data();
+
+
+            return `
+
+            <div class="request">
+
+              <div class="row">
+
+                <span>
+                  User
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.email ||
+                      x.uid ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Amount
+                </span>
+
+                <b>
+                  ৳${
+                    Number(
+                      x.amount || 0
+                    ).toLocaleString()
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Method
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.method || ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Account
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.number || ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Name
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.name || ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Status
+                </span>
+
+                <span class="status">
+
+                  ${
+                    escapeHTML(
+                      x.status ||
+                      "Pending"
+                    )
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+            `;
+
+          }
+        ).join("");
+
+    },
+
+    error => {
+
+      console.error(
+        "Withdrawal error:",
+        error
+      );
+
+    }
+  );
 
 }
 
@@ -1270,124 +1669,167 @@ function loadTasks(){
 
   const q =
     query(
-      collection(db,"taskCompletions")
+      collection(
+        db,
+        "taskCompletions"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    const box =
-      document
-        .getElementById("taskList");
-
-
-    if(snap.empty){
-
-      box.innerHTML=
-        '<div class="empty">কোনো Task Request নেই</div>';
-
-      return;
-    }
+      const box =
+        document
+          .getElementById(
+            "taskList"
+          );
 
 
-    const docs =
-      sortByCreatedAt(snap.docs);
+      if(snap.empty){
 
+        box.innerHTML = `
 
-    box.innerHTML =
-      docs.map(d=>{
+          <div class="empty">
 
-        const x=d.data();
+            কোনো Task Request নেই
 
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(
-                x.email ||
-                x.uid ||
-                ""
-              )}
-            </b>
           </div>
-
-          <div class="row">
-            <span>Task</span>
-            <b>
-              #${escapeHTML(
-                x.taskNumber ||
-                ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Plan</span>
-            <b>
-              ${escapeHTML(
-                x.plan ||
-                ""
-              )}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Reward</span>
-            <b>
-              ৳${Number(
-                x.reward || 0
-              ).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(
-                x.status ||
-                "Pending"
-              )}
-            </span>
-          </div>
-
-          ${
-            x.screenshotURL
-            ?
-            `
-            <img
-              class="screenshot"
-              src="${escapeHTML(
-                x.screenshotURL
-              )}"
-              onclick="window.open(
-                '${escapeHTML(x.screenshotURL)}',
-                '_blank'
-              )"
-              alt="Task Screenshot"
-            >
-            `
-            :
-            ""
-          }
-
-        </div>
 
         `;
 
-      }).join("");
+        return;
+      }
 
-  },error=>{
 
-    console.error(
-      "Task error:",
-      error
-    );
+      const docs =
+        sortByCreatedAt(
+          snap.docs
+        );
 
-  });
+
+      box.innerHTML =
+        docs.map(
+          d => {
+
+            const x =
+              d.data();
+
+
+            return `
+
+            <div class="request">
+
+              <div class="row">
+
+                <span>
+                  User
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.email ||
+                      x.uid ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Task
+                </span>
+
+                <b>
+                  #${
+                    escapeHTML(
+                      x.taskNumber ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Plan
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.plan ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Reward
+                </span>
+
+                <b>
+                  ৳${
+                    Number(
+                      x.reward || 0
+                    ).toLocaleString()
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Status
+                </span>
+
+                <span class="status">
+
+                  ${
+                    escapeHTML(
+                      x.status ||
+                      "Pending"
+                    )
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+            `;
+
+          }
+        ).join("");
+
+    },
+
+    error => {
+
+      console.error(
+        "Task error:",
+        error
+      );
+
+    }
+  );
 
 }
 
@@ -1400,116 +1842,177 @@ function loadTickets(){
 
   const q =
     query(
-      collection(db,"supportTickets")
+      collection(
+        db,
+        "supportTickets"
+      )
     );
 
 
-  onSnapshot(q,snap=>{
+  onSnapshot(
+    q,
+    snap => {
 
-    const box =
-      document
-        .getElementById("ticketList");
-
-
-    if(snap.empty){
-
-      box.innerHTML=
-        '<div class="empty">কোনো Support Ticket নেই</div>';
-
-      return;
-    }
+      const box =
+        document
+          .getElementById(
+            "ticketList"
+          );
 
 
-    const docs =
-      sortByCreatedAt(snap.docs);
+      if(snap.empty){
 
+        box.innerHTML = `
 
-    box.innerHTML =
-      docs.map(d=>{
+          <div class="empty">
 
-        const x=d.data();
+            কোনো Support Ticket নেই
 
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(
-                x.email ||
-                x.uid ||
-                ""
-              )}
-            </b>
           </div>
-
-          <div class="row">
-            <span>Subject</span>
-            <b>
-              ${escapeHTML(
-                x.subject ||
-                ""
-              )}
-            </b>
-          </div>
-
-          <div style="padding:10px 0">
-            ${escapeHTML(
-              x.message ||
-              ""
-            )}
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <b>
-              ${escapeHTML(
-                x.status ||
-                "Open"
-              )}
-            </b>
-          </div>
-
-        </div>
 
         `;
 
-      }).join("");
+        return;
+      }
 
-  },error=>{
 
-    console.error(
-      "Support error:",
-      error
-    );
+      const docs =
+        sortByCreatedAt(
+          snap.docs
+        );
 
-  });
+
+      box.innerHTML =
+        docs.map(
+          d => {
+
+            const x =
+              d.data();
+
+
+            return `
+
+            <div class="request">
+
+              <div class="row">
+
+                <span>
+                  User
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.email ||
+                      x.uid ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Subject
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.subject ||
+                      ""
+                    )
+                  }
+                </b>
+
+              </div>
+
+
+              <div style="padding:10px 0">
+
+                ${
+                  escapeHTML(
+                    x.message ||
+                    ""
+                  )
+                }
+
+              </div>
+
+
+              <div class="row">
+
+                <span>
+                  Status
+                </span>
+
+                <b>
+                  ${
+                    escapeHTML(
+                      x.status ||
+                      "Open"
+                    )
+                  }
+                </b>
+
+              </div>
+
+            </div>
+
+            `;
+
+          }
+        ).join("");
+
+    },
+
+    error => {
+
+      console.error(
+        "Support error:",
+        error
+      );
+
+    }
+  );
 
 }
 
 
 /* =========================
-   SORT CREATED AT
+   SORT
 ========================= */
 
 function sortByCreatedAt(docs){
 
-  return [...docs].sort((a,b)=>{
+  return [...docs].sort(
+    (a,b) => {
 
-    const ad=a.data();
-    const bd=b.data();
+      const ad =
+        a.data();
 
-    const at=
-      getTime(ad.createdAt);
+      const bd =
+        b.data();
 
-    const bt=
-      getTime(bd.createdAt);
 
-    return bt-at;
+      const at =
+        getTime(
+          ad.createdAt
+        );
 
-  });
+      const bt =
+        getTime(
+          bd.createdAt
+        );
+
+
+      return bt - at;
+
+    }
+  );
 
 }
 
@@ -1519,24 +2022,31 @@ function getTime(value){
   if(!value)
     return 0;
 
+
   if(
     typeof value.toMillis ===
     "function"
   ){
+
     return value.toMillis();
+
   }
 
-  if(
-    value.seconds
-  ){
-    return value.seconds*1000;
+
+  if(value.seconds){
+
+    return value.seconds * 1000;
+
   }
 
-  const date=
+
+  const date =
     new Date(value);
 
-  const time=
+
+  const time =
     date.getTime();
+
 
   return isNaN(time)
     ? 0
@@ -1551,12 +2061,29 @@ function getTime(value){
 
 function escapeHTML(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
 
 }
 
