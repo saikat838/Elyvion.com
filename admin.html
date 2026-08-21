@@ -7,12 +7,11 @@
 <title>Elyvion — Admin Panel</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
@@ -80,21 +79,6 @@ button{
 
 .primary{
   background:#6d28d9;
-  color:#fff;
-}
-
-.approve{
-  background:#16a34a;
-  color:#fff;
-}
-
-.reject{
-  background:#dc2626;
-  color:#fff;
-}
-
-.closeBtn{
-  background:#f59e0b;
   color:#fff;
 }
 
@@ -204,21 +188,6 @@ button{
   color:#b91c1c;
 }
 
-.status.completed{
-  background:#dcfce7;
-  color:#15803d;
-}
-
-.status.closed{
-  background:#e5e7eb;
-  color:#374151;
-}
-
-.status.pending{
-  background:#fff7ed;
-  color:#b45309;
-}
-
 .screenshot{
   width:180px;
   max-height:180px;
@@ -246,27 +215,40 @@ button{
   margin-bottom:10px;
 }
 
-.action{
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid #eee;
+.user-card{
+  border:1px solid #eadfff;
+  padding:15px;
+  border-radius:14px;
+  margin:10px 0;
 }
 
-.loading{
-  opacity:.6;
-  pointer-events:none;
+.user-name{
+  font-size:17px;
+  font-weight:bold;
+  color:#5b21b6;
+  margin-bottom:8px;
+}
+
+.search{
+  margin-bottom:12px;
+}
+
+.badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
 }
 
 @media(max-width:800px){
-
   .stats{
     grid-template-columns:1fr 1fr;
   }
-
 }
 
 @media(max-width:500px){
-
   .stats{
     grid-template-columns:1fr;
   }
@@ -278,22 +260,13 @@ button{
   .row b{
     text-align:left;
   }
-
-  button{
-    width:100%;
-  }
-
 }
-
 </style>
 </head>
 
 <body>
 
-
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- ================= LOGIN ================= -->
 
 <div id="loginPage">
 
@@ -338,9 +311,7 @@ button{
 </div>
 
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
+<!-- ================= DASHBOARD ================= -->
 
 <div id="dashboard" class="hidden">
 
@@ -363,10 +334,7 @@ button{
 
 <div class="container">
 
-
-  <!-- ===================================================
-       STATS
-  ==================================================== -->
+  <!-- ================= STATS ================= -->
 
   <div class="stats">
 
@@ -393,9 +361,30 @@ button{
   </div>
 
 
-  <!-- ===================================================
-       DEPOSITS
-  ==================================================== -->
+  <!-- ================= USERS ================= -->
+
+  <div class="section-title">
+    👥 Users
+  </div>
+
+  <div class="card">
+
+    <input
+      id="userSearch"
+      class="search"
+      type="text"
+      placeholder="🔎 User search..."
+      oninput="filterUsers()"
+    >
+
+    <div id="userList">
+      <div class="empty">Loading users...</div>
+    </div>
+
+  </div>
+
+
+  <!-- ================= DEPOSITS ================= -->
 
   <div class="section-title">
     📥 Deposit Requests
@@ -414,9 +403,7 @@ button{
   </div>
 
 
-  <!-- ===================================================
-       PLANS
-  ==================================================== -->
+  <!-- ================= PLANS ================= -->
 
   <div class="section-title">
     📦 Plan Requests
@@ -431,9 +418,7 @@ button{
   </div>
 
 
-  <!-- ===================================================
-       WITHDRAWALS
-  ==================================================== -->
+  <!-- ================= WITHDRAWALS ================= -->
 
   <div class="section-title">
     💸 Withdrawal Requests
@@ -448,9 +433,7 @@ button{
   </div>
 
 
-  <!-- ===================================================
-       TASKS
-  ==================================================== -->
+  <!-- ================= TASKS ================= -->
 
   <div class="section-title">
     ✅ Task Verification
@@ -465,9 +448,7 @@ button{
   </div>
 
 
-  <!-- ===================================================
-       SUPPORT
-  ==================================================== -->
+  <!-- ================= SUPPORT ================= -->
 
   <div class="section-title">
     🎧 Support Tickets
@@ -482,13 +463,10 @@ button{
   </div>
 
 </div>
-
 </div>
 
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
@@ -507,18 +485,14 @@ import {
   getFirestore,
   collection,
   query,
-  orderBy,
-  onSnapshot,
-  doc,
-  updateDoc,
-  serverTimestamp
+  onSnapshot
 }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* =====================================================
+/* =========================
    FIREBASE CONFIG
-===================================================== */
+========================= */
 
 const firebaseConfig = {
 
@@ -546,9 +520,9 @@ const firebaseConfig = {
 };
 
 
-/* =====================================================
+/* =========================
    INITIALIZE
-===================================================== */
+========================= */
 
 const app = initializeApp(firebaseConfig);
 
@@ -557,32 +531,34 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-/* =====================================================
+/* =========================
    ADMIN
-===================================================== */
+========================= */
 
 const ADMIN_EMAIL =
   "saikatmd7373@gmail.com";
 
 
-/* =====================================================
-   GLOBAL FUNCTIONS
-===================================================== */
+/* =========================
+   GLOBAL USER DATA
+========================= */
+
+let allUsers = [];
+
+
+/* =========================
+   WINDOW FUNCTIONS
+========================= */
 
 window.adminLogin = adminLogin;
 window.adminLogout = adminLogout;
 window.loadAll = loadAll;
-
-window.updateRequestStatus =
-  updateRequestStatus;
-
-window.updateTicketStatus =
-  updateTicketStatus;
+window.filterUsers = filterUsers;
 
 
-/* =====================================================
-   AUTH
-===================================================== */
+/* =========================
+   AUTH STATE
+========================= */
 
 onAuthStateChanged(auth,user=>{
 
@@ -628,9 +604,9 @@ onAuthStateChanged(auth,user=>{
 });
 
 
-/* =====================================================
+/* =========================
    LOGIN
-===================================================== */
+========================= */
 
 async function adminLogin(){
 
@@ -650,15 +626,15 @@ async function adminLogin(){
       .getElementById("loginError");
 
 
-  error.className = "";
-  error.innerText = "";
+  error.className="";
+  error.innerText="";
 
 
   if(!email || !password){
 
-    error.className = "error";
+    error.className="error";
 
-    error.innerText =
+    error.innerText=
       "Email এবং password দিন।";
 
     return;
@@ -667,9 +643,9 @@ async function adminLogin(){
 
   if(email !== ADMIN_EMAIL){
 
-    error.className = "error";
+    error.className="error";
 
-    error.innerText =
+    error.innerText=
       "এই email Admin account নয়।";
 
     return;
@@ -685,23 +661,24 @@ async function adminLogin(){
     );
 
   }
+
   catch(e){
 
     console.error(e);
 
-    error.className = "error";
+    error.className="error";
 
-    error.innerText =
-      "Login failed: " + e.code;
+    error.innerText=
+      "Login failed: "+e.code;
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    LOGOUT
-===================================================== */
+========================= */
 
 async function adminLogout(){
 
@@ -710,9 +687,9 @@ async function adminLogout(){
 }
 
 
-/* =====================================================
+/* =========================
    LOAD ALL
-===================================================== */
+========================= */
 
 function loadAll(){
 
@@ -726,240 +703,9 @@ function loadAll(){
 }
 
 
-/* =====================================================
-   UPDATE STATUS
-===================================================== */
-
-async function updateRequestStatus(
-  collectionName,
-  requestId,
-  newStatus
-){
-
-  if(!auth.currentUser){
-
-    alert("Admin login করুন।");
-
-    return;
-  }
-
-
-  if(auth.currentUser.email !== ADMIN_EMAIL){
-
-    alert("Admin access required.");
-
-    return;
-  }
-
-
-  const message =
-    newStatus === "Approved"
-      ? "এই request Approve করতে চান?"
-      : "এই request Reject করতে চান?";
-
-
-  if(!confirm(message)){
-
-    return;
-  }
-
-
-  try{
-
-    const requestRef =
-      doc(
-        db,
-        collectionName,
-        requestId
-      );
-
-
-    await updateDoc(
-      requestRef,
-      {
-        status:newStatus,
-        reviewedBy:ADMIN_EMAIL,
-        reviewedAt:serverTimestamp(),
-        updatedAt:serverTimestamp()
-      }
-    );
-
-
-    alert(
-      "Request " +
-      newStatus +
-      " করা হয়েছে।"
-    );
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Status update হয়নি: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   TICKET STATUS
-===================================================== */
-
-async function updateTicketStatus(
-  ticketId,
-  newStatus
-){
-
-  if(!auth.currentUser ||
-     auth.currentUser.email !== ADMIN_EMAIL){
-
-    alert("Admin access required.");
-
-    return;
-  }
-
-
-  try{
-
-    await updateDoc(
-      doc(
-        db,
-        "supportTickets",
-        ticketId
-      ),
-      {
-        status:newStatus,
-        updatedAt:serverTimestamp()
-      }
-    );
-
-
-    alert(
-      "Ticket " +
-      newStatus +
-      " করা হয়েছে।"
-    );
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Ticket update হয়নি: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function statusClass(status){
-
-  const s =
-    String(status || "Pending")
-      .toLowerCase();
-
-
-  if(s === "approved")
-    return "approved";
-
-  if(s === "rejected")
-    return "rejected";
-
-  if(s === "completed")
-    return "completed";
-
-  if(s === "closed")
-    return "closed";
-
-  return "pending";
-
-}
-
-
-/* =====================================================
-   ACTION BUTTONS
-===================================================== */
-
-function actionButtons(
-  collectionName,
-  id,
-  status
-){
-
-  const s =
-    String(status || "Pending")
-      .toLowerCase();
-
-
-  if(
-    s === "approved" ||
-    s === "rejected" ||
-    s === "completed"
-  ){
-
-    return `
-      <div class="action">
-        <span class="status ${statusClass(status)}">
-          ${escapeHTML(status)}
-        </span>
-      </div>
-    `;
-
-  }
-
-
-  return `
-
-    <div class="action">
-
-      <div class="flex">
-
-        <button
-          class="approve"
-          onclick="updateRequestStatus(
-            '${collectionName}',
-            '${id}',
-            'Approved'
-          )"
-        >
-          ✅ Approve
-        </button>
-
-        <button
-          class="reject"
-          onclick="updateRequestStatus(
-            '${collectionName}',
-            '${id}',
-            'Rejected'
-          )"
-        >
-          ❌ Reject
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
+/* =========================
    USERS
-===================================================== */
+========================= */
 
 function loadUsers(){
 
@@ -971,30 +717,181 @@ function loadUsers(){
 
   onSnapshot(q,snap=>{
 
+    allUsers =
+      snap.docs.map(doc=>({
+
+        id:doc.id,
+        ...doc.data()
+
+      }));
+
+
+    /* TOTAL USER */
+
     document
       .getElementById("totalUsers")
       .innerText =
-      snap.size;
+      allUsers.length;
+
+
+    renderUsers(allUsers);
 
   },error=>{
 
-    console.error("Users:",error);
+    console.error("Users error:",error);
+
+    document
+      .getElementById("totalUsers")
+      .innerText="0";
+
+    document
+      .getElementById("userList")
+      .innerHTML=
+      `
+      <div class="empty">
+        Users data load করা যায়নি।<br><br>
+        Firestore Rules এবং users collection check করুন।
+      </div>
+      `;
 
   });
 
 }
 
 
-/* =====================================================
+/* =========================
+   RENDER USERS
+========================= */
+
+function renderUsers(users){
+
+  const box =
+    document.getElementById("userList");
+
+
+  if(!users.length){
+
+    box.innerHTML=
+      `
+      <div class="empty">
+        কোনো User পাওয়া যায়নি।
+      </div>
+      `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    users.map(x=>{
+
+      return `
+
+      <div class="user-card">
+
+        <div class="user-name">
+          👤 ${escapeHTML(
+            x.name ||
+            x.fullName ||
+            x.username ||
+            "User"
+          )}
+        </div>
+
+        <div class="row">
+          <span>Email</span>
+          <b>
+            ${escapeHTML(x.email || "")}
+          </b>
+        </div>
+
+        <div class="row">
+          <span>UID</span>
+          <b>
+            ${escapeHTML(x.uid || x.id || "")}
+          </b>
+        </div>
+
+        <div class="row">
+          <span>Plan</span>
+          <b>
+            ${escapeHTML(
+              x.plan ||
+              x.planName ||
+              "No Plan"
+            )}
+          </b>
+        </div>
+
+        <div class="row">
+          <span>Balance</span>
+          <b>
+            ৳${Number(
+              x.balance ||
+              x.wallet ||
+              0
+            ).toLocaleString()}
+          </b>
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================
+   SEARCH USERS
+========================= */
+
+function filterUsers(){
+
+  const value =
+    document
+      .getElementById("userSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    allUsers.filter(x=>{
+
+      const text =
+        (
+          (x.name || "") +
+          " " +
+          (x.email || "") +
+          " " +
+          (x.username || "") +
+          " " +
+          (x.uid || "") +
+          " " +
+          (x.id || "")
+        ).toLowerCase();
+
+      return text.includes(value);
+
+    });
+
+
+  renderUsers(filtered);
+
+}
+
+
+/* =========================
    DEPOSITS
-===================================================== */
+========================= */
 
 function loadDeposits(){
 
   const q =
     query(
-      collection(db,"depositRequests"),
-      orderBy("createdAt","desc")
+      collection(db,"depositRequests")
     );
 
 
@@ -1013,20 +910,23 @@ function loadDeposits(){
 
     if(snap.empty){
 
-      box.innerHTML =
+      box.innerHTML=
         '<div class="empty">কোনো Deposit Request নেই</div>';
 
       return;
     }
 
 
+    const docs =
+      sortByCreatedAt(snap.docs);
+
+
     box.innerHTML =
-      snap.docs.map(d=>{
+      docs.map(d=>{
 
-        const x =
-          d.data();
+        const x=d.data();
 
-        const status =
+        const status=
           x.status || "Pending";
 
 
@@ -1037,35 +937,44 @@ function loadDeposits(){
           <div class="row">
             <span>User</span>
             <b>
-              ${escapeHTML(x.email || x.uid || "")}
+              ${escapeHTML(
+                x.email ||
+                x.uid ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Amount</span>
             <b>
-              ৳${Number(x.amount || 0).toLocaleString()}
+              ৳${Number(
+                x.amount || 0
+              ).toLocaleString()}
             </b>
           </div>
 
           <div class="row">
             <span>Method</span>
             <b>
-              ${escapeHTML(x.method || "")}
+              ${escapeHTML(
+                x.method || ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Sender Last 4</span>
             <b>
-              ${escapeHTML(x.senderLast4 || "")}
+              ${escapeHTML(
+                x.senderLast4 || ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Status</span>
-
-            <span class="status ${statusClass(status)}">
+            <span class="status">
               ${escapeHTML(status)}
             </span>
           </div>
@@ -1076,21 +985,18 @@ function loadDeposits(){
             `
             <img
               class="screenshot"
-              src="${escapeHTML(x.screenshotURL)}"
-              onclick="window.open('${escapeHTML(x.screenshotURL)}','_blank')"
+              src="${escapeHTML(
+                x.screenshotURL
+              )}"
+              onclick="window.open(
+                '${escapeHTML(x.screenshotURL)}',
+                '_blank'
+              )"
               alt="Screenshot"
             >
             `
             :
             ""
-          }
-
-          ${
-            actionButtons(
-              "depositRequests",
-              d.id,
-              status
-            )
           }
 
         </div>
@@ -1101,28 +1007,31 @@ function loadDeposits(){
 
   },error=>{
 
-    console.error(error);
+    console.error("Deposit error:",error);
 
     document
       .getElementById("depositList")
-      .innerHTML =
-      '<div class="empty">Deposit data load করা যায়নি।</div>';
+      .innerHTML=
+      `
+      <div class="empty">
+        Deposit data load করা যায়নি।
+      </div>
+      `;
 
   });
 
 }
 
 
-/* =====================================================
+/* =========================
    PLANS
-===================================================== */
+========================= */
 
 function loadPlans(){
 
   const q =
     query(
-      collection(db,"planRequests"),
-      orderBy("createdAt","desc")
+      collection(db,"planRequests")
     );
 
 
@@ -1141,24 +1050,24 @@ function loadPlans(){
 
     if(snap.empty){
 
-      box.innerHTML =
+      box.innerHTML=
         '<div class="empty">কোনো Plan Request নেই</div>';
 
       return;
     }
 
 
+    const docs =
+      sortByCreatedAt(snap.docs);
+
+
     box.innerHTML =
-      snap.docs.map(d=>{
+      docs.map(d=>{
 
-        const x =
-          d.data();
+        const x=d.data();
 
-        const p =
+        const p=
           x.plan || {};
-
-        const status =
-          x.status || "Pending";
 
 
         return `
@@ -1168,46 +1077,52 @@ function loadPlans(){
           <div class="row">
             <span>User</span>
             <b>
-              ${escapeHTML(x.email || x.uid || "")}
+              ${escapeHTML(
+                x.email ||
+                x.uid ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Plan</span>
             <b>
-              ${escapeHTML(p.rank || "")}
+              ${escapeHTML(
+                p.rank ||
+                p.name ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Price</span>
             <b>
-              ৳${Number(p.price || 0).toLocaleString()}
+              ৳${Number(
+                p.price || 0
+              ).toLocaleString()}
             </b>
           </div>
 
           <div class="row">
             <span>Daily Reward</span>
             <b>
-              ৳${Number(p.daily || 0).toLocaleString()}
+              ৳${Number(
+                p.daily || 0
+              ).toLocaleString()}
             </b>
           </div>
 
           <div class="row">
             <span>Status</span>
-
-            <span class="status ${statusClass(status)}">
-              ${escapeHTML(status)}
+            <span class="status">
+              ${escapeHTML(
+                x.status ||
+                "Pending"
+              )}
             </span>
           </div>
-
-          ${
-            actionButtons(
-              "planRequests",
-              d.id,
-              status
-            )
-          }
 
         </div>
 
@@ -1217,26 +1132,22 @@ function loadPlans(){
 
   },error=>{
 
-    console.error(
-      "Plans:",
-      error
-    );
+    console.error("Plan error:",error);
 
   });
 
 }
 
 
-/* =====================================================
+/* =========================
    WITHDRAWALS
-===================================================== */
+========================= */
 
 function loadWithdrawals(){
 
   const q =
     query(
-      collection(db,"withdrawalRequests"),
-      orderBy("createdAt","desc")
+      collection(db,"withdrawalRequests")
     );
 
 
@@ -1255,21 +1166,21 @@ function loadWithdrawals(){
 
     if(snap.empty){
 
-      box.innerHTML =
+      box.innerHTML=
         '<div class="empty">কোনো Withdrawal Request নেই</div>';
 
       return;
     }
 
 
+    const docs =
+      sortByCreatedAt(snap.docs);
+
+
     box.innerHTML =
-      snap.docs.map(d=>{
+      docs.map(d=>{
 
-        const x =
-          d.data();
-
-        const status =
-          x.status || "Pending";
+        const x=d.data();
 
 
         return `
@@ -1279,53 +1190,59 @@ function loadWithdrawals(){
           <div class="row">
             <span>User</span>
             <b>
-              ${escapeHTML(x.email || x.uid || "")}
+              ${escapeHTML(
+                x.email ||
+                x.uid ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Amount</span>
             <b>
-              ৳${Number(x.amount || 0).toLocaleString()}
+              ৳${Number(
+                x.amount || 0
+              ).toLocaleString()}
             </b>
           </div>
 
           <div class="row">
             <span>Method</span>
             <b>
-              ${escapeHTML(x.method || "")}
+              ${escapeHTML(
+                x.method || ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Account</span>
             <b>
-              ${escapeHTML(x.number || "")}
+              ${escapeHTML(
+                x.number || ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Name</span>
             <b>
-              ${escapeHTML(x.name || "")}
+              ${escapeHTML(
+                x.name || ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Status</span>
-
-            <span class="status ${statusClass(status)}">
-              ${escapeHTML(status)}
+            <span class="status">
+              ${escapeHTML(
+                x.status ||
+                "Pending"
+              )}
             </span>
           </div>
-
-          ${
-            actionButtons(
-              "withdrawalRequests",
-              d.id,
-              status
-            )
-          }
 
         </div>
 
@@ -1336,7 +1253,7 @@ function loadWithdrawals(){
   },error=>{
 
     console.error(
-      "Withdrawals:",
+      "Withdrawal error:",
       error
     );
 
@@ -1345,16 +1262,15 @@ function loadWithdrawals(){
 }
 
 
-/* =====================================================
+/* =========================
    TASKS
-===================================================== */
+========================= */
 
 function loadTasks(){
 
   const q =
     query(
-      collection(db,"taskCompletions"),
-      orderBy("createdAt","desc")
+      collection(db,"taskCompletions")
     );
 
 
@@ -1367,21 +1283,21 @@ function loadTasks(){
 
     if(snap.empty){
 
-      box.innerHTML =
+      box.innerHTML=
         '<div class="empty">কোনো Task Request নেই</div>';
 
       return;
     }
 
 
+    const docs =
+      sortByCreatedAt(snap.docs);
+
+
     box.innerHTML =
-      snap.docs.map(d=>{
+      docs.map(d=>{
 
-        const x =
-          d.data();
-
-        const status =
-          x.status || "Pending";
+        const x=d.data();
 
 
         return `
@@ -1391,45 +1307,71 @@ function loadTasks(){
           <div class="row">
             <span>User</span>
             <b>
-              ${escapeHTML(x.email || x.uid || "")}
+              ${escapeHTML(
+                x.email ||
+                x.uid ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Task</span>
             <b>
-              #${escapeHTML(x.taskNumber || "")}
+              #${escapeHTML(
+                x.taskNumber ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Plan</span>
             <b>
-              ${escapeHTML(x.plan || "")}
+              ${escapeHTML(
+                x.plan ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Reward</span>
             <b>
-              ৳${Number(x.reward || 0).toLocaleString()}
+              ৳${Number(
+                x.reward || 0
+              ).toLocaleString()}
             </b>
           </div>
 
           <div class="row">
             <span>Status</span>
-
-            <span class="status ${statusClass(status)}">
-              ${escapeHTML(status)}
+            <span class="status">
+              ${escapeHTML(
+                x.status ||
+                "Pending"
+              )}
             </span>
           </div>
 
           ${
-            actionButtons(
-              "taskCompletions",
-              d.id,
-              status
-            )
+            x.screenshotURL
+            ?
+            `
+            <img
+              class="screenshot"
+              src="${escapeHTML(
+                x.screenshotURL
+              )}"
+              onclick="window.open(
+                '${escapeHTML(x.screenshotURL)}',
+                '_blank'
+              )"
+              alt="Task Screenshot"
+            >
+            `
+            :
+            ""
           }
 
         </div>
@@ -1441,7 +1383,7 @@ function loadTasks(){
   },error=>{
 
     console.error(
-      "Tasks:",
+      "Task error:",
       error
     );
 
@@ -1450,16 +1392,15 @@ function loadTasks(){
 }
 
 
-/* =====================================================
-   SUPPORT TICKETS
-===================================================== */
+/* =========================
+   SUPPORT
+========================= */
 
 function loadTickets(){
 
   const q =
     query(
-      collection(db,"supportTickets"),
-      orderBy("createdAt","desc")
+      collection(db,"supportTickets")
     );
 
 
@@ -1472,21 +1413,21 @@ function loadTickets(){
 
     if(snap.empty){
 
-      box.innerHTML =
+      box.innerHTML=
         '<div class="empty">কোনো Support Ticket নেই</div>';
 
       return;
     }
 
 
+    const docs =
+      sortByCreatedAt(snap.docs);
+
+
     box.innerHTML =
-      snap.docs.map(d=>{
+      docs.map(d=>{
 
-        const x =
-          d.data();
-
-        const status =
-          x.status || "Open";
+        const x=d.data();
 
 
         return `
@@ -1496,47 +1437,39 @@ function loadTickets(){
           <div class="row">
             <span>User</span>
             <b>
-              ${escapeHTML(x.email || x.uid || "")}
+              ${escapeHTML(
+                x.email ||
+                x.uid ||
+                ""
+              )}
             </b>
           </div>
 
           <div class="row">
             <span>Subject</span>
             <b>
-              ${escapeHTML(x.subject || "")}
+              ${escapeHTML(
+                x.subject ||
+                ""
+              )}
             </b>
           </div>
 
           <div style="padding:10px 0">
-            ${escapeHTML(x.message || "")}
+            ${escapeHTML(
+              x.message ||
+              ""
+            )}
           </div>
 
           <div class="row">
             <span>Status</span>
-
-            <span class="status ${statusClass(status)}">
-              ${escapeHTML(status)}
-            </span>
-          </div>
-
-          <div class="action">
-
-            <button
-              class="closeBtn"
-              onclick="updateTicketStatus(
-                '${d.id}',
-                '${String(status).toLowerCase()==='closed'
-                  ? 'Open'
-                  : 'Closed'}'
-              )"
-            >
-              ${
-                String(status).toLowerCase()==='closed'
-                ? '🔓 Re-open'
-                : '🔒 Close Ticket'
-              }
-            </button>
-
+            <b>
+              ${escapeHTML(
+                x.status ||
+                "Open"
+              )}
+            </b>
           </div>
 
         </div>
@@ -1548,7 +1481,7 @@ function loadTickets(){
   },error=>{
 
     console.error(
-      "Tickets:",
+      "Support error:",
       error
     );
 
@@ -1557,13 +1490,68 @@ function loadTickets(){
 }
 
 
-/* =====================================================
+/* =========================
+   SORT CREATED AT
+========================= */
+
+function sortByCreatedAt(docs){
+
+  return [...docs].sort((a,b)=>{
+
+    const ad=a.data();
+    const bd=b.data();
+
+    const at=
+      getTime(ad.createdAt);
+
+    const bt=
+      getTime(bd.createdAt);
+
+    return bt-at;
+
+  });
+
+}
+
+
+function getTime(value){
+
+  if(!value)
+    return 0;
+
+  if(
+    typeof value.toMillis ===
+    "function"
+  ){
+    return value.toMillis();
+  }
+
+  if(
+    value.seconds
+  ){
+    return value.seconds*1000;
+  }
+
+  const date=
+    new Date(value);
+
+  const time=
+    date.getTime();
+
+  return isNaN(time)
+    ? 0
+    : time;
+
+}
+
+
+/* =========================
    ESCAPE HTML
-===================================================== */
+========================= */
 
 function escapeHTML(value){
 
-  return String(value || "")
+  return String(value ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
