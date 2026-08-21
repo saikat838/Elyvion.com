@@ -7,201 +7,758 @@
 <title>Elyvion — Task Platform</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f6f2ff;color:#211437;padding-bottom:80px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f6f2ff;
+  color:#211437;
+  padding-bottom:85px;
+}
+
 .hidden{display:none!important}
-header{background:linear-gradient(135deg,#5b21b6,#8b5cf6);color:white;padding:18px 16px;border-radius:0 0 24px 24px}
-.brand{font-size:26px;font-weight:800}
-.subtitle{opacity:.85;font-size:13px;margin-top:5px}
-.container{max-width:700px;margin:auto;padding:15px}
-.card{background:white;border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 5px 20px rgba(91,33,182,.08)}
-.balance{font-size:30px;font-weight:bold;color:#6d28d9;margin:8px 0}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#f4efff;border-radius:14px;padding:14px}
+
+header{
+  background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+  color:#fff;
+  padding:18px 16px;
+  border-radius:0 0 24px 24px;
+}
+
+.brand{
+  font-size:26px;
+  font-weight:800;
+}
+
+.subtitle{
+  opacity:.85;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.user-email{
+  font-size:12px;
+  opacity:.8;
+  margin-top:5px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 5px 20px rgba(91,33,182,.08);
+}
+
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  color:#6d28d9;
+  margin:8px 0;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.stat{
+  background:#f4efff;
+  border-radius:14px;
+  padding:14px;
+}
+
 .stat small{color:#777}
-.stat b{display:block;margin-top:6px;color:#5b21b6}
-.section-title{font-size:20px;font-weight:bold;margin:20px 0 10px}
-.plan{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px;border:1px solid #e9ddff}
-.plan-top{display:flex;justify-content:space-between}
-.rank{font-weight:bold;font-size:18px;color:#5b21b6}
-.price{font-size:20px;font-weight:bold}
-.plan-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-.info{background:#f7f3ff;padding:10px;border-radius:10px;font-size:13px}
-.info b{display:block;color:#5b21b6;margin-top:4px}
-button{border:0;border-radius:12px;padding:12px 15px;font-weight:bold;cursor:pointer;font-size:15px}
-.primary{background:#6d28d9;color:white;width:100%}
-.secondary{background:#ede9fe;color:#5b21b6;width:100%}
-.danger{background:#fee2e2;color:#b91c1c;width:100%}
-.flex{display:flex;gap:10px}.flex>*{flex:1}
-.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:9px 3px 13px;box-shadow:0 -3px 15px #0002;z-index:20}
-.nav button{background:transparent;color:#777;font-size:10px;padding:4px}
+
+.stat b{
+  display:block;
+  margin-top:6px;
+  color:#5b21b6;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin:20px 0 10px;
+}
+
+.plan{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+  border:1px solid #e9ddff;
+}
+
+.plan-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.rank{
+  font-weight:bold;
+  font-size:18px;
+  color:#5b21b6;
+}
+
+.price{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.plan-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:14px 0;
+}
+
+.info{
+  background:#f7f3ff;
+  padding:10px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.info b{
+  display:block;
+  color:#5b21b6;
+  margin-top:4px;
+}
+
+.reward-note{
+  background:#f0fdf4;
+  color:#166534;
+  padding:11px;
+  border-radius:12px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.primary{
+  background:#6d28d9;
+  color:#fff;
+  width:100%;
+}
+
+.secondary{
+  background:#ede9fe;
+  color:#5b21b6;
+  width:100%;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+  width:100%;
+}
+
+.flex{
+  display:flex;
+  gap:10px;
+}
+
+.flex>*{flex:1}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 4px 14px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.1);
+  z-index:20;
+}
+
+.nav button{
+  background:transparent;
+  color:#777;
+  font-size:11px;
+  padding:5px;
+}
+
 .nav button.active{color:#6d28d9}
-.nav span{display:block;font-size:19px;margin-bottom:2px}
-input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;margin:7px 0 12px;font-size:15px}
-label{font-size:13px;font-weight:bold;color:#555}
-.task{background:white;border-radius:16px;padding:15px;margin:10px 0}
-.task-head{display:flex;justify-content:space-between;align-items:center}
-.task small{color:#777}
-.task-video{margin:12px 0;border-radius:12px;overflow:hidden}
-.task-video iframe{width:100%;height:220px;border:0}
-.status{font-size:12px;padding:6px 10px;border-radius:20px;background:#dcfce7;color:#15803d}
-.pending{background:#fff7ed;color:#b45309}
-.progress{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress>div{height:100%;background:#7c3aed;width:0}
-.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;justify-content:center;z-index:50}
-.modal-box{background:white;width:100%;max-width:700px;border-radius:24px 24px 0 0;padding:20px;max-height:90vh;overflow:auto}
+
+.nav span{
+  display:block;
+  font-size:20px;
+  margin-bottom:2px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,40,.55);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:700px;
+  border-radius:24px 24px 0 0;
+  padding:20px;
+  max-height:92vh;
+  overflow:auto;
+}
+
+.modal-title{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.modal-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:16px;
+}
+
+.confirm-row{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+}
+
+.confirm-row b{color:#5b21b6}
+
+.notice{
+  background:#fff7ed;
+  color:#9a3412;
+  padding:12px;
+  border-radius:12px;
+  font-size:13px;
+  margin:14px 0;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin:7px 0 12px;
+  font-size:15px;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+  color:#555;
+}
+
+.task{
+  background:#fff;
+  border-radius:16px;
+  padding:15px;
+  margin:10px 0;
+  border:1px solid #eee;
+}
+
+.task-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.task-left b{
+  display:block;
+  margin-bottom:6px;
+}
+
+.task-left small{color:#777}
+
+.task-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.task-buttons button{
+  flex:1;
+}
+
+.video-btn{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+
+.submit-btn{
+  background:#6d28d9;
+  color:#fff;
+}
+
+.completed{
+  background:#dcfce7;
+  color:#15803d;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.pending{
+  background:#fef3c7;
+  color:#92400e;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.progress{
+  height:12px;
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress>div{
+  height:100%;
+  background:#7c3aed;
+  width:0%;
+  transition:.3s;
+}
+
+.status{
+  font-size:12px;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.history{
+  font-size:13px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.history:last-child{border:0}
+
 .center{text-align:center}
-.notice{background:#fff7ed;color:#9a3412;padding:12px;border-radius:12px;font-size:13px;margin:12px 0}
-.history{padding:12px 0;border-bottom:1px solid #eee;font-size:13px}
-.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#f6f2ff}
-.auth-box{width:100%;max-width:430px}
-.auth-logo{text-align:center;font-size:34px;font-weight:bold;color:#5b21b6}
-.auth-sub{text-align:center;color:#777;margin:5px 0 20px;font-size:13px}
-.error{background:#fee2e2;color:#b91c1c;padding:10px;border-radius:10px;margin-bottom:10px;font-size:13px}
-.success{background:#dcfce7;color:#15803d;padding:10px;border-radius:10px;margin-bottom:10px;font-size:13px}
-@media(max-width:500px){.flex{flex-direction:column}.task-video iframe{height:200px}}
+
+.big-icon{
+  font-size:40px;
+  text-align:center;
+  margin:10px;
+}
+
+.method-card{
+  border:1px solid #e5d9ff;
+  background:#faf8ff;
+  padding:14px;
+  border-radius:14px;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.method-card.selected{
+  border:2px solid #6d28d9;
+  background:#f4efff;
+}
+
+.method-card b{
+  display:block;
+  color:#5b21b6;
+}
+
+.payment-number{
+  background:#f4efff;
+  border:2px dashed #8b5cf6;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  font-size:21px;
+  font-weight:bold;
+  color:#5b21b6;
+  margin:10px 0;
+}
+
+.sender-box{
+  background:#f7f3ff;
+  padding:14px;
+  border-radius:14px;
+  margin:12px 0;
+  border:1px solid #e5d9ff;
+}
+
+.small-note{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+}
+
+#authPage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#f6f2ff,#ede9fe);
+}
+
+.auth-box{
+  width:100%;
+  max-width:430px;
+}
+
+.auth-logo{
+  text-align:center;
+  font-size:34px;
+  font-weight:800;
+  color:#5b21b6;
+  margin-bottom:5px;
+}
+
+.auth-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.auth-tabs button{
+  flex:1;
+  background:#eee;
+  color:#666;
+}
+
+.auth-tabs button.active{
+  background:#6d28d9;
+  color:#fff;
+}
+
+.auth-error{
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:11px;
+  border-radius:10px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.auth-success{
+  background:#dcfce7;
+  color:#15803d;
+  padding:11px;
+  border-radius:10px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+@media(max-width:500px){
+  .flex{flex-direction:column}
+  .nav button{font-size:10px}
+}
 </style>
 </head>
 
 <body>
 
-<div id="authPage" class="auth">
-<div class="auth-box">
-<div class="card">
-<div class="auth-logo">💜 Elyvion</div>
-<div class="auth-sub">Task & Reward Platform</div>
+<!-- AUTH -->
 
-<div id="authError" class="error hidden"></div>
-<div id="authSuccess" class="success hidden"></div>
+<div id="authPage">
+
+<div class="auth-box">
+
+<div class="card">
+
+<div class="auth-logo">💜 Elyvion</div>
+
+<div class="auth-sub">
+Task & Reward Platform
+</div>
+
+<div class="auth-tabs">
+
+<button id="loginTab"
+class="active"
+onclick="showAuth('login')">
+Login
+</button>
+
+<button id="registerTab"
+onclick="showAuth('register')">
+Register
+</button>
+
+</div>
+
+<div id="authError"
+class="auth-error hidden"></div>
+
+<div id="authSuccess"
+class="auth-success hidden"></div>
 
 <div id="loginForm">
+
 <label>Email</label>
-<input id="loginEmail" type="email" placeholder="আপনার Email">
+
+<input id="loginEmail"
+type="email"
+placeholder="আপনার Email">
 
 <label>Password</label>
-<input id="loginPassword" type="password" placeholder="Password">
 
-<button class="primary" onclick="loginUser()">🔐 Login</button>
+<input id="loginPassword"
+type="password"
+placeholder="Password">
 
-<p class="center" style="margin-top:14px;font-size:13px">
-Account নেই?
-<span onclick="showRegister()" style="color:#6d28d9;font-weight:bold;cursor:pointer">
+<button class="primary"
+onclick="loginUser">
+🔐 Login
+</button>
+
+<p style="text-align:center;margin-top:14px;font-size:13px;color:#777">
+
+নতুন account?
+
+<span onclick="showAuth('register')"
+style="color:#6d28d9;font-weight:bold;cursor:pointer">
 Register করুন
 </span>
+
 </p>
+
 </div>
 
 <div id="registerForm" class="hidden">
+
 <label>Name</label>
-<input id="registerName" placeholder="আপনার নাম">
+
+<input id="registerName"
+type="text"
+placeholder="আপনার নাম">
 
 <label>Email</label>
-<input id="registerEmail" type="email" placeholder="আপনার Email">
+
+<input id="registerEmail"
+type="email"
+placeholder="আপনার Email">
 
 <label>Password</label>
-<input id="registerPassword" type="password" placeholder="কমপক্ষে ৬ অক্ষর">
 
-<button class="primary" onclick="registerUser()">📝 Create Account</button>
+<input id="registerPassword"
+type="password"
+placeholder="কমপক্ষে ৬ অক্ষর">
 
-<p class="center" style="margin-top:14px;font-size:13px">
-আগে account আছে?
-<span onclick="showLogin()" style="color:#6d28d9;font-weight:bold;cursor:pointer">
+<label>Confirm Password</label>
+
+<input id="registerConfirm"
+type="password"
+placeholder="Password আবার লিখুন">
+
+<button class="primary"
+onclick="registerUser()">
+📝 Create Account
+</button>
+
+<p style="text-align:center;margin-top:14px;font-size:13px;color:#777">
+
+আগে থেকেই account আছে?
+
+<span onclick="showAuth('login')"
+style="color:#6d28d9;font-weight:bold;cursor:pointer">
 Login করুন
 </span>
+
 </p>
+
 </div>
 
 </div>
 </div>
 </div>
 
+
+<!-- APP -->
 
 <div id="appPage" class="hidden">
 
 <header>
+
 <div class="brand">💜 Elyvion</div>
-<div class="subtitle">Task & Reward Platform</div>
-<div id="headerEmail" style="font-size:12px;margin-top:5px"></div>
+
+<div class="subtitle">
+Task & Reward Platform
+</div>
+
+<div class="user-email" id="headerEmail"></div>
+
 </header>
 
+
+<!-- HOME -->
 
 <div id="homePage" class="page container">
 
 <div class="card">
+
 <small>Available Balance</small>
-<div class="balance">৳<span id="balance">0</span></div>
+
+<div class="balance">
+৳<span id="balance">0</span>
+</div>
 
 <div class="flex">
-<button class="primary" onclick="showPage('packagesPage')">📦 Plans</button>
-<button class="secondary" onclick="showPage('tasksPage')">✅ Tasks</button>
+
+<button class="primary"
+onclick="showPage('packagesPage')">
+📦 Plans
+</button>
+
+<button class="secondary"
+onclick="showPage('withdrawPage')">
+💸 Withdraw
+</button>
+
 </div>
+
 </div>
 
 <div class="stats">
+
 <div class="stat">
 <small>Active Plan</small>
 <b id="activePlan">কোনো Plan নেই</b>
 </div>
 
 <div class="stat">
-<small>Completed Tasks</small>
-<b id="completedTasks">0</b>
+<small>Today's Reward</small>
+<b>৳<span id="todayEarn">0</span></b>
 </div>
 
 <div class="stat">
-<small>Today's Reward</small>
-<b>৳<span id="todayReward">0</span></b>
+<small>Completed Tasks</small>
+<b id="completed">0</b>
 </div>
 
 <div class="stat">
 <small>Plan Status</small>
 <b id="planStatus">Inactive</b>
 </div>
+
+</div>
+
+<div class="section-title">
+দ্রুত শুরু করুন
 </div>
 
 <div class="card">
-<b>📌 গুরুত্বপূর্ণ</b>
-<p style="font-size:13px;color:#777;margin-top:8px">
-প্রতিটি Task সম্পন্ন করার পর সেটি আর পুনরায় Submit করা যাবে না।
-সব Task সম্পন্ন হলে Customer Service-এর মাধ্যমে Reward Claim করতে পারবেন।
+
+<b>📦 একটি Plan নির্বাচন করুন</b>
+
+<p style="font-size:13px;color:#777;margin:8px 0">
+Plan activate করার আগে Plan-এর মূল্য ও Task তথ্য দেখে নিন।
 </p>
-</div>
+
+<button class="primary"
+onclick="showPage('packagesPage')">
+Plans দেখুন
+</button>
 
 </div>
 
+</div>
 
-<div id="packagesPage" class="page container hidden">
-<div class="section-title">📦 Plans</div>
+
+<!-- PACKAGES -->
+
+<div id="packagesPage"
+class="page container hidden">
+
+<div class="section-title">
+📦 Plans
+</div>
+
 <div id="plans"></div>
+
 </div>
 
 
-<div id="tasksPage" class="page container hidden">
+<!-- TASKS -->
 
-<div class="section-title">✅ My Tasks</div>
+<div id="tasksPage"
+class="page container hidden">
 
-<div id="noPlan" class="card center">
-<h3>🔒 Active Plan নেই</h3>
-<p style="color:#777;font-size:13px;margin:10px">
-Task দেখতে আগে একটি Plan Active করুন।
+<div class="section-title">
+✅ আমার Tasks
+</div>
+
+<div id="taskEmpty" class="card center">
+
+<div class="big-icon">📦</div>
+
+<b>কোনো Active Plan নেই</b>
+
+<p style="font-size:13px;color:#777;margin:10px 0">
+প্রথমে একটি Plan activate করুন।
 </p>
-<button class="primary" onclick="showPage('packagesPage')">
+
+<button class="primary"
+onclick="showPage('packagesPage')">
 Plan দেখুন
 </button>
+
 </div>
 
-<div id="taskArea" class="hidden">
+
+<div id="taskContent" class="hidden">
 
 <div class="card">
+
 <div class="flex">
+
 <div>
 <small>Active Plan</small>
-<b id="taskPlan"></b>
+<b id="taskRank"></b>
 </div>
+
 <div style="text-align:right">
-<small>Reward</small>
-<b>৳<span id="taskReward">0</span>/Task</b>
+<small>Task Reward</small>
+<b>৳<span id="taskReward">0</span></b>
 </div>
+
 </div>
 
 <div class="progress">
@@ -209,124 +766,397 @@ Plan দেখুন
 </div>
 
 <div class="center" style="font-size:13px">
-<span id="taskDone">0</span> /
-<span id="taskTotal">0</span> Completed
+
+<span id="taskDone">0</span>
+/
+<span id="taskTotal">0</span>
+টি সম্পন্ন
+
 </div>
+
 </div>
 
 <div id="taskList"></div>
 
-<div id="claimBox" class="card center hidden">
-<h3>🎉 সকল Task সম্পন্ন!</h3>
+<div id="allCompleteBox"
+class="card hidden center">
+
+<div class="big-icon">🎉</div>
+
+<b>সব Task সম্পন্ন হয়েছে!</b>
+
 <p style="font-size:13px;color:#777;margin:10px 0">
-আপনার সব Task সম্পন্ন হয়েছে। এখন Customer Service-এর মাধ্যমে Reward Claim করুন।
+Reward approval-এর জন্য Customer Service-এর সাথে যোগাযোগ করুন।
 </p>
-<button class="primary" onclick="createRewardClaim()">
-🎧 Reward Claim / Customer Service
+
+<button class="primary"
+onclick="showPage('supportPage')">
+🎧 Customer Service
 </button>
+
+</div>
+
 </div>
 
 </div>
-</div>
 
 
-<div id="profilePage" class="page container hidden">
+<!-- WITHDRAW -->
 
-<div class="card center">
-<div style="font-size:42px">👤</div>
-<h3 id="profileName">User</h3>
-<p id="profileEmail" style="color:#777;font-size:13px"></p>
+<div id="withdrawPage"
+class="page container hidden">
+
+<div class="section-title">
+💸 Withdraw
 </div>
 
 <div class="card">
-<div class="history"><b>Plan:</b> <span id="profilePlan">None</span></div>
-<div class="history"><b>Balance:</b> ৳<span id="profileBalance">0</span></div>
-<div class="history"><b>Tasks:</b> <span id="profileTaskCount">0</span></div>
-<div class="history"><b>Reward Claim:</b> <span id="claimStatus">None</span></div>
+
+<small>Available Balance</small>
+
+<div class="balance">
+৳<span id="withdrawBalance">0</span>
 </div>
 
-<button class="danger" onclick="logoutUser()">Logout</button>
 </div>
-
-
-<div id="supportPage" class="page container hidden">
-
-<div class="section-title">🎧 Customer Service</div>
 
 <div class="card">
+
+<label>Withdrawal Amount</label>
+
+<input id="withdrawAmount"
+type="number"
+placeholder="Amount লিখুন">
+
+<label>Payment Method</label>
+
+<select id="withdrawMethod">
+
+<option>bKash</option>
+<option>Nagad</option>
+<option>Rocket</option>
+
+</select>
+
+<label>Account Number</label>
+
+<input id="withdrawNumber"
+placeholder="আপনার নম্বর">
+
+<label>Account Holder Name</label>
+
+<input id="withdrawName"
+placeholder="নাম লিখুন">
+
+<button class="primary"
+onclick="submitWithdraw()">
+Withdraw Request Submit
+</button>
+
+</div>
+
+<div class="section-title">
+Withdrawal History
+</div>
+
+<div class="card" id="withdrawHistory"></div>
+
+</div>
+
+
+<!-- SUPPORT -->
+
+<div id="supportPage"
+class="page container hidden">
+
+<div class="section-title">
+🎧 Customer Service
+</div>
+
+<div class="card">
+
+<div class="notice">
+সব Task সম্পন্ন করার পর reward approval-এর জন্য Customer Service-এ যোগাযোগ করুন।
+</div>
 
 <label>Subject</label>
-<input id="supportSubject" placeholder="যেমন: Reward Claim">
+
+<input id="supportSubject"
+placeholder="যেমন: সব Task সম্পন্ন করেছি">
 
 <label>Message</label>
-<textarea id="supportMessage" rows="5"
-placeholder="আপনার সমস্যার বিস্তারিত লিখুন"></textarea>
 
-<button class="primary" onclick="submitTicket()">
-Submit Support Request
+<textarea id="supportMessage"
+rows="5"
+placeholder="আপনার বিস্তারিত লিখুন"></textarea>
+
+<button class="primary"
+onclick="submitTicket()">
+Support Ticket Submit
 </button>
 
 </div>
 
-<div class="section-title">My Requests</div>
+<div class="section-title">
+My Tickets
+</div>
+
 <div class="card" id="ticketHistory"></div>
 
 </div>
 
 
+<!-- PROFILE -->
+
+<div id="profilePage"
+class="page container hidden">
+
+<div class="card center">
+
+<div class="big-icon">👤</div>
+
+<h3 id="profileName">User</h3>
+
+<p id="profileEmail"
+style="color:#777;font-size:13px;margin-top:5px">
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="history">
+<b>Current Plan:</b>
+<span id="profilePlan">কোনো Plan নেই</span>
+</div>
+
+<div class="history">
+<b>Balance:</b>
+৳<span id="profileBalance">0</span>
+</div>
+
+<div class="history">
+<b>Total Task Completed:</b>
+<span id="profileTasks">0</span>
+</div>
+
+</div>
+
+<button class="danger"
+onclick="logoutUser()">
+Logout
+</button>
+
+</div>
+
+
+<!-- NAV -->
+
 <div class="nav">
 
-<button class="active" onclick="showPage('homePage',this)">
-<span>🏠</span>Home
+<button class="active"
+onclick="showPage('homePage',this)">
+<span>🏠</span>হোম
 </button>
 
-<button onclick="showPage('packagesPage',this)">
-<span>📦</span>Plans
+<button
+onclick="showPage('packagesPage',this)">
+<span>📦</span>প্যাকেজ
 </button>
 
-<button onclick="showPage('tasksPage',this)">
-<span>✅</span>Tasks
+<button
+onclick="showPage('tasksPage',this)">
+<span>✅</span>টাস্ক
 </button>
 
-<button onclick="showPage('supportPage',this)">
+<button
+onclick="showPage('withdrawPage',this)">
+<span>💸</span>Withdraw
+</button>
+
+<button
+onclick="showPage('supportPage',this)">
 <span>🎧</span>Service
 </button>
 
-<button onclick="showPage('profilePage',this)">
+<button
+onclick="showPage('profilePage',this)">
 <span>👤</span>Profile
 </button>
 
 </div>
-</div>
 
 
-<div id="planModal" class="modal hidden">
+<!-- DEPOSIT MODAL -->
+
+<div id="depositModal"
+class="modal hidden">
+
 <div class="modal-box">
 
-<h2 class="center">Plan Request</h2>
+<div class="modal-title">
+💜 Plan Activation
+</div>
+
+<div class="modal-sub">
+নিচের তথ্য দেখে Deposit সম্পন্ন করুন।
+</div>
+
+<div class="card">
+
+<div class="confirm-row">
+<span>Plan</span>
+<b id="depositPlanName"></b>
+</div>
+
+<div class="confirm-row">
+<span>Plan Price</span>
+<b>৳<span id="depositPlanPrice"></span></b>
+</div>
+
+<div class="confirm-row">
+<span>Daily Tasks</span>
+<b id="depositPlanTasks"></b>
+</div>
+
+<div class="confirm-row">
+<span>Per Task Reward</span>
+<b>৳<span id="depositPlanReward"></span></b>
+</div>
+
+</div>
 
 <div class="notice">
-Plan activate করার জন্য Admin verification প্রয়োজন।
+এই Plan-এর জন্য নির্ধারিত amount-এর payment করার পর sender number-এর শেষ ৪ digit দিন। Reward task completion-এর উপর নির্ভর করবে; কোনো guaranteed income নয়।
 </div>
 
-<div class="history">
-Plan: <b id="modalPlan"></b>
+<label>Deposit Amount</label>
+
+<input id="depositAmount"
+type="number"
+readonly>
+
+<div class="section-title">
+Payment Method
 </div>
 
-<div class="history">
-Amount: <b>৳<span id="modalPrice"></span></b>
+<div class="method-card"
+id="methodBkash"
+onclick="selectPaymentMethod('bKash')">
+
+<b>bKash</b>
+<small>Send Money</small>
+
 </div>
 
-<button class="primary" onclick="submitPlanRequest()">
-Plan Request Submit
+<div class="method-card"
+id="methodNagad"
+onclick="selectPaymentMethod('Nagad')">
+
+<b>Nagad</b>
+<small>Send Money</small>
+
+</div>
+
+<div class="method-card"
+id="methodRocket"
+onclick="selectPaymentMethod('Rocket')">
+
+<b>Rocket</b>
+<small>Send Money</small>
+
+</div>
+
+<button class="primary"
+onclick="continueDeposit()">
+চালিয়ে যান →
 </button>
 
-<button class="secondary" style="margin-top:10px"
-onclick="closePlanModal()">
-Cancel
+<button class="secondary"
+style="margin-top:10px"
+onclick="closeDeposit()">
+বাতিল
 </button>
 
 </div>
+</div>
+
+
+<!-- DEPOSIT CONFIRM -->
+
+<div id="depositConfirmModal"
+class="modal hidden">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Deposit নিশ্চিত করুন
+</div>
+
+<div class="modal-sub">
+Payment করার পর sender number-এর শেষ ৪ digit দিন।
+</div>
+
+<div class="card">
+
+<div class="confirm-row">
+<span>Plan</span>
+<b id="confirmPlan"></b>
+</div>
+
+<div class="confirm-row">
+<span>Amount</span>
+<b>৳<span id="confirmDepositAmount">0</span></b>
+</div>
+
+<div class="confirm-row">
+<span>Method</span>
+<b id="confirmMethod"></b>
+</div>
+
+</div>
+
+<div class="payment-number">
+<span id="paymentNumberDisplay"></span>
+</div>
+
+<button class="secondary"
+onclick="copyPaymentNumber()">
+📋 নম্বর কপি করুন
+</button>
+
+<div class="sender-box">
+
+<label>
+যে নম্বর থেকে টাকা পাঠিয়েছেন — শেষ ৪ digit
+</label>
+
+<input id="senderLast4"
+type="text"
+inputmode="numeric"
+maxlength="4"
+placeholder="যেমন: 1234">
+
+<p class="small-note">
+শুধুমাত্র যে নম্বর থেকে payment করেছেন সেই নম্বরের শেষ ৪টি digit লিখুন।
+</p>
+
+</div>
+
+<button class="primary"
+onclick="submitDeposit()">
+Deposit Request Submit
+</button>
+
+<button class="secondary"
+style="margin-top:10px"
+onclick="backToDepositMethods()">
+← পরিবর্তন করুন
+</button>
+
+</div>
+</div>
+
 </div>
 
 
@@ -334,7 +1164,9 @@ Cancel
 
 import {
 initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
 getAuth,
@@ -343,7 +1175,9 @@ signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 updateProfile,
 signOut
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
 getFirestore,
@@ -357,8 +1191,12 @@ where,
 orderBy,
 onSnapshot,
 serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+
+/* FIREBASE */
 
 const firebaseConfig={
 apiKey:"AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
@@ -366,7 +1204,8 @@ authDomain:"elyvioncom.firebaseapp.com",
 projectId:"elyvioncom",
 storageBucket:"elyvioncom.firebasestorage.app",
 messagingSenderId:"696113174945",
-appId:"1:696113174945:web:7dd53b1d9e47d6d05613e0"
+appId:"1:696113174945:web:7dd53b1d9e47d6d05613e0",
+measurementId:"G-059RB98EPD"
 };
 
 const app=initializeApp(firebaseConfig);
@@ -374,172 +1213,502 @@ const auth=getAuth(app);
 const db=getFirestore(app);
 
 
-/* =========================
-   PLANS
-========================= */
+/* PLANS */
 
 const plans=[
-{rank:"Rank 01",price:300,tasks:2,reward:100},
-{rank:"Rank 02",price:500,tasks:3,reward:100},
-{rank:"Rank 03",price:1000,tasks:6,reward:100},
-{rank:"Rank 04",price:1500,tasks:6,reward:150},
-{rank:"Rank 05",price:2000,tasks:6,reward:200},
-{rank:"Rank 06",price:3000,tasks:6,reward:300},
-{rank:"Rank 07",price:4000,tasks:6,reward:400},
-{rank:"Rank 08",price:5000,tasks:6,reward:500},
-{rank:"Rank 09",price:10000,tasks:6,reward:1000},
-{rank:"Rank 10",price:15000,tasks:6,reward:1500},
-{rank:"Rank 11",price:20000,tasks:6,reward:2000}
+
+{
+rank:"Rank 01",
+price:300,
+tasks:2,
+reward:100,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO"
+]
+},
+
+{
+rank:"Rank 02",
+price:500,
+tasks:3,
+reward:100,
+videos:[
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG"
+]
+},
+
+{
+rank:"Rank 03",
+price:1000,
+tasks:6,
+reward:100,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 04",
+price:1500,
+tasks:6,
+reward:150,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 05",
+price:2000,
+tasks:6,
+reward:200,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 06",
+price:3000,
+tasks:6,
+reward:300,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 07",
+price:4000,
+tasks:6,
+reward:400,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 08",
+price:5000,
+tasks:6,
+reward:500,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 09",
+price:10000,
+tasks:6,
+reward:1000,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 10",
+price:15000,
+tasks:6,
+reward:1500,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+},
+
+{
+rank:"Rank 11",
+price:20000,
+tasks:6,
+reward:2000,
+videos:[
+"https://youtu.be/ELLdITfDo1E?si=acmvNIcTVhXXn6MF",
+"https://youtu.be/CcfZqA_R7Tc?si=yqzrgQe_yHsdUQGO",
+"https://youtu.be/zLoa0xKg4lw?si=tjREIVXd1-zHM0rG",
+"https://youtu.be/xTpv9lc_qMw?si=zHvxc3-fEecN20Qh",
+"https://youtu.be/R8EbjbeJo5I?si=oPfg7U8QhzaS3CrG",
+"https://youtu.be/sKsFt23oN1w?si=07NWYn6Jp2nfXkBx"
+]
+}
+
 ];
 
 
-/* =========================
-   VIDEOS
-========================= */
+const paymentSettings={
+bKash:{name:"bKash",number:"01800000000"},
+Nagad:{name:"Nagad",number:"01900000000"},
+Rocket:{name:"Rocket",number:"01700000000"}
+};
 
-const videos=[
-"https://youtu.be/ELLdITfDo1E",
-"https://youtu.be/CcfZqA_R7Tc",
-"https://youtu.be/zLoa0xKg4lw",
-"https://youtu.be/xTpv9lc_qMw",
-"https://youtu.be/R8EbjbeJo5I",
-"https://youtu.be/sKsFt23oN1w"
-];
 
 let currentUser=null;
-let userData={balance:0,activePlan:null,completedTasks:0,todayEarn:0};
+let userData={
+balance:0,
+todayEarn:0,
+completedTasks:0,
+activePlan:null
+};
+
 let selectedPlan=null;
-let completedTaskIds=new Set();
+let selectedPaymentMethod="";
+let currentDepositAmount=0;
 
 
-/* =========================
-   AUTH
-========================= */
+/* GLOBAL */
 
-window.showRegister=()=>{
-document.getElementById("loginForm").classList.add("hidden");
-document.getElementById("registerForm").classList.remove("hidden");
-};
+window.showAuth=showAuth;
+window.loginUser=loginUser;
+window.registerUser=registerUser;
+window.logoutUser=logoutUser;
+window.showPage=showPage;
+window.activatePlan=activatePlan;
+window.closeDeposit=closeDeposit;
+window.selectPaymentMethod=selectPaymentMethod;
+window.continueDeposit=continueDeposit;
+window.submitDeposit=submitDeposit;
+window.backToDepositMethods=backToDepositMethods;
+window.copyPaymentNumber=copyPaymentNumber;
+window.openVideo=openVideo;
+window.submitTask=submitTask;
+window.submitWithdraw=submitWithdraw;
+window.submitTicket=submitTicket;
 
-window.showLogin=()=>{
-document.getElementById("registerForm").classList.add("hidden");
-document.getElementById("loginForm").classList.remove("hidden");
-};
 
-function msg(type,text){
-const e=document.getElementById(type==="error"?"authError":"authSuccess");
-e.innerText=text;
-e.classList.remove("hidden");
-setTimeout(()=>e.classList.add("hidden"),4000);
+/* AUTH */
+
+function showAuth(type){
+
+clearMessages();
+
+if(type==="login"){
+
+loginForm.classList.remove("hidden");
+registerForm.classList.add("hidden");
+loginTab.classList.add("active");
+registerTab.classList.remove("active");
+
+}else{
+
+loginForm.classList.add("hidden");
+registerForm.classList.remove("hidden");
+loginTab.classList.remove("active");
+registerTab.classList.add("active");
+
 }
 
-window.loginUser=async()=>{
+}
+
+
+function clearMessages(){
+
+authError.classList.add("hidden");
+authSuccess.classList.add("hidden");
+
+}
+
+
+function showError(message){
+
+authError.innerText=message;
+authError.classList.remove("hidden");
+
+}
+
+
+function showSuccess(message){
+
+authSuccess.innerText=message;
+authSuccess.classList.remove("hidden");
+
+}
+
+
+/* LOGIN */
+
+async function loginUser(){
+
+clearMessages();
+
+const email=loginEmail.value.trim();
+const password=loginPassword.value;
+
+if(!email||!password){
+
+showError("Email এবং Password দিন।");
+return;
+
+}
+
 try{
+
 await signInWithEmailAndPassword(
-auth,
-document.getElementById("loginEmail").value.trim(),
-document.getElementById("loginPassword").value
+auth,email,password
 );
-}catch(e){
-msg("error",e.message);
+
+}catch(error){
+
+showError(
+error.code==="auth/invalid-credential"
+?"Email অথবা Password সঠিক নয়।"
+:error.message
+);
+
 }
-};
 
-window.registerUser=async()=>{
-const name=document.getElementById("registerName").value.trim();
-const email=document.getElementById("registerEmail").value.trim();
-const password=document.getElementById("registerPassword").value;
+}
 
-if(!name||!email||password.length<6){
-msg("error","সব তথ্য সঠিকভাবে পূরণ করুন।");
+
+/* REGISTER */
+
+async function registerUser(){
+
+clearMessages();
+
+const name=registerName.value.trim();
+const email=registerEmail.value.trim();
+const password=registerPassword.value;
+const confirm=registerConfirm.value;
+
+if(!name){
+showError("আপনার নাম লিখুন।");
+return;
+}
+
+if(!email){
+showError("Email লিখুন।");
+return;
+}
+
+if(password.length<6){
+showError("Password কমপক্ষে ৬ অক্ষরের হতে হবে।");
+return;
+}
+
+if(password!==confirm){
+showError("দুইটি Password একই নয়।");
 return;
 }
 
 try{
-const c=await createUserWithEmailAndPassword(auth,email,password);
 
-await updateProfile(c.user,{displayName:name});
+const credential=
+await createUserWithEmailAndPassword(
+auth,email,password
+);
 
-await setDoc(doc(db,"users",c.user.uid),{
-uid:c.user.uid,
+await updateProfile(
+credential.user,
+{displayName:name}
+);
+
+await setDoc(
+doc(db,"users",credential.user.uid),
+{
+uid:credential.user.uid,
 name,
 email,
 balance:0,
-activePlan:null,
-completedTasks:0,
 todayEarn:0,
+completedTasks:0,
+activePlan:null,
 createdAt:serverTimestamp(),
 updatedAt:serverTimestamp()
-});
-
-msg("success","Account তৈরি হয়েছে।");
-}catch(e){
-msg("error",e.message);
 }
-};
+);
 
+showSuccess("Account তৈরি হয়েছে।");
+
+}catch(error){
+
+showError(error.message);
+
+}
+
+}
+
+
+/* AUTH STATE */
 
 onAuthStateChanged(auth,async user=>{
 
 if(!user){
+
 currentUser=null;
-document.getElementById("authPage").classList.remove("hidden");
-document.getElementById("appPage").classList.add("hidden");
+
+authPage.classList.remove("hidden");
+appPage.classList.add("hidden");
+
 return;
+
 }
 
 currentUser=user;
 
-document.getElementById("authPage").classList.add("hidden");
-document.getElementById("appPage").classList.remove("hidden");
+authPage.classList.add("hidden");
+appPage.classList.remove("hidden");
 
-document.getElementById("headerEmail").innerText=user.email;
-document.getElementById("profileEmail").innerText=user.email;
-document.getElementById("profileName").innerText=user.displayName||"User";
+headerEmail.innerText=user.email||"";
+profileEmail.innerText=user.email||"";
+profileName.innerText=user.displayName||"User";
 
 await loadUser();
-loadCompletedTasks();
-loadTickets();
+
+loadRequests();
+
 });
 
 
-/* =========================
-   USER
-========================= */
+/* USER */
 
 async function loadUser(){
 
-const ref=doc(db,"users",currentUser.uid);
+const ref=doc(
+db,
+"users",
+currentUser.uid
+);
+
 const snap=await getDoc(ref);
 
 if(snap.exists()){
-userData={...userData,...snap.data()};
+
+userData={
+...userData,
+...snap.data()
+};
+
+}else{
+
+await setDoc(
+ref,
+{
+uid:currentUser.uid,
+email:currentUser.email,
+name:currentUser.displayName||"User",
+balance:0,
+todayEarn:0,
+completedTasks:0,
+activePlan:null,
+createdAt:serverTimestamp()
+}
+);
+
 }
 
 updateUI();
-}
 
-function money(x){
-return Number(x||0).toLocaleString("en-US");
 }
 
 
-/* =========================
-   PLANS
-========================= */
+function money(number){
+
+return Number(number||0)
+.toLocaleString("en-US");
+
+}
+
+
+/* PAGE */
+
+function showPage(id,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(p=>p.classList.add("hidden"));
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
+if(btn){
+
+document
+.querySelectorAll(".nav button")
+.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+}
+
+updateUI();
+
+}
+
+
+/* PLANS */
 
 function renderPlans(){
 
-document.getElementById("plans").innerHTML=plans.map((p,i)=>`
+plansBox.innerHTML=plans.map((p,i)=>{
+
+const possible=p.tasks*p.reward;
+
+return`
 
 <div class="plan">
 
 <div class="plan-top">
-<div class="rank">${p.rank}</div>
-<div class="price">৳${money(p.price)}</div>
+
+<div class="rank">
+${p.rank}
+</div>
+
+<div class="price">
+৳${money(p.price)}
+</div>
+
 </div>
 
 <div class="plan-info">
+
+<div class="info">
+Plan Price
+<b>৳${money(p.price)}</b>
+</div>
 
 <div class="info">
 Daily Tasks
@@ -552,441 +1721,703 @@ Per Task Reward
 </div>
 
 <div class="info">
-Total Reward
-<b>৳${money(p.tasks*p.reward)}</b>
-</div>
-
-<div class="info">
-Status
-<b>${userData.activePlan?.rank===p.rank?"Active":"Available"}</b>
+Task Reward
+<b>৳${money(possible)}</b>
 </div>
 
 </div>
 
-<button class="primary" onclick="openPlan(${i})">
-${userData.activePlan?.rank===p.rank?"Active Plan":"Request Plan"}
+<div class="reward-note">
+এই Plan-এ ${p.tasks}টি Task আছে। প্রতিটি Task সম্পন্ন হলে নির্ধারিত reward-এর জন্য আবেদন তৈরি হবে।
+</div>
+
+<button
+class="primary"
+onclick="activatePlan(${i})">
+
+${userData.activePlan
+?"Active Plan আছে"
+:"Activate Plan"}
+
 </button>
 
 </div>
 
-`).join("");
+`;
+
+}).join("");
+
 }
 
-window.openPlan=i=>{
 
-selectedPlan=plans[i];
+function activatePlan(index){
 
 if(userData.activePlan){
+
 alert("আপনার একটি Active Plan ইতিমধ্যে আছে।");
 return;
+
 }
 
-document.getElementById("modalPlan").innerText=selectedPlan.rank;
-document.getElementById("modalPrice").innerText=money(selectedPlan.price);
-document.getElementById("planModal").classList.remove("hidden");
-};
+selectedPlan=plans[index];
 
-window.closePlanModal=()=>{
-document.getElementById("planModal").classList.add("hidden");
-};
+depositPlanName.innerText=selectedPlan.rank;
+depositPlanPrice.innerText=money(selectedPlan.price);
+depositPlanTasks.innerText=selectedPlan.tasks+" টি";
+depositPlanReward.innerText=money(selectedPlan.reward);
 
-window.submitPlanRequest=async()=>{
+depositAmount.value=selectedPlan.price;
 
-if(!selectedPlan||!currentUser)return;
+selectedPaymentMethod="";
 
-await addDoc(collection(db,"planRequests"),{
-uid:currentUser.uid,
-email:currentUser.email,
-plan:selectedPlan,
-status:"Pending",
-createdAt:serverTimestamp()
-});
+document
+.querySelectorAll(".method-card")
+.forEach(x=>x.classList.remove("selected"));
 
-closePlanModal();
+depositModal.classList.remove("hidden");
 
-alert("Plan request submit হয়েছে। Admin approval-এর পর Plan Active হবে।");
-};
-
-
-/* =========================
-   TASKS
-========================= */
-
-function youtubeId(url){
-
-const m=url.match(
-/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/)([^&?\/]+)/
-);
-
-return m?m[1]:"";
 }
 
-function renderTasks(){
 
-const noPlan=document.getElementById("noPlan");
-const area=document.getElementById("taskArea");
+function closeDeposit(){
 
-if(!userData.activePlan){
-noPlan.classList.remove("hidden");
-area.classList.add("hidden");
+depositModal.classList.add("hidden");
+
+}
+
+
+function selectPaymentMethod(method){
+
+selectedPaymentMethod=method;
+
+document
+.querySelectorAll(".method-card")
+.forEach(x=>x.classList.remove("selected"));
+
+if(method==="bKash")
+methodBkash.classList.add("selected");
+
+if(method==="Nagad")
+methodNagad.classList.add("selected");
+
+if(method==="Rocket")
+methodRocket.classList.add("selected");
+
+}
+
+
+function continueDeposit(){
+
+if(!selectedPlan){
+
+alert("Plan নির্বাচন করুন।");
 return;
-}
-
-noPlan.classList.add("hidden");
-area.classList.remove("hidden");
-
-const p=userData.activePlan;
-const total=p.tasks;
-const done=completedTaskIds.size;
-
-document.getElementById("taskPlan").innerText=p.rank;
-document.getElementById("taskReward").innerText=money(p.reward);
-document.getElementById("taskDone").innerText=done;
-document.getElementById("taskTotal").innerText=total;
-
-document.getElementById("progressBar").style.width=
-Math.min(100,(done/total)*100)+"%";
-
-let html="";
-
-for(let i=0;i<total;i++){
-
-const id=`${p.rank}_${i+1}`;
-const completed=completedTaskIds.has(id);
-const video=videos[i%videos.length];
-const vid=youtubeId(video);
-
-html+=`
-
-<div class="task">
-
-<div class="task-head">
-<b>Task #${i+1}</b>
-
-<span class="${completed?"status":"status pending"}">
-${completed?"✓ Completed":"Pending"}
-</span>
-</div>
-
-<div style="margin-top:7px">
-<small>Reward: ৳${money(p.reward)}</small>
-</div>
-
-${!completed?`
-
-<div class="task-video">
-<iframe
-src="https://www.youtube.com/embed/${vid}"
-allowfullscreen>
-</iframe>
-</div>
-
-<button class="secondary"
-onclick="openVideo('${video}')">
-▶ Open Video
-</button>
-
-<button class="primary"
-style="margin-top:8px"
-onclick="submitTask(${i})">
-Submit Task
-</button>
-
-`:`<div class="notice" style="margin-top:12px;color:#15803d;background:#dcfce7">
-এই Task ইতিমধ্যে Completed। পুনরায় Submit করা যাবে না।
-</div>`}
-
-</div>
-`;
-}
-
-document.getElementById("taskList").innerHTML=html;
-
-const claimBox=document.getElementById("claimBox");
-
-if(done>=total){
-claimBox.classList.remove("hidden");
-}else{
-claimBox.classList.add("hidden");
-}
 
 }
 
-window.openVideo=url=>{
-window.open(url,"_blank","noopener,noreferrer");
-};
+if(!selectedPaymentMethod){
 
-
-/* =========================
-   TASK SUBMIT
-========================= */
-
-window.submitTask=async index=>{
-
-if(!currentUser||!userData.activePlan)return;
-
-const p=userData.activePlan;
-const taskId=`${p.rank}_${index+1}`;
-
-if(completedTaskIds.has(taskId)){
-alert("এই Task ইতিমধ্যে Completed।");
+alert("Payment method নির্বাচন করুন।");
 return;
+
 }
 
-const total=p.tasks;
+currentDepositAmount=selectedPlan.price;
 
-if(completedTaskIds.size!==index){
-alert("আগের Task আগে complete করুন।");
+const payment=paymentSettings[selectedPaymentMethod];
+
+confirmPlan.innerText=selectedPlan.rank;
+confirmDepositAmount.innerText=money(currentDepositAmount);
+confirmMethod.innerText=payment.name;
+paymentNumberDisplay.innerText=payment.number;
+
+depositModal.classList.add("hidden");
+depositConfirmModal.classList.remove("hidden");
+
+}
+
+
+function backToDepositMethods(){
+
+depositConfirmModal.classList.add("hidden");
+depositModal.classList.remove("hidden");
+
+}
+
+
+function copyPaymentNumber(){
+
+const number=
+paymentSettings[selectedPaymentMethod]?.number;
+
+if(!number)return;
+
+navigator.clipboard.writeText(number)
+.then(()=>alert("Payment number copied."));
+
+}
+
+
+/* DEPOSIT */
+
+async function submitDeposit(){
+
+const last4=senderLast4.value.trim();
+
+if(!/^\d{4}$/.test(last4)){
+
+alert("Sender number-এর শেষ ৪ digit দিন।");
 return;
+
 }
 
-await setDoc(
-doc(db,"taskCompletions",`${currentUser.uid}_${taskId}`),
+if(!currentUser||!selectedPlan){
+
+alert("Deposit information অসম্পূর্ণ।");
+return;
+
+}
+
+try{
+
+await addDoc(
+collection(db,"depositRequests"),
 {
 uid:currentUser.uid,
 email:currentUser.email,
-taskId,
-taskNumber:index+1,
-plan:p.rank,
-reward:p.reward,
-status:"Completed",
+
+amount:currentDepositAmount,
+
+method:selectedPaymentMethod,
+
+paymentNumber:
+paymentSettings[selectedPaymentMethod].number,
+
+senderLast4:last4,
+
+plan:{
+rank:selectedPlan.rank,
+price:selectedPlan.price,
+tasks:selectedPlan.tasks,
+reward:selectedPlan.reward,
+videos:selectedPlan.videos
+},
+
+status:"Pending",
+
 createdAt:serverTimestamp()
 }
 );
 
-completedTaskIds.add(taskId);
+depositConfirmModal.classList.add("hidden");
+
+senderLast4.value="";
+
+selectedPlan=null;
+selectedPaymentMethod="";
+currentDepositAmount=0;
+
+alert(
+"Deposit request submit হয়েছে। Admin payment verify করার পর Plan Active হবে।"
+);
+
+}catch(error){
+
+alert("Deposit submit হয়নি: "+error.message);
+
+}
+
+}
+
+
+/* TASK */
+
+function openVideo(index){
+
+if(!userData.activePlan){
+
+alert("Active Plan নেই।");
+return;
+
+}
+
+const url=
+userData.activePlan.videos[index];
+
+if(!url){
+
+alert("Video পাওয়া যায়নি।");
+return;
+
+}
+
+window.open(url,"_blank");
+
+}
+
+
+async function submitTask(index){
+
+if(!userData.activePlan){
+
+alert("Active Plan নেই।");
+return;
+
+}
+
+const plan=userData.activePlan;
+
+const completed=
+Number(userData.completedTasks||0);
+
+if(index!==completed){
+
+alert("আগের Task আগে সম্পন্ন করুন।");
+return;
+
+}
+
+if(completed>=plan.tasks){
+
+alert("সব Task সম্পন্ন হয়েছে।");
+return;
+
+}
+
+try{
+
+await addDoc(
+collection(db,"taskCompletions"),
+{
+uid:currentUser.uid,
+email:currentUser.email,
+
+taskNumber:index+1,
+
+planRank:plan.rank,
+
+reward:plan.reward,
+
+videoUrl:plan.videos[index],
+
+status:"Completed",
+
+rewardStatus:"WaitingForAllTasks",
+
+createdAt:serverTimestamp()
+}
+);
 
 await setDoc(
 doc(db,"users",currentUser.uid),
 {
-completedTasks:completedTaskIds.size,
+completedTasks:completed+1,
 updatedAt:serverTimestamp()
 },
 {merge:true}
 );
 
-userData.completedTasks=completedTaskIds.size;
+userData.completedTasks=completed+1;
 
-renderTasks();
 updateUI();
 
-alert("Task Completed হয়েছে।");
+alert(
+"Task completed হয়েছে। পরের Task শুরু করতে পারেন।"
+);
 
-if(completedTaskIds.size>=total){
-alert("🎉 সব Task সম্পন্ন হয়েছে। এখন Customer Service থেকে Reward Claim করুন।");
+}catch(error){
+
+alert("Task submit হয়নি: "+error.message);
+
 }
-};
+
+}
 
 
-/* =========================
-   LOAD COMPLETED TASKS
-========================= */
+/* TASK UI */
 
-function loadCompletedTasks(){
+function renderTasks(){
+
+if(!userData.activePlan){
+
+taskEmpty.classList.remove("hidden");
+taskContent.classList.add("hidden");
+
+return;
+
+}
+
+taskEmpty.classList.add("hidden");
+taskContent.classList.remove("hidden");
+
+const p=userData.activePlan;
+const done=Number(userData.completedTasks||0);
+
+taskRank.innerText=p.rank;
+taskReward.innerText=money(p.reward);
+taskDone.innerText=done;
+taskTotal.innerText=p.tasks;
+
+const percent=
+p.tasks
+?Math.min(100,(done/p.tasks)*100)
+:0;
+
+progressBar.style.width=percent+"%";
+
+taskList.innerHTML="";
+
+for(let i=0;i<p.tasks;i++){
+
+const completed=i<done;
+
+const video=p.videos[i]||"";
+
+const div=document.createElement("div");
+
+div.className="task";
+
+div.innerHTML=`
+
+<div class="task-head">
+
+<div class="task-left">
+
+<b>Task #${i+1}</b>
+
+<small>
+Reward: ৳${money(p.reward)}
+</small>
+
+</div>
+
+<span class="status">
+${completed?"✓ Completed":"Pending"}
+</span>
+
+</div>
+
+${
+completed
+
+?
+
+`<div class="completed">
+✓ এই Task ইতিমধ্যে Completed
+</div>`
+
+:
+
+i===done
+
+?
+
+`<div class="task-buttons">
+
+<button
+class="video-btn"
+onclick="openVideo(${i})">
+
+▶ Open Video
+
+</button>
+
+<button
+class="submit-btn"
+onclick="submitTask(${i})">
+
+✓ Submit Task
+
+</button>
+
+</div>`
+
+:
+
+`<div class="pending">
+আগের Task সম্পন্ন করুন
+</div>`
+
+}
+
+`;
+
+taskList.appendChild(div);
+
+}
+
+if(done>=p.tasks){
+
+allCompleteBox.classList.remove("hidden");
+
+}else{
+
+allCompleteBox.classList.add("hidden");
+
+}
+
+}
+
+
+/* REQUESTS */
+
+function loadRequests(){
 
 if(!currentUser)return;
 
-const q=query(
-collection(db,"taskCompletions"),
-where("uid","==",currentUser.uid)
+
+/* WITHDRAW */
+
+const withdrawalQuery=query(
+collection(db,"withdrawalRequests"),
+where("uid","==",currentUser.uid),
+orderBy("createdAt","desc")
 );
 
-onSnapshot(q,snap=>{
+onSnapshot(withdrawalQuery,snapshot=>{
 
-completedTaskIds=new Set();
+if(snapshot.empty){
 
-snap.forEach(x=>{
-const d=x.data();
-if(d.status==="Completed"){
-completedTaskIds.add(d.taskId);
-}
-});
+withdrawHistory.innerHTML=
+`<div class="center" style="color:#777">
+এখনো কোনো request নেই
+</div>`;
 
-renderTasks();
-updateUI();
-
-});
-}
-
-
-/* =========================
-   REWARD CLAIM
-========================= */
-
-window.createRewardClaim=async()=>{
-
-if(!userData.activePlan)return;
-
-const total=userData.activePlan.tasks;
-
-if(completedTaskIds.size<total){
-alert("সব Task আগে complete করুন।");
 return;
+
 }
 
-const claimId=`${currentUser.uid}_${userData.activePlan.rank}`;
+withdrawHistory.innerHTML=
+snapshot.docs.map(d=>{
 
-const existing=await getDoc(
-doc(db,"rewardClaims",claimId)
+const x=d.data();
+
+return`
+
+<div class="history">
+
+<b>৳${money(x.amount)}</b>
+— ${x.method}
+
+<br>
+
+<small>
+● ${x.status||"Pending"}
+</small>
+
+</div>
+
+`;
+
+}).join("");
+
+});
+
+
+/* SUPPORT */
+
+const ticketQuery=query(
+collection(db,"supportTickets"),
+where("uid","==",currentUser.uid),
+orderBy("createdAt","desc")
 );
 
-if(existing.exists()){
-alert("আপনার Reward Claim ইতিমধ্যে submit হয়েছে।");
+onSnapshot(ticketQuery,snapshot=>{
+
+if(snapshot.empty){
+
+ticketHistory.innerHTML=
+`<div class="center" style="color:#777">
+কোনো ticket নেই
+</div>`;
+
 return;
+
 }
 
-const totalReward=
-Number(userData.activePlan.reward)*Number(total);
+ticketHistory.innerHTML=
+snapshot.docs.map(d=>{
 
-await setDoc(
-doc(db,"rewardClaims",claimId),
+const x=d.data();
+
+return`
+
+<div class="history">
+
+<b>${x.subject||""}</b>
+
+<br>
+
+<small>${x.message||""}</small>
+
+<br>
+
+<small>
+● ${x.status||"Open"}
+</small>
+
+</div>
+
+`;
+
+}).join("");
+
+});
+
+}
+
+
+/* WITHDRAW */
+
+async function submitWithdraw(){
+
+const amount=Number(withdrawAmount.value);
+
+const method=withdrawMethod.value;
+
+const number=withdrawNumber.value.trim();
+
+const name=withdrawName.value.trim();
+
+if(!amount||!number||!name){
+
+alert("সব তথ্য পূরণ করুন।");
+return;
+
+}
+
+if(amount>Number(userData.balance||0)){
+
+alert("পর্যাপ্ত balance নেই।");
+return;
+
+}
+
+try{
+
+await addDoc(
+collection(db,"withdrawalRequests"),
 {
 uid:currentUser.uid,
 email:currentUser.email,
-plan:userData.activePlan.rank,
-totalTasks:total,
-totalReward,
+amount,
+method,
+number,
+name,
 status:"Pending",
 createdAt:serverTimestamp()
 }
 );
 
-await addDoc(collection(db,"supportTickets"),{
-uid:currentUser.uid,
-email:currentUser.email,
-subject:"Reward Claim",
-message:`${userData.activePlan.rank} এর সব ${total} টি Task complete করেছি। মোট Reward ৳${totalReward}।`,
-status:"Open",
-createdAt:serverTimestamp()
-});
+withdrawAmount.value="";
+withdrawNumber.value="";
+withdrawName.value="";
 
-document.getElementById("claimStatus").innerText="Pending";
+alert("Withdrawal request submit হয়েছে।");
 
-alert("Reward Claim Customer Service-এর কাছে পাঠানো হয়েছে।");
-};
+}catch(error){
 
+alert(error.message);
 
-/* =========================
-   SUPPORT
-========================= */
-
-window.submitTicket=async()=>{
-
-const subject=document.getElementById("supportSubject").value.trim();
-const message=document.getElementById("supportMessage").value.trim();
-
-if(!subject||!message){
-alert("Subject এবং Message দিন।");
-return;
 }
 
-await addDoc(collection(db,"supportTickets"),{
+}
+
+
+/* SUPPORT */
+
+async function submitTicket(){
+
+const subject=supportSubject.value.trim();
+
+const message=supportMessage.value.trim();
+
+if(!subject||!message){
+
+alert("Subject এবং Message লিখুন।");
+return;
+
+}
+
+try{
+
+await addDoc(
+collection(db,"supportTickets"),
+{
 uid:currentUser.uid,
 email:currentUser.email,
 subject,
 message,
 status:"Open",
 createdAt:serverTimestamp()
-});
-
-document.getElementById("supportSubject").value="";
-document.getElementById("supportMessage").value="";
-
-alert("Customer Service request submit হয়েছে।");
-};
-
-function loadTickets(){
-
-const q=query(
-collection(db,"supportTickets"),
-where("uid","==",currentUser.uid),
-orderBy("createdAt","desc")
+}
 );
 
-onSnapshot(q,snap=>{
+supportSubject.value="";
+supportMessage.value="";
 
-const box=document.getElementById("ticketHistory");
+alert("Customer Service request submit হয়েছে।");
 
-if(snap.empty){
-box.innerHTML='<div class="center" style="color:#777">কোনো request নেই</div>';
-return;
+}catch(error){
+
+alert(error.message);
+
 }
 
-box.innerHTML=snap.docs.map(x=>{
-const d=x.data();
-
-return `
-<div class="history">
-<b>${d.subject||""}</b><br>
-<small>${d.message||""}</small><br>
-<span class="status">${d.status||"Open"}</span>
-</div>
-`;
-}).join("");
-
-});
 }
 
 
-/* =========================
-   UI
-========================= */
+/* UI */
 
 function updateUI(){
 
-const balance=Number(userData.balance||0);
+const balanceValue=
+Number(userData.balance||0);
 
-document.getElementById("balance").innerText=money(balance);
-document.getElementById("profileBalance").innerText=money(balance);
+balance.innerText=money(balanceValue);
+withdrawBalance.innerText=money(balanceValue);
+profileBalance.innerText=money(balanceValue);
 
-document.getElementById("activePlan").innerText=
-userData.activePlan?.rank||"কোনো Plan নেই";
+todayEarn.innerText=
+money(userData.todayEarn||0);
 
-document.getElementById("profilePlan").innerText=
-userData.activePlan?.rank||"কোনো Plan নেই";
-
-document.getElementById("planStatus").innerText=
-userData.activePlan?"Active":"Inactive";
-
-document.getElementById("completedTasks").innerText=
+completed.innerText=
 userData.completedTasks||0;
 
-document.getElementById("profileTaskCount").innerText=
+profileTasks.innerText=
 userData.completedTasks||0;
+
+const planName=
+userData.activePlan
+?userData.activePlan.rank
+:"কোনো Plan নেই";
+
+activePlan.innerText=planName;
+profilePlan.innerText=planName;
+
+planStatus.innerText=
+userData.activePlan
+?"Active"
+:"Inactive";
 
 renderPlans();
 renderTasks();
+
 }
 
 
-/* =========================
-   PAGE
-========================= */
+/* LOGOUT */
 
-window.showPage=(id,btn)=>{
+async function logoutUser(){
 
-document.querySelectorAll(".page")
-.forEach(x=>x.classList.add("hidden"));
-
-document.getElementById(id).classList.remove("hidden");
-
-if(btn){
-document.querySelectorAll(".nav button")
-.forEach(x=>x.classList.remove("active"));
-btn.classList.add("active");
-}
-
-updateUI();
-};
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-window.logoutUser=async()=>{
 await signOut(auth);
-};
+
+showAuth("login");
+
+}
+
+
+/* START */
 
 renderPlans();
 
