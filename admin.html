@@ -7,11 +7,12 @@
 <title>Elyvion — Admin Panel</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
@@ -20,9 +21,13 @@ body{
   padding-bottom:40px;
 }
 
+.hidden{
+  display:none!important;
+}
+
 header{
   background:linear-gradient(135deg,#5b21b6,#8b5cf6);
-  color:#fff;
+  color:white;
   padding:20px;
 }
 
@@ -32,12 +37,12 @@ header h1{
 
 header p{
   margin-top:6px;
-  opacity:.85;
   font-size:13px;
+  opacity:.85;
 }
 
 .container{
-  max-width:1100px;
+  max-width:1150px;
   margin:auto;
   padding:18px;
 }
@@ -55,12 +60,26 @@ header p{
   margin:70px auto;
 }
 
-input{
+input,
+select,
+textarea{
   width:100%;
   padding:13px;
   border:1px solid #ddd;
   border-radius:10px;
   margin:7px 0 12px;
+  outline:none;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#7c3aed;
 }
 
 label{
@@ -72,17 +91,22 @@ label{
 button{
   border:0;
   border-radius:10px;
-  padding:11px 15px;
+  padding:10px 14px;
   font-weight:bold;
   cursor:pointer;
 }
 
 .primary{
   background:#6d28d9;
-  color:#fff;
+  color:white;
 }
 
-.danger{
+.success{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.reject{
   background:#fee2e2;
   color:#b91c1c;
 }
@@ -92,13 +116,28 @@ button{
   color:#444;
 }
 
-.hidden{
-  display:none!important;
+.blue{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
 }
 
 .error{
   color:#b91c1c;
   background:#fee2e2;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:13px;
+}
+
+.success-msg{
+  color:#15803d;
+  background:#dcfce7;
   padding:10px;
   border-radius:10px;
   margin-top:10px;
@@ -112,7 +151,7 @@ button{
 }
 
 .stat{
-  background:#fff;
+  background:white;
   padding:18px;
   border-radius:16px;
   box-shadow:0 5px 20px rgba(91,33,182,.08);
@@ -135,6 +174,20 @@ button{
   margin:25px 0 12px;
 }
 
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.toolbar input,
+.toolbar select{
+  flex:1;
+  min-width:180px;
+  margin:0;
+}
+
 .request{
   border:1px solid #eadfff;
   border-radius:14px;
@@ -145,7 +198,7 @@ button{
 .row{
   display:flex;
   justify-content:space-between;
-  gap:10px;
+  gap:15px;
   padding:8px 0;
   border-bottom:1px solid #eee;
   font-size:14px;
@@ -158,11 +211,12 @@ button{
 .row b{
   color:#5b21b6;
   text-align:right;
+  word-break:break-word;
 }
 
 .status{
   display:inline-block;
-  padding:5px 9px;
+  padding:5px 10px;
   border-radius:20px;
   font-size:12px;
   background:#fff7ed;
@@ -179,40 +233,91 @@ button{
   color:#b91c1c;
 }
 
+.status.completed{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.status.closed{
+  background:#e5e7eb;
+  color:#374151;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
 .screenshot{
-  width:180px;
-  max-height:180px;
+  width:220px;
+  max-height:220px;
   object-fit:contain;
   border-radius:10px;
   border:1px solid #ddd;
   margin-top:12px;
   cursor:pointer;
+  background:#fafafa;
 }
 
 .empty{
   text-align:center;
   color:#777;
-  padding:20px;
+  padding:25px;
 }
 
-.flex{
+.user-card{
+  border:1px solid #eadfff;
+  border-radius:14px;
+  padding:15px;
+  margin:10px 0;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999;
 }
 
-.refresh{
-  margin-bottom:10px;
+.modal-box{
+  background:white;
+  max-width:500px;
+  width:100%;
+  border-radius:16px;
+  padding:20px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modal img{
+  width:100%;
+  max-height:70vh;
+  object-fit:contain;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
 }
 
 @media(max-width:800px){
+
   .stats{
     grid-template-columns:1fr 1fr;
   }
+
 }
 
 @media(max-width:500px){
+
   .stats{
     grid-template-columns:1fr;
   }
@@ -224,13 +329,22 @@ button{
   .row b{
     text-align:left;
   }
+
+  header h1{
+    font-size:20px;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+
+<!-- =====================================================
+LOGIN
+===================================================== -->
 
 <div id="loginPage">
 
@@ -275,7 +389,9 @@ button{
 </div>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
 
 <div id="dashboard" class="hidden">
 
@@ -285,129 +401,273 @@ button{
 
   <p id="adminEmailText"></p>
 
-  <button
-    class="danger"
-    style="margin-top:12px"
-    onclick="adminLogout()"
-  >
-    Logout
-  </button>
+  <div class="top-actions">
+
+    <button
+      class="gray"
+      onclick="loadAll()"
+    >
+      🔄 Refresh
+    </button>
+
+    <button
+      class="danger"
+      onclick="adminLogout()"
+    >
+      Logout
+    </button>
+
+  </div>
 
 </header>
 
 
 <div class="container">
 
-  <!-- STATS -->
 
-  <div class="stats">
+<!-- =====================================================
+STATS
+===================================================== -->
 
-    <div class="stat">
-      <small>Total Users</small>
-      <b id="totalUsers">0</b>
-    </div>
+<div class="stats">
 
-    <div class="stat">
-      <small>Deposit Requests</small>
-      <b id="totalDeposits">0</b>
-    </div>
+  <div class="stat">
+    <small>Total Users</small>
+    <b id="totalUsers">0</b>
+  </div>
 
-    <div class="stat">
-      <small>Plan Requests</small>
-      <b id="totalPlans">0</b>
-    </div>
+  <div class="stat">
+    <small>Deposit Requests</small>
+    <b id="totalDeposits">0</b>
+  </div>
 
-    <div class="stat">
-      <small>Withdrawal Requests</small>
-      <b id="totalWithdraws">0</b>
-    </div>
+  <div class="stat">
+    <small>Plan Requests</small>
+    <b id="totalPlans">0</b>
+  </div>
+
+  <div class="stat">
+    <small>Withdrawal Requests</small>
+    <b id="totalWithdraws">0</b>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+USERS
+===================================================== -->
+
+<div class="section-title">
+👥 Users
+</div>
+
+<div class="card">
+
+  <div class="toolbar">
+
+    <input
+      id="userSearch"
+      placeholder="Search name, email or UID..."
+      oninput="filterUsers()"
+    >
 
   </div>
 
-
-  <!-- DEPOSITS -->
-
-  <div class="section-title">
-    📥 Deposit Requests
+  <div id="userList">
+    <div class="empty">Loading...</div>
   </div>
 
-  <div class="card">
+</div>
 
-    <button class="gray refresh" onclick="loadAll()">
-      🔄 Refresh
+
+<!-- =====================================================
+DEPOSITS
+===================================================== -->
+
+<div class="section-title">
+📥 Deposit Requests
+</div>
+
+<div class="card">
+
+  <div class="toolbar">
+
+    <select
+      id="depositFilter"
+      onchange="filterSection('deposit')"
+    >
+
+      <option value="all">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Approved">Approved</option>
+      <option value="Rejected">Rejected</option>
+
+    </select>
+
+  </div>
+
+  <div id="depositList">
+    <div class="empty">Loading...</div>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+PLANS
+===================================================== -->
+
+<div class="section-title">
+📦 Plan Requests
+</div>
+
+<div class="card">
+
+  <div class="toolbar">
+
+    <select
+      id="planFilter"
+      onchange="filterSection('plan')"
+    >
+
+      <option value="all">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Approved">Approved</option>
+      <option value="Rejected">Rejected</option>
+
+    </select>
+
+  </div>
+
+  <div id="planList">
+    <div class="empty">Loading...</div>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+WITHDRAWALS
+===================================================== -->
+
+<div class="section-title">
+💸 Withdrawal Requests
+</div>
+
+<div class="card">
+
+  <div class="toolbar">
+
+    <select
+      id="withdrawFilter"
+      onchange="filterSection('withdraw')"
+    >
+
+      <option value="all">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Processing">Processing</option>
+      <option value="Completed">Completed</option>
+      <option value="Rejected">Rejected</option>
+
+    </select>
+
+  </div>
+
+  <div id="withdrawList">
+    <div class="empty">Loading...</div>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+TASKS
+===================================================== -->
+
+<div class="section-title">
+✅ Task Verification
+</div>
+
+<div class="card">
+
+  <div class="toolbar">
+
+    <select
+      id="taskFilter"
+      onchange="filterSection('task')"
+    >
+
+      <option value="all">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Approved">Approved</option>
+      <option value="Rejected">Rejected</option>
+
+    </select>
+
+  </div>
+
+  <div id="taskList">
+    <div class="empty">Loading...</div>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+SUPPORT
+===================================================== -->
+
+<div class="section-title">
+🎧 Support Tickets
+</div>
+
+<div class="card">
+
+  <div id="ticketList">
+    <div class="empty">Loading...</div>
+  </div>
+
+</div>
+
+
+</div>
+</div>
+
+
+<!-- =====================================================
+MODAL
+===================================================== -->
+
+<div
+  id="modal"
+  class="modal hidden"
+  onclick="closeModal()"
+>
+
+  <div
+    class="modal-box"
+    onclick="event.stopPropagation()"
+  >
+
+    <div id="modalContent"></div>
+
+    <button
+      class="gray"
+      style="width:100%;margin-top:15px"
+      onclick="closeModal()"
+    >
+      Close
     </button>
 
-    <div id="depositList">
-      <div class="empty">Loading...</div>
-    </div>
-
-  </div>
-
-
-  <!-- PLANS -->
-
-  <div class="section-title">
-    📦 Plan Requests
-  </div>
-
-  <div class="card">
-
-    <div id="planList">
-      <div class="empty">Loading...</div>
-    </div>
-
-  </div>
-
-
-  <!-- WITHDRAWALS -->
-
-  <div class="section-title">
-    💸 Withdrawal Requests
-  </div>
-
-  <div class="card">
-
-    <div id="withdrawList">
-      <div class="empty">Loading...</div>
-    </div>
-
-  </div>
-
-
-  <!-- TASKS -->
-
-  <div class="section-title">
-    ✅ Task Verification
-  </div>
-
-  <div class="card">
-
-    <div id="taskList">
-      <div class="empty">Loading...</div>
-    </div>
-
-  </div>
-
-
-  <!-- SUPPORT -->
-
-  <div class="section-title">
-    🎧 Support Tickets
-  </div>
-
-  <div class="card">
-
-    <div id="ticketList">
-      <div class="empty">Loading...</div>
-    </div>
-
   </div>
 
 </div>
-</div>
 
 
-<!-- ================= FIREBASE ================= -->
+<!-- =====================================================
+FIREBASE
+===================================================== -->
 
 <script type="module">
 
@@ -427,14 +687,18 @@ import {
   collection,
   query,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  doc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
 
 const firebaseConfig = {
 
@@ -462,10 +726,6 @@ const firebaseConfig = {
 };
 
 
-/* =========================
-   INITIALIZE
-========================= */
-
 const app =
   initializeApp(firebaseConfig);
 
@@ -476,26 +736,60 @@ const db =
   getFirestore(app);
 
 
-/* =========================
-   ADMIN EMAIL
-========================= */
+/* =====================================================
+ADMIN EMAIL
+===================================================== */
 
 const ADMIN_EMAIL =
   "saikatmd7373@gmail.com";
 
 
-/* =========================
-   GLOBAL
-========================= */
+/* =====================================================
+GLOBAL DATA
+===================================================== */
+
+let usersData = [];
+let depositsData = [];
+let plansData = [];
+let withdrawsData = [];
+let tasksData = [];
+let ticketsData = [];
+
+
+/* =====================================================
+WINDOW FUNCTIONS
+===================================================== */
 
 window.adminLogin = adminLogin;
 window.adminLogout = adminLogout;
 window.loadAll = loadAll;
 
+window.filterUsers = filterUsers;
+window.filterSection = filterSection;
 
-/* =========================
-   AUTH
-========================= */
+window.approveDeposit = approveDeposit;
+window.rejectDeposit = rejectDeposit;
+
+window.approvePlan = approvePlan;
+window.rejectPlan = rejectPlan;
+
+window.processWithdrawal = processWithdrawal;
+window.completeWithdrawal = completeWithdrawal;
+window.rejectWithdrawal = rejectWithdrawal;
+
+window.approveTask = approveTask;
+window.rejectTask = rejectTask;
+
+window.closeTicket = closeTicket;
+window.deleteRequest = deleteRequest;
+
+window.showImage = showImage;
+window.closeModal = closeModal;
+
+
+/* =====================================================
+AUTH STATE
+===================================================== */
 
 onAuthStateChanged(auth,user=>{
 
@@ -510,6 +804,7 @@ onAuthStateChanged(auth,user=>{
       .classList.add("hidden");
 
     return;
+
   }
 
 
@@ -520,6 +815,7 @@ onAuthStateChanged(auth,user=>{
     signOut(auth);
 
     return;
+
   }
 
 
@@ -541,9 +837,9 @@ onAuthStateChanged(auth,user=>{
 });
 
 
-/* =========================
-   LOGIN
-========================= */
+/* =====================================================
+LOGIN
+===================================================== */
 
 async function adminLogin(){
 
@@ -575,6 +871,7 @@ async function adminLogin(){
       "Email এবং password দিন।";
 
     return;
+
   }
 
 
@@ -586,6 +883,7 @@ async function adminLogin(){
       "এই email Admin account নয়।";
 
     return;
+
   }
 
 
@@ -612,9 +910,9 @@ async function adminLogin(){
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* =====================================================
+LOGOUT
+===================================================== */
 
 async function adminLogout(){
 
@@ -623,9 +921,9 @@ async function adminLogout(){
 }
 
 
-/* =========================
-   LOAD ALL
-========================= */
+/* =====================================================
+LOAD ALL
+===================================================== */
 
 function loadAll(){
 
@@ -639,9 +937,9 @@ function loadAll(){
 }
 
 
-/* =========================
-   USERS
-========================= */
+/* =====================================================
+USERS
+===================================================== */
 
 function loadUsers(){
 
@@ -653,23 +951,126 @@ function loadUsers(){
 
   onSnapshot(q,snap=>{
 
+    usersData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
+
+
     document
       .getElementById("totalUsers")
       .innerText =
-      snap.size;
+      usersData.length;
+
+
+    renderUsers();
 
   },error=>{
 
     console.error("Users:",error);
+
+    document
+      .getElementById("userList")
+      .innerHTML =
+      '<div class="empty">Users load করা যায়নি।</div>';
 
   });
 
 }
 
 
-/* =========================
-   DEPOSITS
-========================= */
+function renderUsers(){
+
+  const search =
+    document
+      .getElementById("userSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const list =
+    usersData.filter(x=>{
+
+      const text =
+        (
+          x.name || "" +
+          " " +
+          x.email || "" +
+          " " +
+          x.uid || ""
+        ).toLowerCase();
+
+      return text.includes(search);
+
+    });
+
+
+  const box =
+    document
+      .getElementById("userList");
+
+
+  if(!list.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো User পাওয়া যায়নি।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    list.map(x=>`
+
+      <div class="user-card">
+
+        <div class="row">
+          <span>Name</span>
+          <b>${escapeHTML(x.name || "—")}</b>
+        </div>
+
+        <div class="row">
+          <span>Email</span>
+          <b>${escapeHTML(x.email || "—")}</b>
+        </div>
+
+        <div class="row">
+          <span>UID</span>
+          <b>${escapeHTML(x.uid || x.id || "—")}</b>
+        </div>
+
+        <div class="row">
+          <span>Plan</span>
+          <b>${escapeHTML(x.plan || "—")}</b>
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+          <b>${escapeHTML(x.status || "Active")}</b>
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function filterUsers(){
+
+  renderUsers();
+
+}
+
+
+/* =====================================================
+DEPOSITS
+===================================================== */
 
 function loadDeposits(){
 
@@ -682,89 +1083,22 @@ function loadDeposits(){
 
   onSnapshot(q,snap=>{
 
+    depositsData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
+
+
     document
       .getElementById("totalDeposits")
       .innerText =
-      snap.size;
+      depositsData.length;
 
 
-    const box =
-      document
-        .getElementById("depositList");
-
-
-    if(snap.empty){
-
-      box.innerHTML =
-        '<div class="empty">কোনো Deposit Request নেই</div>';
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x =
-          d.data();
-
-        const status =
-          x.status || "Pending";
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>${escapeHTML(x.email || x.uid || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Amount</span>
-            <b>
-              ৳${Number(x.amount || 0).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Method</span>
-            <b>${escapeHTML(x.method || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Sender Last 4</span>
-            <b>${escapeHTML(x.senderLast4 || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(status)}
-            </span>
-          </div>
-
-          ${
-            x.screenshotURL
-            ?
-            `
-            <img
-              class="screenshot"
-              src="${escapeHTML(x.screenshotURL)}"
-              onclick="window.open('${escapeHTML(x.screenshotURL)}','_blank')"
-              alt="Screenshot"
-            >
-            `
-            :
-            ""
-          }
-
-        </div>
-
-        `;
-
-      }).join("");
+    renderDeposits();
 
   },error=>{
 
@@ -780,9 +1114,160 @@ function loadDeposits(){
 }
 
 
-/* =========================
-   PLANS
-========================= */
+function renderDeposits(){
+
+  const filter =
+    document
+      .getElementById("depositFilter")
+      .value;
+
+
+  const list =
+    depositsData.filter(x=>
+      filter === "all" ||
+      (x.status || "Pending") === filter
+    );
+
+
+  const box =
+    document
+      .getElementById("depositList");
+
+
+  if(!list.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো Deposit Request নেই।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    list.map(x=>{
+
+      const status =
+        x.status || "Pending";
+
+
+      return `
+
+      <div class="request">
+
+        <div class="row">
+          <span>User</span>
+          <b>${escapeHTML(x.email || x.uid || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Amount</span>
+          <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+        </div>
+
+        <div class="row">
+          <span>Method</span>
+          <b>${escapeHTML(x.method || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Sender Last 4</span>
+          <b>${escapeHTML(x.senderLast4 || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+          <span class="status ${statusClass(status)}">
+            ${escapeHTML(status)}
+          </span>
+        </div>
+
+        ${
+          x.screenshotURL
+          ?
+          `
+          <img
+            class="screenshot"
+            src="${escapeHTML(x.screenshotURL)}"
+            onclick="showImage('${escapeHTML(x.screenshotURL)}')"
+            alt="Deposit Screenshot"
+          >
+          `
+          :
+          ""
+        }
+
+        ${
+          status === "Pending"
+          ?
+          `
+          <div class="actions">
+
+            <button
+              class="success"
+              onclick="approveDeposit('${x.id}')"
+            >
+              ✓ Approve
+            </button>
+
+            <button
+              class="reject"
+              onclick="rejectDeposit('${x.id}')"
+            >
+              ✕ Reject
+            </button>
+
+          </div>
+          `
+          :
+          ""
+        }
+
+        <div class="actions">
+
+          <button
+            class="danger"
+            onclick="deleteRequest('depositRequests','${x.id}')"
+          >
+            🗑 Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function approveDeposit(id){
+
+  await changeStatus(
+    "depositRequests",
+    id,
+    "Approved"
+  );
+
+}
+
+
+async function rejectDeposit(id){
+
+  await changeStatus(
+    "depositRequests",
+    id,
+    "Rejected"
+  );
+
+}
+
+
+/* =====================================================
+PLANS
+===================================================== */
 
 function loadPlans(){
 
@@ -795,76 +1280,22 @@ function loadPlans(){
 
   onSnapshot(q,snap=>{
 
+    plansData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
+
+
     document
       .getElementById("totalPlans")
       .innerText =
-      snap.size;
+      plansData.length;
 
 
-    const box =
-      document
-        .getElementById("planList");
-
-
-    if(snap.empty){
-
-      box.innerHTML =
-        '<div class="empty">কোনো Plan Request নেই</div>';
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x =
-          d.data();
-
-        const p =
-          x.plan || {};
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>${escapeHTML(x.email || x.uid || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Plan</span>
-            <b>${escapeHTML(p.rank || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Price</span>
-            <b>
-              ৳${Number(p.price || 0).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Daily Reward</span>
-            <b>
-              ৳${Number(p.daily || 0).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(x.status || "Pending")}
-            </span>
-          </div>
-
-        </div>
-
-        `;
-
-      }).join("");
+    renderPlans();
 
   },error=>{
 
@@ -875,9 +1306,150 @@ function loadPlans(){
 }
 
 
-/* =========================
-   WITHDRAWALS
-========================= */
+function renderPlans(){
+
+  const filter =
+    document
+      .getElementById("planFilter")
+      .value;
+
+
+  const list =
+    plansData.filter(x=>
+      filter === "all" ||
+      (x.status || "Pending") === filter
+    );
+
+
+  const box =
+    document
+      .getElementById("planList");
+
+
+  if(!list.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো Plan Request নেই।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    list.map(x=>{
+
+      const p =
+        x.plan || {};
+
+      const status =
+        x.status || "Pending";
+
+
+      return `
+
+      <div class="request">
+
+        <div class="row">
+          <span>User</span>
+          <b>${escapeHTML(x.email || x.uid || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Plan</span>
+          <b>${escapeHTML(p.rank || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Price</span>
+          <b>৳${Number(p.price || 0).toLocaleString()}</b>
+        </div>
+
+        <div class="row">
+          <span>Daily Reward</span>
+          <b>৳${Number(p.daily || 0).toLocaleString()}</b>
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+
+          <span class="status ${statusClass(status)}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+
+        ${
+          status === "Pending"
+          ?
+          `
+          <div class="actions">
+
+            <button
+              class="success"
+              onclick="approvePlan('${x.id}')"
+            >
+              ✓ Approve
+            </button>
+
+            <button
+              class="reject"
+              onclick="rejectPlan('${x.id}')"
+            >
+              ✕ Reject
+            </button>
+
+          </div>
+          `
+          :
+          ""
+        }
+
+        <div class="actions">
+
+          <button
+            class="danger"
+            onclick="deleteRequest('planRequests','${x.id}')"
+          >
+            🗑 Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function approvePlan(id){
+
+  await changeStatus(
+    "planRequests",
+    id,
+    "Approved"
+  );
+
+}
+
+
+async function rejectPlan(id){
+
+  await changeStatus(
+    "planRequests",
+    id,
+    "Rejected"
+  );
+
+}
+
+
+/* =====================================================
+WITHDRAWALS
+===================================================== */
 
 function loadWithdrawals(){
 
@@ -890,76 +1462,22 @@ function loadWithdrawals(){
 
   onSnapshot(q,snap=>{
 
+    withdrawsData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
+
+
     document
       .getElementById("totalWithdraws")
       .innerText =
-      snap.size;
+      withdrawsData.length;
 
 
-    const box =
-      document
-        .getElementById("withdrawList");
-
-
-    if(snap.empty){
-
-      box.innerHTML =
-        '<div class="empty">কোনো Withdrawal Request নেই</div>';
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x =
-          d.data();
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>${escapeHTML(x.email || x.uid || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Amount</span>
-            <b>
-              ৳${Number(x.amount || 0).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Method</span>
-            <b>${escapeHTML(x.method || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Account</span>
-            <b>${escapeHTML(x.number || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Name</span>
-            <b>${escapeHTML(x.name || "")}</b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(x.status || "Pending")}
-            </span>
-          </div>
-
-        </div>
-
-        `;
-
-      }).join("");
+    renderWithdrawals();
 
   },error=>{
 
@@ -970,9 +1488,181 @@ function loadWithdrawals(){
 }
 
 
-/* =========================
-   TASKS
-========================= */
+function renderWithdrawals(){
+
+  const filter =
+    document
+      .getElementById("withdrawFilter")
+      .value;
+
+
+  const list =
+    withdrawsData.filter(x=>
+      filter === "all" ||
+      (x.status || "Pending") === filter
+    );
+
+
+  const box =
+    document
+      .getElementById("withdrawList");
+
+
+  if(!list.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো Withdrawal Request নেই।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    list.map(x=>{
+
+      const status =
+        x.status || "Pending";
+
+
+      return `
+
+      <div class="request">
+
+        <div class="row">
+          <span>User</span>
+          <b>${escapeHTML(x.email || x.uid || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Amount</span>
+          <b>৳${Number(x.amount || 0).toLocaleString()}</b>
+        </div>
+
+        <div class="row">
+          <span>Method</span>
+          <b>${escapeHTML(x.method || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Account</span>
+          <b>${escapeHTML(x.number || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Name</span>
+          <b>${escapeHTML(x.name || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+
+          <span class="status ${statusClass(status)}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+
+
+        <div class="actions">
+
+          ${
+            status === "Pending"
+            ?
+            `
+            <button
+              class="blue"
+              onclick="processWithdrawal('${x.id}')"
+            >
+              ⚙ Processing
+            </button>
+
+            <button
+              class="reject"
+              onclick="rejectWithdrawal('${x.id}')"
+            >
+              ✕ Reject
+            </button>
+            `
+            :
+            ""
+          }
+
+
+          ${
+            status === "Processing"
+            ?
+            `
+            <button
+              class="success"
+              onclick="completeWithdrawal('${x.id}')"
+            >
+              ✓ Mark Completed
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="danger"
+            onclick="deleteRequest('withdrawalRequests','${x.id}')"
+          >
+            🗑 Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function processWithdrawal(id){
+
+  await changeStatus(
+    "withdrawalRequests",
+    id,
+    "Processing"
+  );
+
+}
+
+
+async function completeWithdrawal(id){
+
+  await changeStatus(
+    "withdrawalRequests",
+    id,
+    "Completed"
+  );
+
+}
+
+
+async function rejectWithdrawal(id){
+
+  await changeStatus(
+    "withdrawalRequests",
+    id,
+    "Rejected"
+  );
+
+}
+
+
+/* =====================================================
+TASKS
+===================================================== */
 
 function loadTasks(){
 
@@ -985,71 +1675,16 @@ function loadTasks(){
 
   onSnapshot(q,snap=>{
 
-    const box =
-      document
-        .getElementById("taskList");
+    tasksData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
 
 
-    if(snap.empty){
-
-      box.innerHTML =
-        '<div class="empty">কোনো Task Request নেই</div>';
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x =
-          d.data();
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(x.email || x.uid || "")}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Task</span>
-            <b>
-              #${escapeHTML(x.taskNumber || "")}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Plan</span>
-            <b>
-              ${escapeHTML(x.plan || "")}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Reward</span>
-            <b>
-              ৳${Number(x.reward || 0).toLocaleString()}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <span class="status">
-              ${escapeHTML(x.status || "Pending")}
-            </span>
-          </div>
-
-        </div>
-
-        `;
-
-      }).join("");
+    renderTasks();
 
   },error=>{
 
@@ -1060,9 +1695,165 @@ function loadTasks(){
 }
 
 
-/* =========================
-   SUPPORT
-========================= */
+function renderTasks(){
+
+  const filter =
+    document
+      .getElementById("taskFilter")
+      .value;
+
+
+  const list =
+    tasksData.filter(x=>
+      filter === "all" ||
+      (x.status || "Pending") === filter
+    );
+
+
+  const box =
+    document
+      .getElementById("taskList");
+
+
+  if(!list.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো Task Request নেই।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    list.map(x=>{
+
+      const status =
+        x.status || "Pending";
+
+
+      return `
+
+      <div class="request">
+
+        <div class="row">
+          <span>User</span>
+          <b>${escapeHTML(x.email || x.uid || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Task</span>
+          <b>#${escapeHTML(x.taskNumber || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Plan</span>
+          <b>${escapeHTML(x.plan || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Reward</span>
+          <b>৳${Number(x.reward || 0).toLocaleString()}</b>
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+
+          <span class="status ${statusClass(status)}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+
+
+        ${
+          x.screenshotURL
+          ?
+          `
+          <img
+            class="screenshot"
+            src="${escapeHTML(x.screenshotURL)}"
+            onclick="showImage('${escapeHTML(x.screenshotURL)}')"
+            alt="Task Screenshot"
+          >
+          `
+          :
+          ""
+        }
+
+
+        ${
+          status === "Pending"
+          ?
+          `
+          <div class="actions">
+
+            <button
+              class="success"
+              onclick="approveTask('${x.id}')"
+            >
+              ✓ Approve Task
+            </button>
+
+            <button
+              class="reject"
+              onclick="rejectTask('${x.id}')"
+            >
+              ✕ Reject Task
+            </button>
+
+          </div>
+          `
+          :
+          ""
+        }
+
+
+        <div class="actions">
+
+          <button
+            class="danger"
+            onclick="deleteRequest('taskCompletions','${x.id}')"
+          >
+            🗑 Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function approveTask(id){
+
+  await changeStatus(
+    "taskCompletions",
+    id,
+    "Approved"
+  );
+
+}
+
+
+async function rejectTask(id){
+
+  await changeStatus(
+    "taskCompletions",
+    id,
+    "Rejected"
+  );
+
+}
+
+
+/* =====================================================
+SUPPORT
+===================================================== */
 
 function loadTickets(){
 
@@ -1075,61 +1866,16 @@ function loadTickets(){
 
   onSnapshot(q,snap=>{
 
-    const box =
-      document
-        .getElementById("ticketList");
+    ticketsData =
+      snap.docs.map(d=>({
+
+        id:d.id,
+        ...d.data()
+
+      }));
 
 
-    if(snap.empty){
-
-      box.innerHTML =
-        '<div class="empty">কোনো Support Ticket নেই</div>';
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x =
-          d.data();
-
-
-        return `
-
-        <div class="request">
-
-          <div class="row">
-            <span>User</span>
-            <b>
-              ${escapeHTML(x.email || x.uid || "")}
-            </b>
-          </div>
-
-          <div class="row">
-            <span>Subject</span>
-            <b>
-              ${escapeHTML(x.subject || "")}
-            </b>
-          </div>
-
-          <div style="padding:10px 0">
-            ${escapeHTML(x.message || "")}
-          </div>
-
-          <div class="row">
-            <span>Status</span>
-            <b>
-              ${escapeHTML(x.status || "Open")}
-            </b>
-          </div>
-
-        </div>
-
-        `;
-
-      }).join("");
+    renderTickets();
 
   },error=>{
 
@@ -1140,9 +1886,289 @@ function loadTickets(){
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+function renderTickets(){
+
+  const box =
+    document
+      .getElementById("ticketList");
+
+
+  if(!ticketsData.length){
+
+    box.innerHTML =
+      '<div class="empty">কোনো Support Ticket নেই।</div>';
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    ticketsData.map(x=>{
+
+      const status =
+        x.status || "Open";
+
+
+      return `
+
+      <div class="request">
+
+        <div class="row">
+          <span>User</span>
+          <b>${escapeHTML(x.email || x.uid || "")}</b>
+        </div>
+
+        <div class="row">
+          <span>Subject</span>
+          <b>${escapeHTML(x.subject || "")}</b>
+        </div>
+
+        <div style="padding:12px 0;line-height:1.6">
+          ${escapeHTML(x.message || "")}
+        </div>
+
+        <div class="row">
+          <span>Status</span>
+
+          <span class="status ${statusClass(status)}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+
+
+        ${
+          status !== "Closed"
+          ?
+          `
+          <div class="actions">
+
+            <button
+              class="success"
+              onclick="closeTicket('${x.id}')"
+            >
+              ✓ Close Ticket
+            </button>
+
+          </div>
+          `
+          :
+          ""
+        }
+
+
+        <div class="actions">
+
+          <button
+            class="danger"
+            onclick="deleteRequest('supportTickets','${x.id}')"
+          >
+            🗑 Delete
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function closeTicket(id){
+
+  await changeStatus(
+    "supportTickets",
+    id,
+    "Closed"
+  );
+
+}
+
+
+/* =====================================================
+STATUS FILTER
+===================================================== */
+
+function filterSection(type){
+
+  if(type === "deposit")
+    renderDeposits();
+
+  if(type === "plan")
+    renderPlans();
+
+  if(type === "withdraw")
+    renderWithdrawals();
+
+  if(type === "task")
+    renderTasks();
+
+}
+
+
+/* =====================================================
+CHANGE STATUS
+===================================================== */
+
+async function changeStatus(
+  collectionName,
+  id,
+  status
+){
+
+  const confirmed =
+    confirm(
+      "আপনি কি নিশ্চিতভাবে status পরিবর্তন করতে চান?"
+    );
+
+
+  if(!confirmed)
+    return;
+
+
+  try{
+
+    await updateDoc(
+      doc(db,collectionName,id),
+      {
+        status:status,
+        reviewedBy:ADMIN_EMAIL,
+        reviewedAt:serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "Status successfully updated: " +
+      status
+    );
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Update করা যায়নি। Firestore Rules check করুন।"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+DELETE
+===================================================== */
+
+async function deleteRequest(
+  collectionName,
+  id
+){
+
+  const confirmed =
+    confirm(
+      "এই request permanently delete করতে চান?"
+    );
+
+
+  if(!confirmed)
+    return;
+
+
+  try{
+
+    await deleteDoc(
+      doc(db,collectionName,id)
+    );
+
+
+    alert("Deleted successfully.");
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Delete করা যায়নি। Firestore Rules check করুন।"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+IMAGE MODAL
+===================================================== */
+
+function showImage(url){
+
+  document
+    .getElementById("modalContent")
+    .innerHTML = `
+
+      <h3 style="margin-bottom:12px">
+        Screenshot
+      </h3>
+
+      <img
+        src="${escapeHTML(url)}"
+        alt="Screenshot"
+      >
+
+    `;
+
+
+  document
+    .getElementById("modal")
+    .classList
+    .remove("hidden");
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList
+    .add("hidden");
+
+}
+
+
+/* =====================================================
+HELPERS
+===================================================== */
+
+function statusClass(status){
+
+  const s =
+    String(status || "")
+      .toLowerCase();
+
+  if(s === "approved")
+    return "approved";
+
+  if(s === "rejected")
+    return "rejected";
+
+  if(s === "completed")
+    return "completed";
+
+  if(s === "closed")
+    return "closed";
+
+  return "";
+
+}
+
 
 function escapeHTML(value){
 
