@@ -11,29 +11,69 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
 }
 
 body{
   background:#f6f2ff;
   color:#211437;
-  padding-bottom:40px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#6d28d9;
+  color:white;
+}
+
+.success{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.reject{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.secondary{
+  background:#ede9fe;
+  color:#5b21b6;
 }
 
 header{
   background:linear-gradient(135deg,#5b21b6,#8b5cf6);
-  color:#fff;
-  padding:20px;
+  color:white;
+  padding:18px;
 }
 
-header h1{
-  font-size:24px;
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-header p{
-  margin-top:6px;
+.logo{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.header-email{
+  font-size:12px;
   opacity:.85;
-  font-size:13px;
+  margin-top:4px;
 }
 
 .container{
@@ -42,89 +82,18 @@ header p{
   padding:18px;
 }
 
-.card{
-  background:#fff;
-  border-radius:16px;
-  padding:18px;
-  margin:14px 0;
-  box-shadow:0 5px 20px rgba(91,33,182,.08);
-}
-
-.login{
-  max-width:420px;
-  margin:70px auto;
-}
-
-input{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  margin:7px 0 12px;
-}
-
-label{
-  font-size:13px;
-  font-weight:bold;
-  color:#555;
-}
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:11px 15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.primary{
-  background:#6d28d9;
-  color:#fff;
-}
-
-.danger{
-  background:#fee2e2;
-  color:#b91c1c;
-}
-
-.gray{
-  background:#eee;
-  color:#444;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.error{
-  color:#b91c1c;
-  background:#fee2e2;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
-  font-size:13px;
-}
-
-.success{
-  color:#166534;
-  background:#dcfce7;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
-  font-size:13px;
-}
-
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:12px;
+  margin-bottom:20px;
 }
 
 .stat{
-  background:#fff;
+  background:white;
   padding:18px;
   border-radius:16px;
-  box-shadow:0 5px 20px rgba(91,33,182,.08);
+  box-shadow:0 4px 15px rgba(91,33,182,.08);
 }
 
 .stat small{
@@ -133,40 +102,59 @@ button{
 
 .stat b{
   display:block;
-  color:#5b21b6;
   font-size:25px;
-  margin-top:8px;
+  color:#5b21b6;
+  margin-top:7px;
 }
 
-.section-title{
-  font-size:21px;
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:18px;
+}
+
+.tabs button{
+  white-space:nowrap;
+  background:white;
+  color:#666;
+}
+
+.tabs button.active{
+  background:#6d28d9;
+  color:white;
+}
+
+.panel{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(91,33,182,.08);
+  margin-bottom:18px;
+}
+
+.panel-title{
+  font-size:20px;
   font-weight:bold;
-  margin:25px 0 12px;
+  margin-bottom:15px;
 }
 
 .request{
-  border:1px solid #eadfff;
+  border:1px solid #eee;
   border-radius:14px;
   padding:15px;
   margin:10px 0;
 }
 
-.row{
+.request-top{
   display:flex;
   justify-content:space-between;
   gap:10px;
-  padding:8px 0;
-  border-bottom:1px solid #eee;
+}
+
+.request-info{
+  line-height:1.7;
   font-size:14px;
-}
-
-.row:last-child{
-  border-bottom:0;
-}
-
-.row b{
-  color:#5b21b6;
-  text-align:right;
 }
 
 .status{
@@ -188,88 +176,106 @@ button{
   color:#b91c1c;
 }
 
-.empty{
-  text-align:center;
-  color:#777;
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.actions button{
+  flex:1;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:11px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#5b21b6;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin:7px 0 12px;
+}
+
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   padding:20px;
 }
 
-.flex{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,.1);
 }
 
-.refresh{
-  margin-bottom:10px;
-}
-
-.user-card{
-  border:1px solid #eadfff;
-  padding:15px;
-  border-radius:14px;
-  margin:10px 0;
-}
-
-.user-name{
-  font-size:17px;
+.login-logo{
+  text-align:center;
+  font-size:30px;
   font-weight:bold;
   color:#5b21b6;
-  margin-bottom:8px;
-}
-
-.search{
-  margin-bottom:12px;
-}
-
-.badge{
-  display:inline-block;
-  background:#ede9fe;
-  color:#5b21b6;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-}
-
-.deposit-code{
-  background:#f4efff;
-  border:2px dashed #8b5cf6;
-  border-radius:12px;
-  padding:14px;
-  margin-top:12px;
-  text-align:center;
-}
-
-.deposit-code small{
-  display:block;
-  color:#777;
   margin-bottom:5px;
 }
 
-.deposit-code strong{
-  color:#5b21b6;
-  font-size:24px;
-  letter-spacing:3px;
+.login-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:20px;
 }
 
-@media(max-width:800px){
+.error{
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:13px;
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+@media(max-width:700px){
+
   .stats{
     grid-template-columns:1fr 1fr;
   }
-}
 
-@media(max-width:500px){
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .row{
+  .header-inner{
     flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
   }
 
-  .row b{
-    text-align:left;
+  table{
+    display:block;
+    overflow-x:auto;
+  }
+
+  .actions{
+    flex-direction:column;
   }
 }
 </style>
@@ -277,73 +283,87 @@ button{
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
-<div id="loginPage">
+<div id="loginPage" class="login-page">
 
-  <div class="card login">
+  <div class="login-box">
 
-    <h2 style="text-align:center;color:#5b21b6">
-      💜 Elyvion Admin
-    </h2>
+    <div class="login-logo">
+      💜 Elyvion
+    </div>
 
-    <p style="text-align:center;color:#777;margin:8px 0 20px">
-      Admin Login
-    </p>
+    <div class="login-sub">
+      Admin Dashboard
+    </div>
 
-    <label>Email</label>
+    <div id="loginError" class="error hidden"></div>
+
+    <label>Admin Email</label>
 
     <input
       id="adminEmail"
       type="email"
-      placeholder="Admin email"
-    >
+      placeholder="Admin email">
 
     <label>Password</label>
 
     <input
       id="adminPassword"
       type="password"
-      placeholder="Password"
-    >
+      placeholder="Password">
 
     <button
       class="primary"
       style="width:100%"
       onclick="adminLogin()">
-      Login
-    </button>
 
-    <div id="loginError"></div>
+      🔐 Admin Login
+
+    </button>
 
   </div>
 
 </div>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- ADMIN -->
 
-<div id="dashboard" class="hidden">
+<div id="adminPage" class="hidden">
 
 <header>
 
-  <h1>💜 Elyvion Admin Panel</h1>
+  <div class="header-inner">
 
-  <p id="adminEmailText"></p>
+    <div>
 
-  <button
-    class="danger"
-    style="margin-top:12px"
-    onclick="adminLogout()">
-    Logout
-  </button>
+      <div class="logo">
+        💜 Elyvion Admin
+      </div>
+
+      <div
+        id="adminEmailText"
+        class="header-email">
+      </div>
+
+    </div>
+
+    <button
+      class="secondary"
+      onclick="adminLogout()">
+
+      Logout
+
+    </button>
+
+  </div>
 
 </header>
 
 
 <div class="container">
 
-  <!-- ================= STATS ================= -->
+  <!-- STATS -->
 
   <div class="stats">
 
@@ -358,58 +378,65 @@ button{
     </div>
 
     <div class="stat">
-      <small>Plan Requests</small>
-      <b id="totalPlans">0</b>
+      <small>Withdrawals</small>
+      <b id="totalWithdrawals">0</b>
     </div>
 
     <div class="stat">
-      <small>Withdrawal Requests</small>
-      <b id="totalWithdraws">0</b>
+      <small>Task Requests</small>
+      <b id="totalTasks">0</b>
     </div>
 
   </div>
 
 
-  <!-- ================= USERS ================= -->
+  <!-- TABS -->
 
-  <div class="section-title">
-    👥 Users
-  </div>
-
-  <div class="card">
-
-    <input
-      id="userSearch"
-      class="search"
-      type="text"
-      placeholder="🔎 User search..."
-      oninput="filterUsers()"
-    >
-
-    <div id="userList">
-      <div class="empty">
-        Loading users...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- ================= DEPOSITS ================= -->
-
-  <div class="section-title">
-    📥 Deposit Requests
-  </div>
-
-  <div class="card">
+  <div class="tabs">
 
     <button
-      class="gray refresh"
-      onclick="loadAll()">
-      🔄 Refresh
+      class="active"
+      onclick="showSection('users',this)">
+      👥 Users
     </button>
 
-    <div id="depositList">
+    <button
+      onclick="showSection('deposits',this)">
+      📥 Deposits
+    </button>
+
+    <button
+      onclick="showSection('withdrawals',this)">
+      💸 Withdrawals
+    </button>
+
+    <button
+      onclick="showSection('tasks',this)">
+      ✅ Tasks
+    </button>
+
+    <button
+      onclick="showSection('plans',this)">
+      📦 Plans
+    </button>
+
+    <button
+      onclick="showSection('tickets',this)">
+      🎧 Tickets
+    </button>
+
+  </div>
+
+
+  <!-- USERS -->
+
+  <div id="usersSection" class="panel">
+
+    <div class="panel-title">
+      👥 Users
+    </div>
+
+    <div id="usersBox">
       <div class="empty">
         Loading...
       </div>
@@ -418,15 +445,17 @@ button{
   </div>
 
 
-  <!-- ================= PLANS ================= -->
+  <!-- DEPOSITS -->
 
-  <div class="section-title">
-    📦 Plan Requests
-  </div>
+  <div
+    id="depositsSection"
+    class="panel hidden">
 
-  <div class="card">
+    <div class="panel-title">
+      📥 Deposit Requests
+    </div>
 
-    <div id="planList">
+    <div id="depositsBox">
       <div class="empty">
         Loading...
       </div>
@@ -435,15 +464,17 @@ button{
   </div>
 
 
-  <!-- ================= WITHDRAWALS ================= -->
+  <!-- WITHDRAWALS -->
 
-  <div class="section-title">
-    💸 Withdrawal Requests
-  </div>
+  <div
+    id="withdrawalsSection"
+    class="panel hidden">
 
-  <div class="card">
+    <div class="panel-title">
+      💸 Withdrawal Requests
+    </div>
 
-    <div id="withdrawList">
+    <div id="withdrawalsBox">
       <div class="empty">
         Loading...
       </div>
@@ -452,15 +483,17 @@ button{
   </div>
 
 
-  <!-- ================= TASKS ================= -->
+  <!-- TASKS -->
 
-  <div class="section-title">
-    ✅ Task Verification
-  </div>
+  <div
+    id="tasksSection"
+    class="panel hidden">
 
-  <div class="card">
+    <div class="panel-title">
+      ✅ Task Completion Requests
+    </div>
 
-    <div id="taskList">
+    <div id="tasksBox">
       <div class="empty">
         Loading...
       </div>
@@ -469,15 +502,36 @@ button{
   </div>
 
 
-  <!-- ================= SUPPORT ================= -->
+  <!-- PLANS -->
 
-  <div class="section-title">
-    🎧 Support Tickets
+  <div
+    id="plansSection"
+    class="panel hidden">
+
+    <div class="panel-title">
+      📦 Plan Requests
+    </div>
+
+    <div id="plansBox">
+      <div class="empty">
+        Loading...
+      </div>
+    </div>
+
   </div>
 
-  <div class="card">
 
-    <div id="ticketList">
+  <!-- TICKETS -->
+
+  <div
+    id="ticketsSection"
+    class="panel hidden">
+
+    <div class="panel-title">
+      🎧 Support Tickets
+    </div>
+
+    <div id="ticketsBox">
       <div class="empty">
         Loading...
       </div>
@@ -486,15 +540,18 @@ button{
   </div>
 
 </div>
+
 </div>
 
-
-<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
   getAuth,
@@ -502,20 +559,25 @@ import {
   onAuthStateChanged,
   signOut
 }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 import {
   getFirestore,
   collection,
   query,
-  onSnapshot
+  orderBy,
+  onSnapshot,
+  doc,
+  updateDoc,
+  getDoc,
+  increment,
+  serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
-/* =========================
-   FIREBASE CONFIG
-========================= */
 
 const firebaseConfig = {
 
@@ -543,10 +605,6 @@ const firebaseConfig = {
 };
 
 
-/* =========================
-   INITIALIZE
-========================= */
-
 const app =
   initializeApp(firebaseConfig);
 
@@ -557,99 +615,17 @@ const db =
   getFirestore(app);
 
 
-/* =========================
-   ADMIN EMAIL
-========================= */
+/*
+==================================================
+AUTH
+==================================================
+*/
 
-const ADMIN_EMAIL =
-  "saikatmd7373@gmail.com";
+window.adminLogin = adminLogin;
+window.adminLogout = adminLogout;
+window.showSection = showSection;
+window.updateRequest = updateRequest;
 
-
-/* =========================
-   GLOBAL
-========================= */
-
-let allUsers = [];
-
-
-/* =========================
-   WINDOW FUNCTIONS
-========================= */
-
-window.adminLogin =
-  adminLogin;
-
-window.adminLogout =
-  adminLogout;
-
-window.loadAll =
-  loadAll;
-
-window.filterUsers =
-  filterUsers;
-
-
-/* =========================
-   AUTH STATE
-========================= */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if(!user){
-
-      document
-        .getElementById("loginPage")
-        .classList.remove("hidden");
-
-      document
-        .getElementById("dashboard")
-        .classList.add("hidden");
-
-      return;
-    }
-
-
-    if(
-      user.email !==
-      ADMIN_EMAIL
-    ){
-
-      alert(
-        "এই account-এর Admin access নেই।"
-      );
-
-      signOut(auth);
-
-      return;
-    }
-
-
-    document
-      .getElementById("loginPage")
-      .classList.add("hidden");
-
-    document
-      .getElementById("dashboard")
-      .classList.remove("hidden");
-
-
-    document
-      .getElementById("adminEmailText")
-      .innerText =
-      user.email || "";
-
-
-    loadAll();
-
-  }
-);
-
-
-/* =========================
-   ADMIN LOGIN
-========================= */
 
 async function adminLogin(){
 
@@ -664,33 +640,19 @@ async function adminLogin(){
       .getElementById("adminPassword")
       .value;
 
-
-  const error =
-    document
-      .getElementById("loginError");
+  const errorBox =
+    document.getElementById("loginError");
 
 
-  error.className="";
-  error.innerText="";
+  errorBox.classList.add("hidden");
 
 
   if(!email || !password){
 
-    error.className="error";
-
-    error.innerText =
+    errorBox.innerText =
       "Email এবং Password দিন।";
 
-    return;
-  }
-
-
-  if(email !== ADMIN_EMAIL){
-
-    error.className="error";
-
-    error.innerText =
-      "এই Email Admin account নয়।";
+    errorBox.classList.remove("hidden");
 
     return;
   }
@@ -705,24 +667,20 @@ async function adminLogin(){
     );
 
   }
-  catch(e){
 
-    console.error(e);
+  catch(error){
 
-    error.className="error";
+    console.error(error);
 
-    error.innerText =
-      "Login failed: " +
-      e.message;
+    errorBox.innerText =
+      "Login failed: " + error.message;
+
+    errorBox.classList.remove("hidden");
 
   }
 
 }
 
-
-/* =========================
-   LOGOUT
-========================= */
 
 async function adminLogout(){
 
@@ -731,106 +689,267 @@ async function adminLogout(){
 }
 
 
-/* =========================
-   LOAD ALL
-========================= */
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(user){
+
+      document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("adminPage")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("adminEmailText")
+        .innerText =
+        user.email || "";
+
+      loadAll();
+
+    }
+    else{
+
+      document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("adminPage")
+        .classList.add("hidden");
+
+    }
+
+  }
+);
+
+
+/*
+==================================================
+SECTION
+==================================================
+*/
+
+function showSection(name,btn){
+
+  const sections = [
+    "users",
+    "deposits",
+    "withdrawals",
+    "tasks",
+    "plans",
+    "tickets"
+  ];
+
+
+  sections.forEach(
+    x => {
+
+      document
+        .getElementById(
+          x + "Section"
+        )
+        .classList.add("hidden");
+
+    }
+  );
+
+
+  document
+    .getElementById(
+      name + "Section"
+    )
+    .classList.remove("hidden");
+
+
+  document
+    .querySelectorAll(".tabs button")
+    .forEach(
+      b =>
+      b.classList.remove("active")
+    );
+
+
+  btn.classList.add("active");
+
+}
+
+
+/*
+==================================================
+FORMAT
+==================================================
+*/
+
+function money(value){
+
+  return Number(
+    value || 0
+  ).toLocaleString("en-US");
+
+}
+
+
+function dateText(timestamp){
+
+  if(!timestamp){
+    return "—";
+  }
+
+  try{
+
+    return timestamp
+      .toDate()
+      .toLocaleString("bn-BD");
+
+  }
+
+  catch{
+
+    return "—";
+
+  }
+
+}
+
+
+/*
+==================================================
+LOAD ALL
+==================================================
+*/
 
 function loadAll(){
 
   loadUsers();
-
   loadDeposits();
-
-  loadPlans();
-
   loadWithdrawals();
-
   loadTasks();
-
+  loadPlans();
   loadTickets();
 
 }
 
 
-/* =========================
-   USERS
-========================= */
+/*
+==================================================
+USERS
+==================================================
+*/
 
 function loadUsers(){
 
   const q =
     query(
-      collection(
-        db,
-        "users"
-      )
+      collection(db,"users"),
+      orderBy("createdAt","desc")
     );
 
 
   onSnapshot(
     q,
-    snap => {
-
-      allUsers =
-        snap.docs.map(
-          doc => ({
-
-            id:doc.id,
-
-            ...doc.data()
-
-          })
-        );
-
+    snapshot => {
 
       document
-        .getElementById(
-          "totalUsers"
-        )
+        .getElementById("totalUsers")
         .innerText =
-        allUsers.length;
+        snapshot.size;
 
 
-      renderUsers(
-        allUsers
+      const box =
+        document.getElementById("usersBox");
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `<div class="empty">
+             কোনো user নেই
+           </div>`;
+
+        return;
+
+      }
+
+
+      let html = `
+        <table>
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Balance</th>
+              <th>Plan</th>
+            </tr>
+          </thead>
+
+          <tbody>
+      `;
+
+
+      snapshot.forEach(
+        snap => {
+
+          const x =
+            snap.data();
+
+
+          html += `
+
+            <tr>
+
+              <td>
+                ${escapeHTML(x.name || "User")}
+              </td>
+
+              <td>
+                ${escapeHTML(x.email || "")}
+              </td>
+
+              <td>
+                ৳${money(x.balance)}
+              </td>
+
+              <td>
+                ${
+                  x.activePlan
+                  ? escapeHTML(x.activePlan.rank || "")
+                  : "None"
+                }
+              </td>
+
+            </tr>
+
+          `;
+
+        }
       );
+
+
+      html += `
+          </tbody>
+        </table>
+      `;
+
+
+      box.innerHTML = html;
 
     },
 
     error => {
 
-      console.error(
-        "Users error:",
-        error
-      );
-
+      console.error(error);
 
       document
-        .getElementById(
-          "totalUsers"
-        )
-        .innerText =
-        "0";
-
-
-      document
-        .getElementById(
-          "userList"
-        )
-        .innerHTML = `
-
-        <div class="empty">
-
-          Users data load করা যায়নি।
-
-          <br><br>
-
-          Firestore Rules এবং
-          users collection check করুন।
-
-        </div>
-
-        `;
+        .getElementById("usersBox")
+        .innerHTML =
+        `<div class="empty">
+          Users load করা যায়নি।
+        </div>`;
 
     }
   );
@@ -838,442 +957,93 @@ function loadUsers(){
 }
 
 
-/* =========================
-   RENDER USERS
-========================= */
-
-function renderUsers(users){
-
-  const box =
-    document
-      .getElementById(
-        "userList"
-      );
-
-
-  if(!users.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-        কোনো User পাওয়া যায়নি।
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  box.innerHTML =
-    users.map(
-      x => `
-
-      <div class="user-card">
-
-        <div class="user-name">
-
-          👤 ${
-            escapeHTML(
-              x.name ||
-              x.fullName ||
-              x.username ||
-              "User"
-            )
-          }
-
-        </div>
-
-
-        <div class="row">
-
-          <span>
-            Email
-          </span>
-
-          <b>
-            ${
-              escapeHTML(
-                x.email || ""
-              )
-            }
-          </b>
-
-        </div>
-
-
-        <div class="row">
-
-          <span>
-            UID
-          </span>
-
-          <b>
-            ${
-              escapeHTML(
-                x.uid ||
-                x.id ||
-                ""
-              )
-            }
-          </b>
-
-        </div>
-
-
-        <div class="row">
-
-          <span>
-            Plan
-          </span>
-
-          <b>
-            ${
-              escapeHTML(
-                x.plan ||
-                x.planName ||
-                (
-                  x.activePlan &&
-                  x.activePlan.rank
-                ) ||
-                "No Plan"
-              )
-            }
-          </b>
-
-        </div>
-
-
-        <div class="row">
-
-          <span>
-            Balance
-          </span>
-
-          <b>
-            ৳${
-              Number(
-                x.balance ||
-                x.wallet ||
-                0
-              ).toLocaleString()
-            }
-          </b>
-
-        </div>
-
-
-        <div class="row">
-
-          <span>
-            Completed Tasks
-          </span>
-
-          <b>
-            ${
-              Number(
-                x.completedTasks ||
-                0
-              )
-            }
-          </b>
-
-        </div>
-
-      </div>
-
-      `
-    ).join("");
-
-}
-
-
-/* =========================
-   SEARCH USERS
-========================= */
-
-function filterUsers(){
-
-  const value =
-    document
-      .getElementById(
-        "userSearch"
-      )
-      .value
-      .toLowerCase()
-      .trim();
-
-
-  const filtered =
-    allUsers.filter(
-      x => {
-
-        const text =
-          (
-            (x.name || "") +
-            " " +
-            (x.email || "") +
-            " " +
-            (x.username || "") +
-            " " +
-            (x.uid || "") +
-            " " +
-            (x.id || "")
-          )
-          .toLowerCase();
-
-
-        return text.includes(
-          value
-        );
-
-      }
-    );
-
-
-  renderUsers(
-    filtered
-  );
-
-}
-
-
-/* =========================
-   DEPOSITS
-========================= */
+/*
+==================================================
+DEPOSITS
+==================================================
+*/
 
 function loadDeposits(){
 
   const q =
     query(
-      collection(
-        db,
-        "depositRequests"
-      )
+      collection(db,"depositRequests"),
+      orderBy("createdAt","desc")
     );
 
 
   onSnapshot(
     q,
-    snap => {
+    snapshot => {
 
       document
-        .getElementById(
-          "totalDeposits"
-        )
+        .getElementById("totalDeposits")
         .innerText =
-        snap.size;
+        snapshot.size;
 
 
       const box =
-        document
-          .getElementById(
-            "depositList"
-          );
+        document.getElementById("depositsBox");
 
 
-      if(snap.empty){
+      if(snapshot.empty){
 
-        box.innerHTML = `
-
-          <div class="empty">
-
-            কোনো Deposit Request নেই
-
-          </div>
-
-        `;
+        box.innerHTML =
+          `<div class="empty">
+             কোনো deposit request নেই।
+           </div>`;
 
         return;
+
       }
 
 
-      const docs =
-        sortByCreatedAt(
-          snap.docs
-        );
-
-
       box.innerHTML =
-        docs.map(
-          d => {
+        snapshot.docs.map(
+          snap => {
 
             const x =
-              d.data();
+              snap.data();
 
 
-            const status =
-              x.status ||
-              "Pending";
+            return requestCard(
 
+              snap.id,
 
-            return `
+              "Deposit",
 
-            <div class="request">
+              `
+              <b>Amount:</b>
+              ৳${money(x.amount)}
+              <br>
 
-              <div class="row">
+              <b>Method:</b>
+              ${escapeHTML(x.method || "")}
+              <br>
 
-                <span>
-                  User
-                </span>
+              <b>Payment Number:</b>
+              ${escapeHTML(x.paymentNumber || "")}
+              <br>
 
-                <b>
-                  ${
-                    escapeHTML(
-                      x.email ||
-                      x.uid ||
-                      ""
-                    )
-                  }
-                </b>
+              <b>Sender Last 4:</b>
+              ${escapeHTML(x.senderLast4 || "")}
+              <br>
 
-              </div>
+              <b>Email:</b>
+              ${escapeHTML(x.email || "")}
+              <br>
 
+              <small>
+                ${dateText(x.createdAt)}
+              </small>
+              `,
 
-              <div class="row">
+              x.status
 
-                <span>
-                  Amount
-                </span>
-
-                <b>
-                  ৳${
-                    Number(
-                      x.amount || 0
-                    ).toLocaleString()
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Payment Method
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.method || ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Payment Number
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.paymentNumber ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="deposit-code">
-
-                <small>
-                  যে নম্বর থেকে টাকা পাঠানো হয়েছে
-                </small>
-
-                <strong>
-                  ${
-                    escapeHTML(
-                      x.senderLast4 ||
-                      "----"
-                    )
-                  }
-                </strong>
-
-                <small style="margin-top:6px">
-                  Sender Last 4 Digit
-                </small>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Status
-                </span>
-
-                <span
-                  class="
-                    status
-                    ${
-                      status
-                        .toLowerCase()
-                        .includes("approved")
-                        ? "approved"
-                        : ""
-                    }
-                    ${
-                      status
-                        .toLowerCase()
-                        .includes("rejected")
-                        ? "rejected"
-                        : ""
-                    }
-                  "
-                >
-
-                  ${
-                    escapeHTML(
-                      status
-                    )
-                  }
-
-                </span>
-
-              </div>
-
-            </div>
-
-            `;
+            );
 
           }
         ).join("");
-
-    },
-
-    error => {
-
-      console.error(
-        "Deposit error:",
-        error
-      );
-
-
-      document
-        .getElementById(
-          "depositList"
-        )
-        .innerHTML = `
-
-        <div class="empty">
-
-          Deposit data load করা যায়নি।
-
-          <br><br>
-
-          Firestore Rules check করুন।
-
-        </div>
-
-        `;
 
     }
   );
@@ -1281,379 +1051,95 @@ function loadDeposits(){
 }
 
 
-/* =========================
-   PLANS
-========================= */
-
-function loadPlans(){
-
-  const q =
-    query(
-      collection(
-        db,
-        "planRequests"
-      )
-    );
-
-
-  onSnapshot(
-    q,
-    snap => {
-
-      document
-        .getElementById(
-          "totalPlans"
-        )
-        .innerText =
-        snap.size;
-
-
-      const box =
-        document
-          .getElementById(
-            "planList"
-          );
-
-
-      if(snap.empty){
-
-        box.innerHTML = `
-
-          <div class="empty">
-
-            কোনো Plan Request নেই
-
-          </div>
-
-        `;
-
-        return;
-      }
-
-
-      const docs =
-        sortByCreatedAt(
-          snap.docs
-        );
-
-
-      box.innerHTML =
-        docs.map(
-          d => {
-
-            const x =
-              d.data();
-
-            const p =
-              x.plan || {};
-
-
-            return `
-
-            <div class="request">
-
-              <div class="row">
-
-                <span>
-                  User
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.email ||
-                      x.uid ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Plan
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      p.rank ||
-                      p.name ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Price
-                </span>
-
-                <b>
-                  ৳${
-                    Number(
-                      p.price || 0
-                    ).toLocaleString()
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Daily Reward
-                </span>
-
-                <b>
-                  ৳${
-                    Number(
-                      p.daily || 0
-                    ).toLocaleString()
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Status
-                </span>
-
-                <span class="status">
-
-                  ${
-                    escapeHTML(
-                      x.status ||
-                      "Pending"
-                    )
-                  }
-
-                </span>
-
-              </div>
-
-            </div>
-
-            `;
-
-          }
-        ).join("");
-
-    },
-
-    error => {
-
-      console.error(
-        "Plan error:",
-        error
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================
-   WITHDRAWALS
-========================= */
+/*
+==================================================
+WITHDRAWALS
+==================================================
+*/
 
 function loadWithdrawals(){
 
   const q =
     query(
-      collection(
-        db,
-        "withdrawalRequests"
-      )
+      collection(db,"withdrawalRequests"),
+      orderBy("createdAt","desc")
     );
 
 
   onSnapshot(
     q,
-    snap => {
+    snapshot => {
 
       document
-        .getElementById(
-          "totalWithdraws"
-        )
+        .getElementById("totalWithdrawals")
         .innerText =
-        snap.size;
+        snapshot.size;
 
 
       const box =
-        document
-          .getElementById(
-            "withdrawList"
-          );
-
-
-      if(snap.empty){
-
-        box.innerHTML = `
-
-          <div class="empty">
-
-            কোনো Withdrawal Request নেই
-
-          </div>
-
-        `;
-
-        return;
-      }
-
-
-      const docs =
-        sortByCreatedAt(
-          snap.docs
+        document.getElementById(
+          "withdrawalsBox"
         );
 
 
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `<div class="empty">
+             কোনো withdrawal request নেই।
+           </div>`;
+
+        return;
+
+      }
+
+
       box.innerHTML =
-        docs.map(
-          d => {
+        snapshot.docs.map(
+          snap => {
 
             const x =
-              d.data();
+              snap.data();
 
 
-            return `
+            return requestCard(
 
-            <div class="request">
+              snap.id,
 
-              <div class="row">
+              "Withdrawal",
 
-                <span>
-                  User
-                </span>
+              `
+              <b>Amount:</b>
+              ৳${money(x.amount)}
+              <br>
 
-                <b>
-                  ${
-                    escapeHTML(
-                      x.email ||
-                      x.uid ||
-                      ""
-                    )
-                  }
-                </b>
+              <b>Method:</b>
+              ${escapeHTML(x.method || "")}
+              <br>
 
-              </div>
+              <b>Number:</b>
+              ${escapeHTML(x.number || "")}
+              <br>
 
+              <b>Name:</b>
+              ${escapeHTML(x.name || "")}
+              <br>
 
-              <div class="row">
+              <b>Email:</b>
+              ${escapeHTML(x.email || "")}
+              <br>
 
-                <span>
-                  Amount
-                </span>
+              <small>
+                ${dateText(x.createdAt)}
+              </small>
+              `,
 
-                <b>
-                  ৳${
-                    Number(
-                      x.amount || 0
-                    ).toLocaleString()
-                  }
-                </b>
+              x.status
 
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Method
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.method || ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Account
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.number || ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Name
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.name || ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Status
-                </span>
-
-                <span class="status">
-
-                  ${
-                    escapeHTML(
-                      x.status ||
-                      "Pending"
-                    )
-                  }
-
-                </span>
-
-              </div>
-
-            </div>
-
-            `;
+            );
 
           }
         ).join("");
-
-    },
-
-    error => {
-
-      console.error(
-        "Withdrawal error:",
-        error
-      );
 
     }
   );
@@ -1661,172 +1147,89 @@ function loadWithdrawals(){
 }
 
 
-/* =========================
-   TASKS
-========================= */
+/*
+==================================================
+TASKS
+==================================================
+*/
 
 function loadTasks(){
 
   const q =
     query(
-      collection(
-        db,
-        "taskCompletions"
-      )
+      collection(db,"taskCompletions"),
+      orderBy("createdAt","desc")
     );
 
 
   onSnapshot(
     q,
-    snap => {
+    snapshot => {
+
+      document
+        .getElementById("totalTasks")
+        .innerText =
+        snapshot.size;
+
 
       const box =
-        document
-          .getElementById(
-            "taskList"
-          );
+        document.getElementById("tasksBox");
 
 
-      if(snap.empty){
+      if(snapshot.empty){
 
-        box.innerHTML = `
-
-          <div class="empty">
-
-            কোনো Task Request নেই
-
-          </div>
-
-        `;
+        box.innerHTML =
+          `<div class="empty">
+             কোনো task request নেই।
+           </div>`;
 
         return;
+
       }
 
 
-      const docs =
-        sortByCreatedAt(
-          snap.docs
-        );
-
-
       box.innerHTML =
-        docs.map(
-          d => {
+        snapshot.docs.map(
+          snap => {
 
             const x =
-              d.data();
+              snap.data();
 
 
-            return `
+            return requestCard(
 
-            <div class="request">
+              snap.id,
 
-              <div class="row">
+              "Task",
 
-                <span>
-                  User
-                </span>
+              `
+              <b>User:</b>
+              ${escapeHTML(x.email || "")}
+              <br>
 
-                <b>
-                  ${
-                    escapeHTML(
-                      x.email ||
-                      x.uid ||
-                      ""
-                    )
-                  }
-                </b>
+              <b>Plan:</b>
+              ${escapeHTML(x.plan || "")}
+              <br>
 
-              </div>
+              <b>Task:</b>
+              #${Number(x.taskNumber || 0)}
+              <br>
 
+              <b>Reward:</b>
+              ৳${money(x.reward)}
+              <br>
 
-              <div class="row">
+              <small>
+                ${dateText(x.createdAt)}
+              </small>
+              `,
 
-                <span>
-                  Task
-                </span>
+              x.status
 
-                <b>
-                  #${
-                    escapeHTML(
-                      x.taskNumber ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Plan
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.plan ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Reward
-                </span>
-
-                <b>
-                  ৳${
-                    Number(
-                      x.reward || 0
-                    ).toLocaleString()
-                  }
-                </b>
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Status
-                </span>
-
-                <span class="status">
-
-                  ${
-                    escapeHTML(
-                      x.status ||
-                      "Pending"
-                    )
-                  }
-
-                </span>
-
-              </div>
-
-            </div>
-
-            `;
+            );
 
           }
         ).join("");
-
-    },
-
-    error => {
-
-      console.error(
-        "Task error:",
-        error
-      );
 
     }
   );
@@ -1834,256 +1237,376 @@ function loadTasks(){
 }
 
 
-/* =========================
-   SUPPORT
-========================= */
+/*
+==================================================
+PLANS
+==================================================
+*/
+
+function loadPlans(){
+
+  const q =
+    query(
+      collection(db,"planRequests"),
+      orderBy("createdAt","desc")
+    );
+
+
+  onSnapshot(
+    q,
+    snapshot => {
+
+      const box =
+        document.getElementById("plansBox");
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `<div class="empty">
+             কোনো plan request নেই।
+           </div>`;
+
+        return;
+
+      }
+
+
+      box.innerHTML =
+        snapshot.docs.map(
+          snap => {
+
+            const x =
+              snap.data();
+
+            const p =
+              x.plan || {};
+
+
+            return requestCard(
+
+              snap.id,
+
+              "Plan",
+
+              `
+              <b>User:</b>
+              ${escapeHTML(x.email || "")}
+              <br>
+
+              <b>Plan:</b>
+              ${escapeHTML(p.rank || "")}
+              <br>
+
+              <b>Amount:</b>
+              ৳${money(p.price)}
+              <br>
+
+              <b>Tasks:</b>
+              ${Number(p.tasks || 0)}
+              <br>
+
+              <small>
+                ${dateText(x.createdAt)}
+              </small>
+              `,
+
+              x.status
+
+            );
+
+          }
+        ).join("");
+
+    }
+  );
+
+}
+
+
+/*
+==================================================
+TICKETS
+==================================================
+*/
 
 function loadTickets(){
 
   const q =
     query(
-      collection(
-        db,
-        "supportTickets"
-      )
+      collection(db,"supportTickets"),
+      orderBy("createdAt","desc")
     );
 
 
   onSnapshot(
     q,
-    snap => {
+    snapshot => {
 
       const box =
-        document
-          .getElementById(
-            "ticketList"
-          );
+        document.getElementById("ticketsBox");
 
 
-      if(snap.empty){
+      if(snapshot.empty){
 
-        box.innerHTML = `
-
-          <div class="empty">
-
-            কোনো Support Ticket নেই
-
-          </div>
-
-        `;
+        box.innerHTML =
+          `<div class="empty">
+             কোনো ticket নেই।
+           </div>`;
 
         return;
+
       }
 
 
-      const docs =
-        sortByCreatedAt(
-          snap.docs
-        );
-
-
       box.innerHTML =
-        docs.map(
-          d => {
+        snapshot.docs.map(
+          snap => {
 
             const x =
-              d.data();
+              snap.data();
 
 
-            return `
+            return requestCard(
 
-            <div class="request">
+              snap.id,
 
-              <div class="row">
+              "Support",
 
-                <span>
-                  User
-                </span>
+              `
+              <b>Subject:</b>
+              ${escapeHTML(x.subject || "")}
+              <br>
 
-                <b>
-                  ${
-                    escapeHTML(
-                      x.email ||
-                      x.uid ||
-                      ""
-                    )
-                  }
-                </b>
+              <b>User:</b>
+              ${escapeHTML(x.email || "")}
+              <br>
 
-              </div>
+              <p style="margin-top:8px">
+                ${escapeHTML(x.message || "")}
+              </p>
 
+              <small>
+                ${dateText(x.createdAt)}
+              </small>
+              `,
 
-              <div class="row">
+              x.status
 
-                <span>
-                  Subject
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.subject ||
-                      ""
-                    )
-                  }
-                </b>
-
-              </div>
-
-
-              <div style="padding:10px 0">
-
-                ${
-                  escapeHTML(
-                    x.message ||
-                    ""
-                  )
-                }
-
-              </div>
-
-
-              <div class="row">
-
-                <span>
-                  Status
-                </span>
-
-                <b>
-                  ${
-                    escapeHTML(
-                      x.status ||
-                      "Open"
-                    )
-                  }
-                </b>
-
-              </div>
-
-            </div>
-
-            `;
+            );
 
           }
         ).join("");
 
-    },
-
-    error => {
-
-      console.error(
-        "Support error:",
-        error
-      );
-
     }
   );
 
 }
 
 
-/* =========================
-   SORT
-========================= */
+/*
+==================================================
+REQUEST CARD
+==================================================
+*/
 
-function sortByCreatedAt(docs){
+function requestCard(
+  id,
+  type,
+  content,
+  status
+){
 
-  return [...docs].sort(
-    (a,b) => {
-
-      const ad =
-        a.data();
-
-      const bd =
-        b.data();
-
-
-      const at =
-        getTime(
-          ad.createdAt
-        );
-
-      const bt =
-        getTime(
-          bd.createdAt
-        );
+  const safeStatus =
+    String(status || "Pending");
 
 
-      return bt - at;
-
-    }
-  );
-
-}
-
-
-function getTime(value){
-
-  if(!value)
-    return 0;
+  let actions = "";
 
 
   if(
-    typeof value.toMillis ===
-    "function"
+    safeStatus === "Pending" ||
+    safeStatus === "Open"
   ){
 
-    return value.toMillis();
+    actions = `
+
+      <div class="actions">
+
+        <button
+          class="success"
+          onclick="updateRequest(
+            '${id}',
+            '${type}',
+            'Approved'
+          )">
+
+          ✓ Approve
+
+        </button>
+
+        <button
+          class="reject"
+          onclick="updateRequest(
+            '${id}',
+            '${type}',
+            'Rejected'
+          )">
+
+          ✕ Reject
+
+        </button>
+
+      </div>
+
+    `;
 
   }
 
 
-  if(value.seconds){
-
-    return value.seconds * 1000;
-
-  }
-
-
-  const date =
-    new Date(value);
+  const statusClass =
+    safeStatus === "Approved"
+      ? "approved"
+      : safeStatus === "Rejected"
+        ? "rejected"
+        : "";
 
 
-  const time =
-    date.getTime();
+  return `
 
+    <div class="request">
 
-  return isNaN(time)
-    ? 0
-    : time;
+      <div class="request-top">
+
+        <div class="request-info">
+
+          ${content}
+
+        </div>
+
+        <span class="status ${statusClass}">
+
+          ${escapeHTML(safeStatus)}
+
+        </span>
+
+      </div>
+
+      ${actions}
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/*
+==================================================
+UPDATE REQUEST
+==================================================
+*/
+
+async function updateRequest(
+  id,
+  type,
+  newStatus
+){
+
+  if(!confirm(
+    `${type} request ${newStatus} করতে চান?`
+  )){
+    return;
+  }
+
+
+  let collectionName = "";
+
+
+  if(type === "Deposit"){
+    collectionName =
+      "depositRequests";
+  }
+
+  else if(type === "Withdrawal"){
+    collectionName =
+      "withdrawalRequests";
+  }
+
+  else if(type === "Task"){
+    collectionName =
+      "taskCompletions";
+  }
+
+  else if(type === "Plan"){
+    collectionName =
+      "planRequests";
+  }
+
+  else if(type === "Support"){
+    collectionName =
+      "supportTickets";
+  }
+
+
+  if(!collectionName){
+    return;
+  }
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        collectionName,
+        id
+      ),
+
+      {
+        status:newStatus,
+        reviewedAt:
+          serverTimestamp()
+      }
+
+    );
+
+
+    alert(
+      `${type} ${newStatus} হয়েছে।`
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Update হয়নি: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/*
+==================================================
+SECURITY HELPER
+==================================================
+*/
 
 function escapeHTML(value){
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-  .replaceAll(
-    ">",
-    "&gt;"
-  )
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-  .replaceAll(
-    "'",
-    "&#039;"
-  );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
