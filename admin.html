@@ -8,617 +8,1964 @@
 <title>Elyvion — Admin Panel</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f5f3ff;color:#211437}
-.hidden{display:none!important}
-.container{max-width:1100px;margin:auto;padding:20px}
-.card{background:white;border-radius:18px;padding:18px;margin:15px 0;box-shadow:0 5px 20px #5b21b611}
-h1{color:#5b21b6}
-input{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:8px 0 12px}
-button{border:0;border-radius:10px;padding:11px 15px;font-weight:bold;cursor:pointer}
-.primary{background:#6d28d9;color:white}
-.success{background:#16a34a;color:white}
-.danger{background:#dc2626;color:white}
-.secondary{background:#ede9fe;color:#5b21b6}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{background:#f4efff;padding:15px;border-radius:14px}
-.stat b{display:block;font-size:25px;color:#5b21b6;margin-top:5px}
-.row{padding:15px 0;border-bottom:1px solid #eee}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;background:#fff7ed;color:#b45309}
-.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.container{padding:12px}}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif
+}
+
+body{
+  background:#f5f3ff;
+  color:#211437
+}
+
+.hidden{
+  display:none!important
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px
+}
+
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  margin:15px 0;
+  box-shadow:0 5px 20px #5b21b611
+}
+
+h1{
+  color:#5b21b6
+}
+
+h2{
+  margin-bottom:10px
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin:8px 0 12px
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 15px;
+  font-weight:bold;
+  cursor:pointer
+}
+
+.primary{
+  background:#6d28d9;
+  color:white
+}
+
+.success{
+  background:#16a34a;
+  color:white
+}
+
+.danger{
+  background:#dc2626;
+  color:white
+}
+
+.secondary{
+  background:#ede9fe;
+  color:#5b21b6
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px
+}
+
+.stat{
+  background:#f4efff;
+  padding:15px;
+  border-radius:14px
+}
+
+.stat small{
+  color:#777
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+  color:#5b21b6;
+  margin-top:5px
+}
+
+.row{
+  padding:15px 0;
+  border-bottom:1px solid #eee
+}
+
+.row:last-child{
+  border-bottom:0
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  background:#fff7ed;
+  color:#b45309;
+  margin-top:5px
+}
+
+.badge-success{
+  background:#dcfce7;
+  color:#15803d
+}
+
+.badge-danger{
+  background:#fee2e2;
+  color:#b91c1c
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap
+}
+
+.info-box{
+  background:#f7f3ff;
+  border:1px solid #e5d9ff;
+  padding:12px;
+  border-radius:12px;
+  margin-top:8px;
+  font-size:13px;
+  line-height:1.7
+}
+
+.amount{
+  font-size:20px;
+  font-weight:bold;
+  color:#5b21b6
+}
+
+.section-note{
+  color:#777;
+  font-size:13px;
+  margin-bottom:12px
+}
+
+.empty{
+  color:#777;
+  text-align:center;
+  padding:20px
+}
+
+@media(max-width:800px){
+
+  .grid{
+    grid-template-columns:1fr 1fr
+  }
+
+}
+
+@media(max-width:500px){
+
+  .grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .container{
+    padding:10px
+  }
+
+  .actions button{
+    width:100%
+  }
+
+}
 </style>
 </head>
 
 <body>
 
+
+<!-- ==================================================
+     ADMIN LOGIN
+================================================== -->
+
 <div id="loginPage" class="container">
 
-<div class="card" style="max-width:420px;margin:80px auto">
+  <div
+    class="card"
+    style="max-width:420px;margin:80px auto">
 
-<h1>💜 Elyvion Admin</h1>
-<p style="color:#777;margin:8px 0 20px">
-Admin Login
-</p>
+    <h1>💜 Elyvion Admin</h1>
 
-<input id="adminEmail"
-type="email"
-placeholder="Admin Email">
+    <p style="color:#777;margin:8px 0 20px">
+      Admin Login
+    </p>
 
-<input id="adminPassword"
-type="password"
-placeholder="Password">
+    <input
+      id="adminEmail"
+      type="email"
+      placeholder="Admin Email">
 
-<button class="primary"
-style="width:100%"
-onclick="adminLogin()">
-🔐 Login
-</button>
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="Password">
 
-<p id="loginError"
-style="color:#b91c1c;font-size:13px;margin-top:10px">
-</p>
+    <button
+      class="primary"
+      style="width:100%"
+      onclick="adminLogin()">
 
-</div>
-</div>
+      🔐 Login
 
+    </button>
 
-<div id="adminPage" class="hidden">
+    <p
+      id="loginError"
+      style="color:#b91c1c;font-size:13px;margin-top:10px">
+    </p>
 
-<div class="container">
-
-<div class="card">
-
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-
-<div>
-<h1>💜 Elyvion Admin</h1>
-<p style="color:#777;margin-top:5px">
-Task & Reward Management
-</p>
-</div>
-
-<button class="danger" onclick="logoutAdmin()">
-Logout
-</button>
-
-</div>
+  </div>
 
 </div>
 
 
-<div class="grid">
+<!-- ==================================================
+     ADMIN DASHBOARD
+================================================== -->
 
-<div class="stat">
-Total Users
-<b id="totalUsers">0</b>
+<div
+  id="adminPage"
+  class="hidden">
+
+  <div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="card">
+
+      <div
+        style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px">
+
+        <div>
+
+          <h1>💜 Elyvion Admin</h1>
+
+          <p style="color:#777;margin-top:5px">
+            Task & Reward Management
+          </p>
+
+        </div>
+
+        <button
+          class="danger"
+          onclick="logoutAdmin()">
+
+          Logout
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="grid">
+
+      <div class="stat">
+
+        <small>
+          Total Users
+        </small>
+
+        <b id="totalUsers">
+          0
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <small>
+          Pending Deposits
+        </small>
+
+        <b id="depositCount">
+          0
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <small>
+          Plan Requests
+        </small>
+
+        <b id="planCount">
+          0
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <small>
+          Reward Claims
+        </small>
+
+        <b id="claimCount">
+          0
+        </b>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DEPOSIT REQUESTS
+    ================================================== -->
+
+    <div class="card">
+
+      <h2>
+        💰 Pending Deposit Requests
+      </h2>
+
+      <p class="section-note">
+
+        User payment করার পর এখানে Deposit Request আসবে।
+        Last 4 Digit মিলিয়ে যাচাই করে Approve করুন।
+
+      </p>
+
+      <div id="depositRequests">
+
+        Loading...
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         PLAN REQUESTS
+    ================================================== -->
+
+    <div class="card">
+
+      <h2>
+        📦 Pending Plan Requests
+      </h2>
+
+      <p class="section-note">
+
+        User যে Plan নির্বাচন করেছে তার তথ্য এখানে দেখা যাবে।
+
+      </p>
+
+      <div id="planRequests">
+
+        Loading...
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         REWARD CLAIMS
+    ================================================== -->
+
+    <div class="card">
+
+      <h2>
+        🎁 Pending Reward Claims
+      </h2>
+
+      <p class="section-note">
+
+        User একটি Plan-এর সব Task শেষ করার পর
+        Customer Service-এর মাধ্যমে Reward Claim করবে।
+        Admin Approve করলে মোট Reward একবারে Balance-এ যোগ হবে।
+
+      </p>
+
+      <div id="rewardClaims">
+
+        Loading...
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CUSTOMER SERVICE
+    ================================================== -->
+
+    <div class="card">
+
+      <h2>
+        🎧 Customer Service Requests
+      </h2>
+
+      <p class="section-note">
+
+        User-এর Support Ticket এখানে দেখা যাবে।
+
+      </p>
+
+      <div id="tickets">
+
+        Loading...
+
+      </div>
+
+    </div>
+
+
+  </div>
+
 </div>
 
-<div class="stat">
-Plan Requests
-<b id="planCount">0</b>
-</div>
 
-<div class="stat">
-Reward Claims
-<b id="claimCount">0</b>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📦 Pending Plan Requests</h2>
-
-<div id="planRequests"
-style="margin-top:10px">
-Loading...
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>🎁 Pending Reward Claims</h2>
-
-<p style="font-size:13px;color:#777;margin:7px 0">
-সব Task সম্পন্ন করার পর User এখানে Reward Claim করবে।
-Approve করলে মোট Reward একবারে Balance-এ যোগ হবে।
-</p>
-
-<div id="rewardClaims">
-Loading...
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>🎧 Customer Service Requests</h2>
-
-<div id="tickets">
-Loading...
-</div>
-
-</div>
-
-</div>
-</div>
-
+<!-- ==================================================
+     FIREBASE
+================================================== -->
 
 <script type="module">
 
 import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
-getAuth,
-signInWithEmailAndPassword,
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 import {
-getFirestore,
-collection,
-query,
-where,
-onSnapshot,
-doc,
-getDoc,
-setDoc,
-updateDoc,
-serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  getFirestore,
+  collection,
+  query,
+  where,
+  onSnapshot,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-const firebaseConfig={
-apiKey:"AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
-authDomain:"elyvioncom.firebaseapp.com",
-projectId:"elyvioncom",
-storageBucket:"elyvioncom.firebasestorage.app",
-messagingSenderId:"696113174945",
-appId:"1:696113174945:web:7dd53b1d9e47d6d05613e0"
+/* ==================================================
+   FIREBASE CONFIG
+================================================== */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
+
+  authDomain:
+  "elyvioncom.firebaseapp.com",
+
+  projectId:
+  "elyvioncom",
+
+  storageBucket:
+  "elyvioncom.firebasestorage.app",
+
+  messagingSenderId:
+  "696113174945",
+
+  appId:
+  "1:696113174945:web:7dd53b1d9e47d6d05613e0"
+
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
 
 
-/*
-IMPORTANT:
-এখানে আপনার Admin Firebase Auth UID বসাবেন।
-Firebase Authentication → Users থেকে Admin user-এর UID কপি করুন।
+/* ==================================================
+   ADMIN UID
+==================================================
+
+   Firebase Authentication →
+   Users →
+   আপনার Admin account →
+   UID copy করুন।
+
 */
 
-const ADMIN_UID="YOUR_ADMIN_UID";
+const ADMIN_UID =
+  "YOUR_ADMIN_UID";
 
 
-window.adminLogin=async()=>{
+/* ==================================================
+   ADMIN LOGIN
+================================================== */
 
-const email=document.getElementById("adminEmail").value.trim();
-const password=document.getElementById("adminPassword").value;
+window.adminLogin =
+async function(){
 
-try{
+  const email =
+    document
+      .getElementById("adminEmail")
+      .value
+      .trim();
 
-await signInWithEmailAndPassword(auth,email,password);
+  const password =
+    document
+      .getElementById("adminPassword")
+      .value;
 
-}catch(e){
 
-document.getElementById("loginError").innerText=e.message;
+  if(!email || !password){
 
-}
+    document
+      .getElementById("loginError")
+      .innerText =
+      "Email এবং Password দিন।";
+
+    return;
+
+  }
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    document
+      .getElementById("loginError")
+      .innerText =
+      error.message;
+
+  }
 
 };
 
 
-onAuthStateChanged(auth,user=>{
+/* ==================================================
+   AUTH STATE
+================================================== */
 
-if(!user){
+onAuthStateChanged(
+  auth,
+  user => {
 
-document.getElementById("loginPage").classList.remove("hidden");
-document.getElementById("adminPage").classList.add("hidden");
-return;
+    if(!user){
 
-}
+      document
+        .getElementById("loginPage")
+        .classList
+        .remove("hidden");
 
-if(user.uid!==ADMIN_UID){
+      document
+        .getElementById("adminPage")
+        .classList
+        .add("hidden");
 
-alert("আপনার Admin permission নেই।");
-signOut(auth);
-return;
+      return;
 
-}
-
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("adminPage").classList.remove("hidden");
-
-loadUsers();
-loadPlanRequests();
-loadRewardClaims();
-loadTickets();
-
-});
+    }
 
 
-window.logoutAdmin=()=>{
-signOut(auth);
+    if(
+      ADMIN_UID === "YOUR_ADMIN_UID" ||
+      user.uid !== ADMIN_UID
+    ){
+
+      alert(
+        "আপনার Admin permission নেই।"
+      );
+
+      signOut(auth);
+
+      return;
+
+    }
+
+
+    document
+      .getElementById("loginPage")
+      .classList
+      .add("hidden");
+
+    document
+      .getElementById("adminPage")
+      .classList
+      .remove("hidden");
+
+
+    loadUsers();
+
+    loadDepositRequests();
+
+    loadPlanRequests();
+
+    loadRewardClaims();
+
+    loadTickets();
+
+  }
+);
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+window.logoutAdmin =
+function(){
+
+  signOut(auth);
+
 };
 
 
-/* =========================
+/* ==================================================
    USERS
-========================= */
+================================================== */
 
 function loadUsers(){
 
-onSnapshot(collection(db,"users"),snap=>{
+  onSnapshot(
+    collection(db,"users"),
+    snapshot => {
 
-document.getElementById("totalUsers").innerText=snap.size;
+      document
+        .getElementById("totalUsers")
+        .innerText =
+        snapshot.size;
 
-});
+    }
+  );
 
 }
 
 
-/* =========================
+/* ==================================================
+   DEPOSIT REQUESTS
+================================================== */
+
+function loadDepositRequests(){
+
+  const q =
+    query(
+      collection(
+        db,
+        "depositRequests"
+      ),
+      where(
+        "status",
+        "==",
+        "Pending"
+      )
+    );
+
+
+  onSnapshot(
+    q,
+    snapshot => {
+
+      document
+        .getElementById("depositCount")
+        .innerText =
+        snapshot.size;
+
+
+      const box =
+        document
+          .getElementById(
+            "depositRequests"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div class="empty">
+            কোনো Pending Deposit নেই।
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      box.innerHTML =
+        snapshot.docs
+          .map(
+            item => {
+
+              const d =
+                item.data();
+
+
+              return `
+
+              <div class="row">
+
+                <b>
+                  ${escapeHTML(d.email || "User")}
+                </b>
+
+                <div class="info-box">
+
+                  <div>
+                    💰 Amount:
+                    <span class="amount">
+                      ৳${money(d.amount)}
+                    </span>
+                  </div>
+
+                  <div>
+                    💳 Method:
+                    <b>
+                      ${escapeHTML(d.method || "")}
+                    </b>
+                  </div>
+
+                  <div>
+                    📱 Payment Number:
+                    <b>
+                      ${escapeHTML(d.paymentNumber || "")}
+                    </b>
+                  </div>
+
+                  <div>
+                    🔢 Sender Last 4 Digit:
+                    <b>
+                      ${escapeHTML(d.senderLast4 || "")}
+                    </b>
+                  </div>
+
+                  <div>
+                    📌 Status:
+                    <span class="badge">
+                      ${escapeHTML(d.status || "Pending")}
+                    </span>
+                  </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                  <button
+                    class="success"
+                    onclick="
+                    approveDeposit(
+                      '${item.id}',
+                      '${d.uid}',
+                      ${Number(d.amount || 0)}
+                    )">
+
+                    ✓ Approve Deposit
+
+                  </button>
+
+
+                  <button
+                    class="danger"
+                    onclick="
+                    rejectDeposit(
+                      '${item.id}'
+                    )">
+
+                    ✕ Reject
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   APPROVE DEPOSIT
+================================================== */
+
+window.approveDeposit =
+async function(
+  requestId,
+  uid,
+  amount
+){
+
+  amount =
+    Number(amount || 0);
+
+
+  if(amount <= 0){
+
+    alert(
+      "Invalid deposit amount."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      `৳${money(amount)} Deposit Approve করবেন?`
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const requestRef =
+      doc(
+        db,
+        "depositRequests",
+        requestId
+      );
+
+
+    const requestSnap =
+      await getDoc(requestRef);
+
+
+    if(!requestSnap.exists()){
+
+      alert(
+        "Deposit request পাওয়া যায়নি।"
+      );
+
+      return;
+
+    }
+
+
+    const requestData =
+      requestSnap.data();
+
+
+    /*
+      Double approval protection
+    */
+
+    if(
+      requestData.status !==
+      "Pending"
+    ){
+
+      alert(
+        "এই Deposit ইতিমধ্যে process করা হয়েছে।"
+      );
+
+      return;
+
+    }
+
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        uid
+      );
+
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      alert(
+        "User পাওয়া যায়নি।"
+      );
+
+      return;
+
+    }
+
+
+    const user =
+      userSnap.data();
+
+
+    const oldBalance =
+      Number(
+        user.balance || 0
+      );
+
+
+    const newBalance =
+      oldBalance + amount;
+
+
+    /*
+      User Balance Update
+    */
+
+    await setDoc(
+      userRef,
+      {
+
+        balance:
+          newBalance,
+
+        updatedAt:
+          serverTimestamp()
+
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    /*
+      Deposit Request Approved
+    */
+
+    await updateDoc(
+      requestRef,
+      {
+
+        status:
+          "Approved",
+
+        approvedAmount:
+          amount,
+
+        approvedAt:
+          serverTimestamp(),
+
+        approvedBy:
+          auth.currentUser.uid
+
+      }
+    );
+
+
+    alert(
+      `Deposit Approved!\n৳${money(amount)} Balance-এ যোগ হয়েছে।`
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Deposit approve হয়নি:\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   REJECT DEPOSIT
+================================================== */
+
+window.rejectDeposit =
+async function(requestId){
+
+  if(
+    !confirm(
+      "এই Deposit Request Reject করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "depositRequests",
+        requestId
+      ),
+      {
+
+        status:
+          "Rejected",
+
+        rejectedAt:
+          serverTimestamp(),
+
+        rejectedBy:
+          auth.currentUser.uid
+
+      }
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+};
+
+
+/* ==================================================
    PLAN REQUESTS
-========================= */
+================================================== */
 
 function loadPlanRequests(){
 
-const q=query(
-collection(db,"planRequests"),
-where("status","==","Pending")
-);
+  const q =
+    query(
+      collection(
+        db,
+        "planRequests"
+      ),
+      where(
+        "status",
+        "==",
+        "Pending"
+      )
+    );
 
-onSnapshot(q,snap=>{
 
-document.getElementById("planCount").innerText=snap.size;
+  onSnapshot(
+    q,
+    snapshot => {
 
-const box=document.getElementById("planRequests");
+      document
+        .getElementById("planCount")
+        .innerText =
+        snapshot.size;
 
-if(snap.empty){
-box.innerHTML='<p style="color:#777">কোনো pending request নেই।</p>';
-return;
+
+      const box =
+        document
+          .getElementById(
+            "planRequests"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div class="empty">
+            কোনো Pending Plan Request নেই।
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      box.innerHTML =
+        snapshot.docs
+          .map(
+            item => {
+
+              const d =
+                item.data();
+
+              const plan =
+                d.plan || {};
+
+
+              return `
+
+              <div class="row">
+
+                <b>
+                  ${escapeHTML(d.email || "User")}
+                </b>
+
+                <div class="info-box">
+
+                  <div>
+                    📦 Plan:
+                    <b>
+                      ${escapeHTML(plan.rank || "")}
+                    </b>
+                  </div>
+
+                  <div>
+                    💰 Plan Price:
+                    <span class="amount">
+                      ৳${money(plan.price)}
+                    </span>
+                  </div>
+
+                  <div>
+                    🎁 Daily Reward:
+                    <b>
+                      ৳${money(plan.daily)}
+                    </b>
+                  </div>
+
+                  <div>
+                    📋 Daily Tasks:
+                    <b>
+                      ${Number(plan.tasks || 0)} টি
+                    </b>
+                  </div>
+
+                  <div>
+                    🎯 প্রতি Task:
+                    <b>
+                      ৳${money(plan.reward)}
+                    </b>
+                  </div>
+
+                  <div>
+                    📅 মেয়াদ:
+                    <b>
+                      21 দিন
+                    </b>
+                  </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                  <button
+                    class="success"
+                    onclick="
+                    approvePlan(
+                      '${item.id}',
+                      '${d.uid}'
+                    )">
+
+                    ✓ Approve Plan
+
+                  </button>
+
+
+                  <button
+                    class="danger"
+                    onclick="
+                    rejectPlan(
+                      '${item.id}'
+                    )">
+
+                    ✕ Reject
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+  );
+
 }
 
-box.innerHTML=snap.docs.map(x=>{
 
-const d=x.data();
+/* ==================================================
+   APPROVE PLAN
+================================================== */
 
-return `
-<div class="row">
+window.approvePlan =
+async function(
+  requestId,
+  uid
+){
 
-<b>${d.email}</b><br>
+  if(
+    !confirm(
+      "এই Plan Approve করবেন?"
+    )
+  ){
 
-<span style="font-size:13px">
-Plan: ${d.plan?.rank||""}<br>
-Amount: ৳${Number(d.plan?.price||0).toLocaleString()}
-</span>
+    return;
 
-<div class="actions">
-
-<button class="success"
-onclick="approvePlan('${x.id}','${d.uid}')">
-✓ Approve Plan
-</button>
-
-<button class="danger"
-onclick="rejectPlan('${x.id}')">
-Reject
-</button>
-
-</div>
-
-</div>
-`;
-
-}).join("");
-
-});
-}
+  }
 
 
-window.approvePlan=async(requestId,uid)=>{
+  try{
 
-const request=await getDoc(
-doc(db,"planRequests",requestId)
-);
+    const requestRef =
+      doc(
+        db,
+        "planRequests",
+        requestId
+      );
 
-if(!request.exists())return;
 
-const data=request.data();
+    const requestSnap =
+      await getDoc(requestRef);
 
-await setDoc(
-doc(db,"users",uid),
-{
-activePlan:data.plan,
-completedTasks:0,
-todayEarn:0,
-updatedAt:serverTimestamp()
-},
-{merge:true}
-);
 
-await updateDoc(
-doc(db,"planRequests",requestId),
-{
-status:"Approved",
-approvedAt:serverTimestamp()
-}
-);
+    if(!requestSnap.exists()){
 
-alert("Plan Approved হয়েছে।");
+      alert(
+        "Plan request পাওয়া যায়নি।"
+      );
+
+      return;
+
+    }
+
+
+    const data =
+      requestSnap.data();
+
+
+    if(
+      data.status !==
+      "Pending"
+    ){
+
+      alert(
+        "এই request ইতিমধ্যে process করা হয়েছে।"
+      );
+
+      return;
+
+    }
+
+
+    await setDoc(
+      doc(
+        db,
+        "users",
+        uid
+      ),
+      {
+
+        activePlan:
+          data.plan,
+
+        completedTasks:
+          0,
+
+        todayEarn:
+          0,
+
+        planActivatedAt:
+          serverTimestamp(),
+
+        updatedAt:
+          serverTimestamp()
+
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    await updateDoc(
+      requestRef,
+      {
+
+        status:
+          "Approved",
+
+        approvedAt:
+          serverTimestamp(),
+
+        approvedBy:
+          auth.currentUser.uid
+
+      }
+    );
+
+
+    alert(
+      "Plan Approved হয়েছে।"
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
 
 };
 
 
-window.rejectPlan=async id=>{
+/* ==================================================
+   REJECT PLAN
+================================================== */
 
-await updateDoc(
-doc(db,"planRequests",id),
-{
-status:"Rejected",
-updatedAt:serverTimestamp()
-}
-);
+window.rejectPlan =
+async function(id){
+
+  if(
+    !confirm(
+      "এই Plan Request Reject করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  await updateDoc(
+    doc(
+      db,
+      "planRequests",
+      id
+    ),
+    {
+
+      status:
+        "Rejected",
+
+      rejectedAt:
+        serverTimestamp()
+
+    }
+  );
 
 };
 
 
-/* =========================
+/* ==================================================
    REWARD CLAIMS
-========================= */
+================================================== */
 
 function loadRewardClaims(){
 
-const q=query(
-collection(db,"rewardClaims"),
-where("status","==","Pending")
-);
+  const q =
+    query(
+      collection(
+        db,
+        "rewardClaims"
+      ),
+      where(
+        "status",
+        "==",
+        "Pending"
+      )
+    );
 
-onSnapshot(q,snap=>{
 
-document.getElementById("claimCount").innerText=snap.size;
+  onSnapshot(
+    q,
+    snapshot => {
 
-const box=document.getElementById("rewardClaims");
+      document
+        .getElementById("claimCount")
+        .innerText =
+        snapshot.size;
 
-if(snap.empty){
-box.innerHTML='<p style="color:#777">কোনো pending Reward Claim নেই।</p>';
-return;
+
+      const box =
+        document
+          .getElementById(
+            "rewardClaims"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div class="empty">
+            কোনো Pending Reward Claim নেই।
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      box.innerHTML =
+        snapshot.docs
+          .map(
+            item => {
+
+              const d =
+                item.data();
+
+
+              return `
+
+              <div class="row">
+
+                <b>
+                  ${escapeHTML(d.email || "User")}
+                </b>
+
+                <div class="info-box">
+
+                  <div>
+                    📦 Plan:
+                    <b>
+                      ${escapeHTML(d.plan || "")}
+                    </b>
+                  </div>
+
+                  <div>
+                    ✅ Completed Tasks:
+                    <b>
+                      ${Number(d.totalTasks || 0)}
+                    </b>
+                  </div>
+
+                  <div>
+                    🎁 Total Reward:
+                    <span class="amount">
+                      ৳${money(d.totalReward)}
+                    </span>
+                  </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                  <button
+                    class="success"
+                    onclick="
+                    approveReward(
+                      '${item.id}',
+                      '${d.uid}',
+                      ${Number(d.totalReward || 0)},
+                      '${escapeAttr(d.plan || "")}'
+                    )">
+
+                    🎁 Approve Reward
+
+                  </button>
+
+
+                  <button
+                    class="danger"
+                    onclick="
+                    rejectReward(
+                      '${item.id}'
+                    )">
+
+                    ✕ Reject
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+  );
+
 }
 
-box.innerHTML=snap.docs.map(x=>{
 
-const d=x.data();
+/* ==================================================
+   APPROVE REWARD
+================================================== */
 
-return `
-<div class="row">
+window.approveReward =
+async function(
+  claimId,
+  uid,
+  reward,
+  plan
+){
 
-<b>${d.email}</b>
-
-<br>
-
-<span style="font-size:13px">
-Plan: ${d.plan}<br>
-Completed Tasks: ${d.totalTasks}<br>
-Total Reward:
-<strong>৳${Number(d.totalReward||0).toLocaleString()}</strong>
-</span>
-
-<br>
-
-<span class="badge">
-${d.status}
-</span>
-
-<div class="actions">
-
-<button class="success"
-onclick="approveReward('${x.id}','${d.uid}',${Number(d.totalReward||0)},'${d.plan}')">
-🎁 Approve Reward
-</button>
-
-<button class="danger"
-onclick="rejectReward('${x.id}')">
-Reject
-</button>
-
-</div>
-
-</div>
-`;
-
-}).join("");
-
-});
-}
+  reward =
+    Number(reward || 0);
 
 
-/*
-Reward approval:
-একটি claim একবার Approved হলে আর দ্বিতীয়বার
-balance যোগ হবে না।
-*/
+  if(reward <= 0){
 
-window.approveReward=async(
-claimId,
-uid,
-reward,
-plan
-)=>{
+    alert(
+      "Invalid reward amount."
+    );
 
-if(!confirm(
-`৳${reward.toLocaleString()} reward approve করবেন?`
-))return;
+    return;
+
+  }
 
 
-/*
-প্রথমে claim status check করা হচ্ছে।
-*/
+  if(
+    !confirm(
+      `৳${money(reward)} Reward Approve করবেন?`
+    )
+  ){
 
-const claimRef=doc(db,"rewardClaims",claimId);
-const claimSnap=await getDoc(claimRef);
+    return;
 
-if(!claimSnap.exists()){
-alert("Claim পাওয়া যায়নি।");
-return;
-}
-
-const claim=claimSnap.data();
-
-if(claim.status!=="Pending"){
-alert("এই Claim ইতিমধ্যে process করা হয়েছে।");
-return;
-}
+  }
 
 
-/*
-User document
-*/
+  try{
 
-const userRef=doc(db,"users",uid);
-const userSnap=await getDoc(userRef);
-
-if(!userSnap.exists()){
-alert("User পাওয়া যায়নি।");
-return;
-}
-
-const user=userSnap.data();
-
-const oldBalance=Number(user.balance||0);
-const newBalance=oldBalance+Number(reward);
+    const claimRef =
+      doc(
+        db,
+        "rewardClaims",
+        claimId
+      );
 
 
-/*
-Balance update
-*/
-
-await setDoc(
-userRef,
-{
-balance:newBalance,
-lastReward:Number(reward),
-lastRewardPlan:plan,
-lastRewardAt:serverTimestamp(),
-updatedAt:serverTimestamp()
-},
-{merge:true}
-);
+    const claimSnap =
+      await getDoc(claimRef);
 
 
-/*
-Claim approve
-*/
+    if(!claimSnap.exists()){
 
-await updateDoc(
-claimRef,
-{
-status:"Approved",
-approvedReward:Number(reward),
-approvedAt:serverTimestamp()
-}
-);
+      alert(
+        "Reward Claim পাওয়া যায়নি।"
+      );
 
-alert(
-`Reward Approved!\n৳${reward.toLocaleString()} user balance-এ যোগ হয়েছে।`
-);
+      return;
+
+    }
+
+
+    const claim =
+      claimSnap.data();
+
+
+    /*
+      Double reward protection
+    */
+
+    if(
+      claim.status !==
+      "Pending"
+    ){
+
+      alert(
+        "এই Reward Claim ইতিমধ্যে process করা হয়েছে।"
+      );
+
+      return;
+
+    }
+
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        uid
+      );
+
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if(!userSnap.exists()){
+
+      alert(
+        "User পাওয়া যায়নি।"
+      );
+
+      return;
+
+    }
+
+
+    const user =
+      userSnap.data();
+
+
+    const oldBalance =
+      Number(
+        user.balance || 0
+      );
+
+
+    const newBalance =
+      oldBalance + reward;
+
+
+    /*
+      Balance Update
+    */
+
+    await setDoc(
+      userRef,
+      {
+
+        balance:
+          newBalance,
+
+        lastReward:
+          reward,
+
+        lastRewardPlan:
+          plan,
+
+        lastRewardAt:
+          serverTimestamp(),
+
+        updatedAt:
+          serverTimestamp()
+
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    /*
+      Claim Approved
+    */
+
+    await updateDoc(
+      claimRef,
+      {
+
+        status:
+          "Approved",
+
+        approvedReward:
+          reward,
+
+        approvedAt:
+          serverTimestamp(),
+
+        approvedBy:
+          auth.currentUser.uid
+
+      }
+    );
+
+
+    alert(
+      `Reward Approved!\n৳${money(reward)} Balance-এ যোগ হয়েছে।`
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Reward approve হয়নি:\n" +
+      error.message
+    );
+
+  }
 
 };
 
 
-window.rejectReward=async id=>{
+/* ==================================================
+   REJECT REWARD
+================================================== */
 
-if(!confirm("এই Reward Claim reject করবেন?"))return;
+window.rejectReward =
+async function(id){
 
-await updateDoc(
-doc(db,"rewardClaims",id),
-{
-status:"Rejected",
-updatedAt:serverTimestamp()
-}
-);
+  if(
+    !confirm(
+      "এই Reward Claim Reject করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  await updateDoc(
+    doc(
+      db,
+      "rewardClaims",
+      id
+    ),
+    {
+
+      status:
+        "Rejected",
+
+      rejectedAt:
+        serverTimestamp(),
+
+      rejectedBy:
+        auth.currentUser.uid
+
+    }
+  );
 
 };
 
 
-/* =========================
+/* ==================================================
    CUSTOMER SERVICE
-========================= */
+================================================== */
 
 function loadTickets(){
 
-const q=query(
-collection(db,"supportTickets"),
-where("status","==","Open")
-);
+  const q =
+    query(
+      collection(
+        db,
+        "supportTickets"
+      ),
+      where(
+        "status",
+        "==",
+        "Open"
+      )
+    );
 
-onSnapshot(q,snap=>{
 
-const box=document.getElementById("tickets");
+  onSnapshot(
+    q,
+    snapshot => {
 
-if(snap.empty){
-box.innerHTML='<p style="color:#777">কোনো open ticket নেই।</p>';
-return;
+      const box =
+        document
+          .getElementById(
+            "tickets"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div class="empty">
+            কোনো Open Ticket নেই।
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      box.innerHTML =
+        snapshot.docs
+          .map(
+            item => {
+
+              const d =
+                item.data();
+
+
+              return `
+
+              <div class="row">
+
+                <b>
+                  ${escapeHTML(d.email || "User")}
+                </b>
+
+                <div
+                  style="margin-top:7px">
+
+                  <strong>
+                    ${escapeHTML(d.subject || "")}
+                  </strong>
+
+                </div>
+
+                <p
+                  style="
+                  font-size:13px;
+                  margin:7px 0;
+                  line-height:1.5">
+
+                  ${escapeHTML(d.message || "")}
+
+                </p>
+
+                <span class="badge">
+                  ${escapeHTML(d.status || "Open")}
+                </span>
+
+                <div class="actions">
+
+                  <button
+                    class="success"
+                    onclick="
+                    closeTicket(
+                      '${item.id}'
+                    )">
+
+                    ✓ Resolve
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+  );
+
 }
 
-box.innerHTML=snap.docs.map(x=>{
 
-const d=x.data();
+/* ==================================================
+   RESOLVE TICKET
+================================================== */
 
-return `
-<div class="row">
+window.closeTicket =
+async function(id){
 
-<b>${d.email}</b>
+  await updateDoc(
+    doc(
+      db,
+      "supportTickets",
+      id
+    ),
+    {
 
-<br>
+      status:
+        "Resolved",
 
-<strong>${d.subject||""}</strong>
+      resolvedAt:
+        serverTimestamp(),
 
-<p style="font-size:13px;margin:6px 0">
-${d.message||""}
-</p>
+      resolvedBy:
+        auth.currentUser.uid
 
-<span class="badge">
-${d.status||"Open"}
-</span>
-
-<div class="actions">
-
-<button class="success"
-onclick="closeTicket('${x.id}')">
-✓ Resolve
-</button>
-
-</div>
-
-</div>
-`;
-
-}).join("");
-
-});
-}
-
-
-window.closeTicket=async id=>{
-
-await updateDoc(
-doc(db,"supportTickets",id),
-{
-status:"Resolved",
-resolvedAt:serverTimestamp()
-}
-);
+    }
+  );
 
 };
+
+
+/* ==================================================
+   HELPERS
+================================================== */
+
+function money(value){
+
+  return Number(
+    value || 0
+  ).toLocaleString("en-US");
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return String(value || "")
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'");
+
+}
 
 </script>
 
