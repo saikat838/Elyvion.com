@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -7,1610 +8,620 @@
 <title>Elyvion — Admin Panel</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f6f2ff;
-  color:#211437;
-}
-
-.hidden{
-  display:none!important;
-}
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:10px 14px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.primary{
-  background:#6d28d9;
-  color:white;
-}
-
-.success{
-  background:#dcfce7;
-  color:#15803d;
-}
-
-.reject{
-  background:#fee2e2;
-  color:#b91c1c;
-}
-
-.secondary{
-  background:#ede9fe;
-  color:#5b21b6;
-}
-
-header{
-  background:linear-gradient(135deg,#5b21b6,#8b5cf6);
-  color:white;
-  padding:18px;
-}
-
-.header-inner{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:bold;
-}
-
-.header-email{
-  font-size:12px;
-  opacity:.85;
-  margin-top:4px;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:18px;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.stat{
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  box-shadow:0 4px 15px rgba(91,33,182,.08);
-}
-
-.stat small{
-  color:#777;
-}
-
-.stat b{
-  display:block;
-  font-size:25px;
-  color:#5b21b6;
-  margin-top:7px;
-}
-
-.tabs{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:18px;
-}
-
-.tabs button{
-  white-space:nowrap;
-  background:white;
-  color:#666;
-}
-
-.tabs button.active{
-  background:#6d28d9;
-  color:white;
-}
-
-.panel{
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 4px 15px rgba(91,33,182,.08);
-  margin-bottom:18px;
-}
-
-.panel-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.request{
-  border:1px solid #eee;
-  border-radius:14px;
-  padding:15px;
-  margin:10px 0;
-}
-
-.request-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.request-info{
-  line-height:1.7;
-  font-size:14px;
-}
-
-.status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  background:#fff7ed;
-  color:#b45309;
-}
-
-.status.approved{
-  background:#dcfce7;
-  color:#15803d;
-}
-
-.status.rejected{
-  background:#fee2e2;
-  color:#b91c1c;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-}
-
-.actions button{
-  flex:1;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  padding:11px;
-  border-bottom:1px solid #eee;
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  color:#5b21b6;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  margin:7px 0 12px;
-}
-
-.login-page{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.login-box{
-  width:100%;
-  max-width:400px;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,.1);
-}
-
-.login-logo{
-  text-align:center;
-  font-size:30px;
-  font-weight:bold;
-  color:#5b21b6;
-  margin-bottom:5px;
-}
-
-.login-sub{
-  text-align:center;
-  color:#777;
-  font-size:13px;
-  margin-bottom:20px;
-}
-
-.error{
-  background:#fee2e2;
-  color:#b91c1c;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:12px;
-  font-size:13px;
-}
-
-.empty{
-  text-align:center;
-  padding:30px;
-  color:#777;
-}
-
-@media(max-width:700px){
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .header-inner{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:10px;
-  }
-
-  table{
-    display:block;
-    overflow-x:auto;
-  }
-
-  .actions{
-    flex-direction:column;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f5f3ff;color:#211437}
+.hidden{display:none!important}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:white;border-radius:18px;padding:18px;margin:15px 0;box-shadow:0 5px 20px #5b21b611}
+h1{color:#5b21b6}
+input{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:8px 0 12px}
+button{border:0;border-radius:10px;padding:11px 15px;font-weight:bold;cursor:pointer}
+.primary{background:#6d28d9;color:white}
+.success{background:#16a34a;color:white}
+.danger{background:#dc2626;color:white}
+.secondary{background:#ede9fe;color:#5b21b6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:#f4efff;padding:15px;border-radius:14px}
+.stat b{display:block;font-size:25px;color:#5b21b6;margin-top:5px}
+.row{padding:15px 0;border-bottom:1px solid #eee}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;background:#fff7ed;color:#b45309}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.container{padding:12px}}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<div id="loginPage" class="container">
 
-<div id="loginPage" class="login-page">
+<div class="card" style="max-width:420px;margin:80px auto">
 
-  <div class="login-box">
+<h1>💜 Elyvion Admin</h1>
+<p style="color:#777;margin:8px 0 20px">
+Admin Login
+</p>
 
-    <div class="login-logo">
-      💜 Elyvion
-    </div>
+<input id="adminEmail"
+type="email"
+placeholder="Admin Email">
 
-    <div class="login-sub">
-      Admin Dashboard
-    </div>
+<input id="adminPassword"
+type="password"
+placeholder="Password">
 
-    <div id="loginError" class="error hidden"></div>
+<button class="primary"
+style="width:100%"
+onclick="adminLogin()">
+🔐 Login
+</button>
 
-    <label>Admin Email</label>
-
-    <input
-      id="adminEmail"
-      type="email"
-      placeholder="Admin email">
-
-    <label>Password</label>
-
-    <input
-      id="adminPassword"
-      type="password"
-      placeholder="Password">
-
-    <button
-      class="primary"
-      style="width:100%"
-      onclick="adminLogin()">
-
-      🔐 Admin Login
-
-    </button>
-
-  </div>
+<p id="loginError"
+style="color:#b91c1c;font-size:13px;margin-top:10px">
+</p>
 
 </div>
+</div>
 
-
-<!-- ADMIN -->
 
 <div id="adminPage" class="hidden">
 
-<header>
-
-  <div class="header-inner">
-
-    <div>
-
-      <div class="logo">
-        💜 Elyvion Admin
-      </div>
-
-      <div
-        id="adminEmailText"
-        class="header-email">
-      </div>
-
-    </div>
-
-    <button
-      class="secondary"
-      onclick="adminLogout()">
-
-      Logout
-
-    </button>
-
-  </div>
-
-</header>
-
-
 <div class="container">
 
-  <!-- STATS -->
+<div class="card">
 
-  <div class="stats">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
 
-    <div class="stat">
-      <small>Total Users</small>
-      <b id="totalUsers">0</b>
-    </div>
+<div>
+<h1>💜 Elyvion Admin</h1>
+<p style="color:#777;margin-top:5px">
+Task & Reward Management
+</p>
+</div>
 
-    <div class="stat">
-      <small>Deposit Requests</small>
-      <b id="totalDeposits">0</b>
-    </div>
-
-    <div class="stat">
-      <small>Withdrawals</small>
-      <b id="totalWithdrawals">0</b>
-    </div>
-
-    <div class="stat">
-      <small>Task Requests</small>
-      <b id="totalTasks">0</b>
-    </div>
-
-  </div>
-
-
-  <!-- TABS -->
-
-  <div class="tabs">
-
-    <button
-      class="active"
-      onclick="showSection('users',this)">
-      👥 Users
-    </button>
-
-    <button
-      onclick="showSection('deposits',this)">
-      📥 Deposits
-    </button>
-
-    <button
-      onclick="showSection('withdrawals',this)">
-      💸 Withdrawals
-    </button>
-
-    <button
-      onclick="showSection('tasks',this)">
-      ✅ Tasks
-    </button>
-
-    <button
-      onclick="showSection('plans',this)">
-      📦 Plans
-    </button>
-
-    <button
-      onclick="showSection('tickets',this)">
-      🎧 Tickets
-    </button>
-
-  </div>
-
-
-  <!-- USERS -->
-
-  <div id="usersSection" class="panel">
-
-    <div class="panel-title">
-      👥 Users
-    </div>
-
-    <div id="usersBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- DEPOSITS -->
-
-  <div
-    id="depositsSection"
-    class="panel hidden">
-
-    <div class="panel-title">
-      📥 Deposit Requests
-    </div>
-
-    <div id="depositsBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- WITHDRAWALS -->
-
-  <div
-    id="withdrawalsSection"
-    class="panel hidden">
-
-    <div class="panel-title">
-      💸 Withdrawal Requests
-    </div>
-
-    <div id="withdrawalsBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- TASKS -->
-
-  <div
-    id="tasksSection"
-    class="panel hidden">
-
-    <div class="panel-title">
-      ✅ Task Completion Requests
-    </div>
-
-    <div id="tasksBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- PLANS -->
-
-  <div
-    id="plansSection"
-    class="panel hidden">
-
-    <div class="panel-title">
-      📦 Plan Requests
-    </div>
-
-    <div id="plansBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- TICKETS -->
-
-  <div
-    id="ticketsSection"
-    class="panel hidden">
-
-    <div class="panel-title">
-      🎧 Support Tickets
-    </div>
-
-    <div id="ticketsBox">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-
-  </div>
+<button class="danger" onclick="logoutAdmin()">
+Logout
+</button>
 
 </div>
 
+</div>
+
+
+<div class="grid">
+
+<div class="stat">
+Total Users
+<b id="totalUsers">0</b>
+</div>
+
+<div class="stat">
+Plan Requests
+<b id="planCount">0</b>
+</div>
+
+<div class="stat">
+Reward Claims
+<b id="claimCount">0</b>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📦 Pending Plan Requests</h2>
+
+<div id="planRequests"
+style="margin-top:10px">
+Loading...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🎁 Pending Reward Claims</h2>
+
+<p style="font-size:13px;color:#777;margin:7px 0">
+সব Task সম্পন্ন করার পর User এখানে Reward Claim করবে।
+Approve করলে মোট Reward একবারে Balance-এ যোগ হবে।
+</p>
+
+<div id="rewardClaims">
+Loading...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🎧 Customer Service Requests</h2>
+
+<div id="tickets">
+Loading...
+</div>
+
+</div>
+
+</div>
 </div>
 
 
 <script type="module">
 
 import {
-  initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
+initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  doc,
-  updateDoc,
-  getDoc,
-  increment,
-  serverTimestamp
+getFirestore,
+collection,
+query,
+where,
+onSnapshot,
+doc,
+getDoc,
+setDoc,
+updateDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+apiKey:"AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
+authDomain:"elyvioncom.firebaseapp.com",
+projectId:"elyvioncom",
+storageBucket:"elyvioncom.firebasestorage.app",
+messagingSenderId:"696113174945",
+appId:"1:696113174945:web:7dd53b1d9e47d6d05613e0"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+
+/*
+IMPORTANT:
+এখানে আপনার Admin Firebase Auth UID বসাবেন।
+Firebase Authentication → Users থেকে Admin user-এর UID কপি করুন।
+*/
+
+const ADMIN_UID="YOUR_ADMIN_UID";
+
+
+window.adminLogin=async()=>{
+
+const email=document.getElementById("adminEmail").value.trim();
+const password=document.getElementById("adminPassword").value;
+
+try{
+
+await signInWithEmailAndPassword(auth,email,password);
+
+}catch(e){
+
+document.getElementById("loginError").innerText=e.message;
+
 }
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
-
-  authDomain:
-  "elyvioncom.firebaseapp.com",
-
-  projectId:
-  "elyvioncom",
-
-  storageBucket:
-  "elyvioncom.firebasestorage.app",
-
-  messagingSenderId:
-  "696113174945",
-
-  appId:
-  "1:696113174945:web:7dd53b1d9e47d6d05613e0",
-
-  measurementId:
-  "G-059RB98EPD"
 
 };
 
 
-const app =
-  initializeApp(firebaseConfig);
+onAuthStateChanged(auth,user=>{
 
-const auth =
-  getAuth(app);
+if(!user){
 
-const db =
-  getFirestore(app);
+document.getElementById("loginPage").classList.remove("hidden");
+document.getElementById("adminPage").classList.add("hidden");
+return;
+
+}
+
+if(user.uid!==ADMIN_UID){
+
+alert("আপনার Admin permission নেই।");
+signOut(auth);
+return;
+
+}
+
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("adminPage").classList.remove("hidden");
+
+loadUsers();
+loadPlanRequests();
+loadRewardClaims();
+loadTickets();
+
+});
+
+
+window.logoutAdmin=()=>{
+signOut(auth);
+};
+
+
+/* =========================
+   USERS
+========================= */
+
+function loadUsers(){
+
+onSnapshot(collection(db,"users"),snap=>{
+
+document.getElementById("totalUsers").innerText=snap.size;
+
+});
+
+}
+
+
+/* =========================
+   PLAN REQUESTS
+========================= */
+
+function loadPlanRequests(){
+
+const q=query(
+collection(db,"planRequests"),
+where("status","==","Pending")
+);
+
+onSnapshot(q,snap=>{
+
+document.getElementById("planCount").innerText=snap.size;
+
+const box=document.getElementById("planRequests");
+
+if(snap.empty){
+box.innerHTML='<p style="color:#777">কোনো pending request নেই।</p>';
+return;
+}
+
+box.innerHTML=snap.docs.map(x=>{
+
+const d=x.data();
+
+return `
+<div class="row">
+
+<b>${d.email}</b><br>
+
+<span style="font-size:13px">
+Plan: ${d.plan?.rank||""}<br>
+Amount: ৳${Number(d.plan?.price||0).toLocaleString()}
+</span>
+
+<div class="actions">
+
+<button class="success"
+onclick="approvePlan('${x.id}','${d.uid}')">
+✓ Approve Plan
+</button>
+
+<button class="danger"
+onclick="rejectPlan('${x.id}')">
+Reject
+</button>
+
+</div>
+
+</div>
+`;
+
+}).join("");
+
+});
+}
+
+
+window.approvePlan=async(requestId,uid)=>{
+
+const request=await getDoc(
+doc(db,"planRequests",requestId)
+);
+
+if(!request.exists())return;
+
+const data=request.data();
+
+await setDoc(
+doc(db,"users",uid),
+{
+activePlan:data.plan,
+completedTasks:0,
+todayEarn:0,
+updatedAt:serverTimestamp()
+},
+{merge:true}
+);
+
+await updateDoc(
+doc(db,"planRequests",requestId),
+{
+status:"Approved",
+approvedAt:serverTimestamp()
+}
+);
+
+alert("Plan Approved হয়েছে।");
+
+};
+
+
+window.rejectPlan=async id=>{
+
+await updateDoc(
+doc(db,"planRequests",id),
+{
+status:"Rejected",
+updatedAt:serverTimestamp()
+}
+);
+
+};
+
+
+/* =========================
+   REWARD CLAIMS
+========================= */
+
+function loadRewardClaims(){
+
+const q=query(
+collection(db,"rewardClaims"),
+where("status","==","Pending")
+);
+
+onSnapshot(q,snap=>{
+
+document.getElementById("claimCount").innerText=snap.size;
+
+const box=document.getElementById("rewardClaims");
+
+if(snap.empty){
+box.innerHTML='<p style="color:#777">কোনো pending Reward Claim নেই।</p>';
+return;
+}
+
+box.innerHTML=snap.docs.map(x=>{
+
+const d=x.data();
+
+return `
+<div class="row">
+
+<b>${d.email}</b>
+
+<br>
+
+<span style="font-size:13px">
+Plan: ${d.plan}<br>
+Completed Tasks: ${d.totalTasks}<br>
+Total Reward:
+<strong>৳${Number(d.totalReward||0).toLocaleString()}</strong>
+</span>
+
+<br>
+
+<span class="badge">
+${d.status}
+</span>
+
+<div class="actions">
+
+<button class="success"
+onclick="approveReward('${x.id}','${d.uid}',${Number(d.totalReward||0)},'${d.plan}')">
+🎁 Approve Reward
+</button>
+
+<button class="danger"
+onclick="rejectReward('${x.id}')">
+Reject
+</button>
+
+</div>
+
+</div>
+`;
+
+}).join("");
+
+});
+}
 
 
 /*
-==================================================
-AUTH
-==================================================
+Reward approval:
+একটি claim একবার Approved হলে আর দ্বিতীয়বার
+balance যোগ হবে না।
 */
 
-window.adminLogin = adminLogin;
-window.adminLogout = adminLogout;
-window.showSection = showSection;
-window.updateRequest = updateRequest;
+window.approveReward=async(
+claimId,
+uid,
+reward,
+plan
+)=>{
+
+if(!confirm(
+`৳${reward.toLocaleString()} reward approve করবেন?`
+))return;
 
 
-async function adminLogin(){
+/*
+প্রথমে claim status check করা হচ্ছে।
+*/
 
-  const email =
-    document
-      .getElementById("adminEmail")
-      .value
-      .trim();
+const claimRef=doc(db,"rewardClaims",claimId);
+const claimSnap=await getDoc(claimRef);
 
-  const password =
-    document
-      .getElementById("adminPassword")
-      .value;
+if(!claimSnap.exists()){
+alert("Claim পাওয়া যায়নি।");
+return;
+}
 
-  const errorBox =
-    document.getElementById("loginError");
+const claim=claimSnap.data();
 
-
-  errorBox.classList.add("hidden");
-
-
-  if(!email || !password){
-
-    errorBox.innerText =
-      "Email এবং Password দিন।";
-
-    errorBox.classList.remove("hidden");
-
-    return;
-  }
-
-
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    errorBox.innerText =
-      "Login failed: " + error.message;
-
-    errorBox.classList.remove("hidden");
-
-  }
-
+if(claim.status!=="Pending"){
+alert("এই Claim ইতিমধ্যে process করা হয়েছে।");
+return;
 }
 
 
-async function adminLogout(){
+/*
+User document
+*/
 
-  await signOut(auth);
+const userRef=doc(db,"users",uid);
+const userSnap=await getDoc(userRef);
 
+if(!userSnap.exists()){
+alert("User পাওয়া যায়নি।");
+return;
 }
 
+const user=userSnap.data();
 
-onAuthStateChanged(
-  auth,
-  user => {
+const oldBalance=Number(user.balance||0);
+const newBalance=oldBalance+Number(reward);
 
-    if(user){
 
-      document
-        .getElementById("loginPage")
-        .classList.add("hidden");
+/*
+Balance update
+*/
 
-      document
-        .getElementById("adminPage")
-        .classList.remove("hidden");
-
-      document
-        .getElementById("adminEmailText")
-        .innerText =
-        user.email || "";
-
-      loadAll();
-
-    }
-    else{
-
-      document
-        .getElementById("loginPage")
-        .classList.remove("hidden");
-
-      document
-        .getElementById("adminPage")
-        .classList.add("hidden");
-
-    }
-
-  }
+await setDoc(
+userRef,
+{
+balance:newBalance,
+lastReward:Number(reward),
+lastRewardPlan:plan,
+lastRewardAt:serverTimestamp(),
+updatedAt:serverTimestamp()
+},
+{merge:true}
 );
 
 
 /*
-==================================================
-SECTION
-==================================================
+Claim approve
 */
 
-function showSection(name,btn){
-
-  const sections = [
-    "users",
-    "deposits",
-    "withdrawals",
-    "tasks",
-    "plans",
-    "tickets"
-  ];
-
-
-  sections.forEach(
-    x => {
-
-      document
-        .getElementById(
-          x + "Section"
-        )
-        .classList.add("hidden");
-
-    }
-  );
-
-
-  document
-    .getElementById(
-      name + "Section"
-    )
-    .classList.remove("hidden");
-
-
-  document
-    .querySelectorAll(".tabs button")
-    .forEach(
-      b =>
-      b.classList.remove("active")
-    );
-
-
-  btn.classList.add("active");
-
+await updateDoc(
+claimRef,
+{
+status:"Approved",
+approvedReward:Number(reward),
+approvedAt:serverTimestamp()
 }
+);
+
+alert(
+`Reward Approved!\n৳${reward.toLocaleString()} user balance-এ যোগ হয়েছে।`
+);
+
+};
 
 
-/*
-==================================================
-FORMAT
-==================================================
-*/
+window.rejectReward=async id=>{
 
-function money(value){
+if(!confirm("এই Reward Claim reject করবেন?"))return;
 
-  return Number(
-    value || 0
-  ).toLocaleString("en-US");
-
+await updateDoc(
+doc(db,"rewardClaims",id),
+{
+status:"Rejected",
+updatedAt:serverTimestamp()
 }
+);
 
+};
 
-function dateText(timestamp){
 
-  if(!timestamp){
-    return "—";
-  }
-
-  try{
-
-    return timestamp
-      .toDate()
-      .toLocaleString("bn-BD");
-
-  }
-
-  catch{
-
-    return "—";
-
-  }
-
-}
-
-
-/*
-==================================================
-LOAD ALL
-==================================================
-*/
-
-function loadAll(){
-
-  loadUsers();
-  loadDeposits();
-  loadWithdrawals();
-  loadTasks();
-  loadPlans();
-  loadTickets();
-
-}
-
-
-/*
-==================================================
-USERS
-==================================================
-*/
-
-function loadUsers(){
-
-  const q =
-    query(
-      collection(db,"users"),
-      orderBy("createdAt","desc")
-    );
-
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      document
-        .getElementById("totalUsers")
-        .innerText =
-        snapshot.size;
-
-
-      const box =
-        document.getElementById("usersBox");
-
-
-      if(snapshot.empty){
-
-        box.innerHTML =
-          `<div class="empty">
-             কোনো user নেই
-           </div>`;
-
-        return;
-
-      }
-
-
-      let html = `
-        <table>
-
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Balance</th>
-              <th>Plan</th>
-            </tr>
-          </thead>
-
-          <tbody>
-      `;
-
-
-      snapshot.forEach(
-        snap => {
-
-          const x =
-            snap.data();
-
-
-          html += `
-
-            <tr>
-
-              <td>
-                ${escapeHTML(x.name || "User")}
-              </td>
-
-              <td>
-                ${escapeHTML(x.email || "")}
-              </td>
-
-              <td>
-                ৳${money(x.balance)}
-              </td>
-
-              <td>
-                ${
-                  x.activePlan
-                  ? escapeHTML(x.activePlan.rank || "")
-                  : "None"
-                }
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      );
-
-
-      html += `
-          </tbody>
-        </table>
-      `;
-
-
-      box.innerHTML = html;
-
-    },
-
-    error => {
-
-      console.error(error);
-
-      document
-        .getElementById("usersBox")
-        .innerHTML =
-        `<div class="empty">
-          Users load করা যায়নি।
-        </div>`;
-
-    }
-  );
-
-}
-
-
-/*
-==================================================
-DEPOSITS
-==================================================
-*/
-
-function loadDeposits(){
-
-  const q =
-    query(
-      collection(db,"depositRequests"),
-      orderBy("createdAt","desc")
-    );
-
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      document
-        .getElementById("totalDeposits")
-        .innerText =
-        snapshot.size;
-
-
-      const box =
-        document.getElementById("depositsBox");
-
-
-      if(snapshot.empty){
-
-        box.innerHTML =
-          `<div class="empty">
-             কোনো deposit request নেই।
-           </div>`;
-
-        return;
-
-      }
-
-
-      box.innerHTML =
-        snapshot.docs.map(
-          snap => {
-
-            const x =
-              snap.data();
-
-
-            return requestCard(
-
-              snap.id,
-
-              "Deposit",
-
-              `
-              <b>Amount:</b>
-              ৳${money(x.amount)}
-              <br>
-
-              <b>Method:</b>
-              ${escapeHTML(x.method || "")}
-              <br>
-
-              <b>Payment Number:</b>
-              ${escapeHTML(x.paymentNumber || "")}
-              <br>
-
-              <b>Sender Last 4:</b>
-              ${escapeHTML(x.senderLast4 || "")}
-              <br>
-
-              <b>Email:</b>
-              ${escapeHTML(x.email || "")}
-              <br>
-
-              <small>
-                ${dateText(x.createdAt)}
-              </small>
-              `,
-
-              x.status
-
-            );
-
-          }
-        ).join("");
-
-    }
-  );
-
-}
-
-
-/*
-==================================================
-WITHDRAWALS
-==================================================
-*/
-
-function loadWithdrawals(){
-
-  const q =
-    query(
-      collection(db,"withdrawalRequests"),
-      orderBy("createdAt","desc")
-    );
-
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      document
-        .getElementById("totalWithdrawals")
-        .innerText =
-        snapshot.size;
-
-
-      const box =
-        document.getElementById(
-          "withdrawalsBox"
-        );
-
-
-      if(snapshot.empty){
-
-        box.innerHTML =
-          `<div class="empty">
-             কোনো withdrawal request নেই।
-           </div>`;
-
-        return;
-
-      }
-
-
-      box.innerHTML =
-        snapshot.docs.map(
-          snap => {
-
-            const x =
-              snap.data();
-
-
-            return requestCard(
-
-              snap.id,
-
-              "Withdrawal",
-
-              `
-              <b>Amount:</b>
-              ৳${money(x.amount)}
-              <br>
-
-              <b>Method:</b>
-              ${escapeHTML(x.method || "")}
-              <br>
-
-              <b>Number:</b>
-              ${escapeHTML(x.number || "")}
-              <br>
-
-              <b>Name:</b>
-              ${escapeHTML(x.name || "")}
-              <br>
-
-              <b>Email:</b>
-              ${escapeHTML(x.email || "")}
-              <br>
-
-              <small>
-                ${dateText(x.createdAt)}
-              </small>
-              `,
-
-              x.status
-
-            );
-
-          }
-        ).join("");
-
-    }
-  );
-
-}
-
-
-/*
-==================================================
-TASKS
-==================================================
-*/
-
-function loadTasks(){
-
-  const q =
-    query(
-      collection(db,"taskCompletions"),
-      orderBy("createdAt","desc")
-    );
-
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      document
-        .getElementById("totalTasks")
-        .innerText =
-        snapshot.size;
-
-
-      const box =
-        document.getElementById("tasksBox");
-
-
-      if(snapshot.empty){
-
-        box.innerHTML =
-          `<div class="empty">
-             কোনো task request নেই।
-           </div>`;
-
-        return;
-
-      }
-
-
-      box.innerHTML =
-        snapshot.docs.map(
-          snap => {
-
-            const x =
-              snap.data();
-
-
-            return requestCard(
-
-              snap.id,
-
-              "Task",
-
-              `
-              <b>User:</b>
-              ${escapeHTML(x.email || "")}
-              <br>
-
-              <b>Plan:</b>
-              ${escapeHTML(x.plan || "")}
-              <br>
-
-              <b>Task:</b>
-              #${Number(x.taskNumber || 0)}
-              <br>
-
-              <b>Reward:</b>
-              ৳${money(x.reward)}
-              <br>
-
-              <small>
-                ${dateText(x.createdAt)}
-              </small>
-              `,
-
-              x.status
-
-            );
-
-          }
-        ).join("");
-
-    }
-  );
-
-}
-
-
-/*
-==================================================
-PLANS
-==================================================
-*/
-
-function loadPlans(){
-
-  const q =
-    query(
-      collection(db,"planRequests"),
-      orderBy("createdAt","desc")
-    );
-
-
-  onSnapshot(
-    q,
-    snapshot => {
-
-      const box =
-        document.getElementById("plansBox");
-
-
-      if(snapshot.empty){
-
-        box.innerHTML =
-          `<div class="empty">
-             কোনো plan request নেই।
-           </div>`;
-
-        return;
-
-      }
-
-
-      box.innerHTML =
-        snapshot.docs.map(
-          snap => {
-
-            const x =
-              snap.data();
-
-            const p =
-              x.plan || {};
-
-
-            return requestCard(
-
-              snap.id,
-
-              "Plan",
-
-              `
-              <b>User:</b>
-              ${escapeHTML(x.email || "")}
-              <br>
-
-              <b>Plan:</b>
-              ${escapeHTML(p.rank || "")}
-              <br>
-
-              <b>Amount:</b>
-              ৳${money(p.price)}
-              <br>
-
-              <b>Tasks:</b>
-              ${Number(p.tasks || 0)}
-              <br>
-
-              <small>
-                ${dateText(x.createdAt)}
-              </small>
-              `,
-
-              x.status
-
-            );
-
-          }
-        ).join("");
-
-    }
-  );
-
-}
-
-
-/*
-==================================================
-TICKETS
-==================================================
-*/
+/* =========================
+   CUSTOMER SERVICE
+========================= */
 
 function loadTickets(){
 
-  const q =
-    query(
-      collection(db,"supportTickets"),
-      orderBy("createdAt","desc")
-    );
+const q=query(
+collection(db,"supportTickets"),
+where("status","==","Open")
+);
 
+onSnapshot(q,snap=>{
 
-  onSnapshot(
-    q,
-    snapshot => {
+const box=document.getElementById("tickets");
 
-      const box =
-        document.getElementById("ticketsBox");
+if(snap.empty){
+box.innerHTML='<p style="color:#777">কোনো open ticket নেই।</p>';
+return;
+}
 
+box.innerHTML=snap.docs.map(x=>{
 
-      if(snapshot.empty){
+const d=x.data();
 
-        box.innerHTML =
-          `<div class="empty">
-             কোনো ticket নেই।
-           </div>`;
+return `
+<div class="row">
 
-        return;
+<b>${d.email}</b>
 
-      }
+<br>
 
+<strong>${d.subject||""}</strong>
 
-      box.innerHTML =
-        snapshot.docs.map(
-          snap => {
+<p style="font-size:13px;margin:6px 0">
+${d.message||""}
+</p>
 
-            const x =
-              snap.data();
+<span class="badge">
+${d.status||"Open"}
+</span>
 
+<div class="actions">
 
-            return requestCard(
+<button class="success"
+onclick="closeTicket('${x.id}')">
+✓ Resolve
+</button>
 
-              snap.id,
+</div>
 
-              "Support",
+</div>
+`;
 
-              `
-              <b>Subject:</b>
-              ${escapeHTML(x.subject || "")}
-              <br>
+}).join("");
 
-              <b>User:</b>
-              ${escapeHTML(x.email || "")}
-              <br>
-
-              <p style="margin-top:8px">
-                ${escapeHTML(x.message || "")}
-              </p>
-
-              <small>
-                ${dateText(x.createdAt)}
-              </small>
-              `,
-
-              x.status
-
-            );
-
-          }
-        ).join("");
-
-    }
-  );
-
+});
 }
 
 
-/*
-==================================================
-REQUEST CARD
-==================================================
-*/
+window.closeTicket=async id=>{
 
-function requestCard(
-  id,
-  type,
-  content,
-  status
-){
-
-  const safeStatus =
-    String(status || "Pending");
-
-
-  let actions = "";
-
-
-  if(
-    safeStatus === "Pending" ||
-    safeStatus === "Open"
-  ){
-
-    actions = `
-
-      <div class="actions">
-
-        <button
-          class="success"
-          onclick="updateRequest(
-            '${id}',
-            '${type}',
-            'Approved'
-          )">
-
-          ✓ Approve
-
-        </button>
-
-        <button
-          class="reject"
-          onclick="updateRequest(
-            '${id}',
-            '${type}',
-            'Rejected'
-          )">
-
-          ✕ Reject
-
-        </button>
-
-      </div>
-
-    `;
-
-  }
-
-
-  const statusClass =
-    safeStatus === "Approved"
-      ? "approved"
-      : safeStatus === "Rejected"
-        ? "rejected"
-        : "";
-
-
-  return `
-
-    <div class="request">
-
-      <div class="request-top">
-
-        <div class="request-info">
-
-          ${content}
-
-        </div>
-
-        <span class="status ${statusClass}">
-
-          ${escapeHTML(safeStatus)}
-
-        </span>
-
-      </div>
-
-      ${actions}
-
-    </div>
-
-  `;
-
+await updateDoc(
+doc(db,"supportTickets",id),
+{
+status:"Resolved",
+resolvedAt:serverTimestamp()
 }
+);
 
-
-/*
-==================================================
-UPDATE REQUEST
-==================================================
-*/
-
-async function updateRequest(
-  id,
-  type,
-  newStatus
-){
-
-  if(!confirm(
-    `${type} request ${newStatus} করতে চান?`
-  )){
-    return;
-  }
-
-
-  let collectionName = "";
-
-
-  if(type === "Deposit"){
-    collectionName =
-      "depositRequests";
-  }
-
-  else if(type === "Withdrawal"){
-    collectionName =
-      "withdrawalRequests";
-  }
-
-  else if(type === "Task"){
-    collectionName =
-      "taskCompletions";
-  }
-
-  else if(type === "Plan"){
-    collectionName =
-      "planRequests";
-  }
-
-  else if(type === "Support"){
-    collectionName =
-      "supportTickets";
-  }
-
-
-  if(!collectionName){
-    return;
-  }
-
-
-  try{
-
-    await updateDoc(
-
-      doc(
-        db,
-        collectionName,
-        id
-      ),
-
-      {
-        status:newStatus,
-        reviewedAt:
-          serverTimestamp()
-      }
-
-    );
-
-
-    alert(
-      `${type} ${newStatus} হয়েছে।`
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Update হয়নি: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/*
-==================================================
-SECURITY HELPER
-==================================================
-*/
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
+};
 
 </script>
 
 </body>
 </html>
+```
