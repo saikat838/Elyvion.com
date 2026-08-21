@@ -3,415 +3,1478 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Elyvion — Task & Reward Platform</title>
+
+<title>Elyvion — Task Platform</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f6f2ff;color:#211437;padding-bottom:85px}
-header{background:linear-gradient(135deg,#5b21b6,#8b5cf6);color:#fff;padding:18px 16px;border-radius:0 0 24px 24px}
-.brand{font-size:26px;font-weight:800}.subtitle{opacity:.85;font-size:13px;margin-top:5px}
-.container{max-width:700px;margin:auto;padding:15px}
-.card{background:#fff;border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 5px 20px rgba(91,33,182,.08)}
-.balance{font-size:30px;font-weight:bold;color:#6d28d9;margin:8px 0}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#f4efff;border-radius:14px;padding:14px}.stat small{color:#777}
-.stat b{display:block;margin-top:6px;color:#5b21b6}
-.section-title{font-size:20px;font-weight:bold;margin:20px 0 10px}
-.plan{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px;border:1px solid #e9ddff}
-.plan-top{display:flex;justify-content:space-between;align-items:center}
-.rank{font-weight:bold;font-size:18px;color:#5b21b6}.price{font-size:20px;font-weight:bold}
-.plan-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-.info{background:#f7f3ff;padding:10px;border-radius:10px;font-size:13px}
-.info b{display:block;color:#5b21b6;margin-top:4px}
-button{border:0;border-radius:12px;padding:12px 15px;font-weight:bold;cursor:pointer;font-size:15px}
-.primary{background:#6d28d9;color:#fff;width:100%}
-.secondary{background:#ede9fe;color:#5b21b6;width:100%}
-.danger{background:#fee2e2;color:#b91c1c;width:100%}
-.flex{display:flex;gap:10px}.flex>*{flex:1}
-.hidden{display:none!important}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 4px 14px;box-shadow:0 -3px 15px rgba(0,0,0,.1);z-index:20}
-.nav button{background:transparent;color:#777;font-size:11px;padding:5px}
-.nav button.active{color:#6d28d9}.nav span{display:block;font-size:20px;margin-bottom:2px}
-.modal{position:fixed;inset:0;background:rgba(20,10,40,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
-.modal-box{background:#fff;width:100%;max-width:700px;border-radius:24px 24px 0 0;padding:20px;max-height:92vh;overflow:auto}
-.modal-title{text-align:center;font-size:20px;font-weight:bold;margin-bottom:8px}
-.modal-sub{text-align:center;color:#777;font-size:13px;margin-bottom:16px}
-.confirm-row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #eee}
-.confirm-row b{color:#5b21b6}
-.notice{background:#fff7ed;color:#9a3412;padding:12px;border-radius:12px;font-size:13px;margin:14px 0}
-input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;margin:7px 0 12px;font-size:15px}
-label{font-size:13px;font-weight:bold;color:#555}
-.task{background:#fff;border-radius:16px;padding:15px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
-.task-left b{display:block;margin-bottom:6px}.task-left small{color:#777}
-.task button{background:#6d28d9;color:#fff;padding:10px 13px;width:auto}
-.progress{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:10px 0}
-.progress>div{height:100%;background:#7c3aed;width:0%;transition:.3s}
-.status{font-size:12px;padding:5px 9px;border-radius:20px;background:#ede9fe;color:#6d28d9}
-.big-icon{font-size:40px;text-align:center;margin:10px}.center{text-align:center}
-.history{font-size:13px;padding:12px 0;border-bottom:1px solid #eee}
-.history:last-child{border:0}.success{color:#15803d}.pending{color:#b45309}
-.method-card{border:1px solid #e5d9ff;background:#faf8ff;padding:14px;border-radius:14px;margin:10px 0;cursor:pointer}
-.method-card.selected{border:2px solid #6d28d9;background:#f4efff}
-.method-card b{display:block;color:#5b21b6}
-.payment-number{background:#f4efff;border:2px dashed #8b5cf6;padding:14px;border-radius:14px;text-align:center;font-size:21px;font-weight:bold;color:#5b21b6;margin:10px 0}
-.deposit-step{background:#fafafa;border-radius:12px;padding:12px;margin:8px 0;font-size:13px}
-.sender-box{background:#f7f3ff;padding:14px;border-radius:14px;margin:12px 0;border:1px solid #e5d9ff}
-.small-note{color:#777;font-size:12px;line-height:1.5}
-.auth-box{max-width:430px;margin:70px auto;padding:20px}
-.user-email{font-size:12px;opacity:.8;margin-top:5px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f6f2ff;
+  color:#211437;
+  padding-bottom:85px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+header{
+  background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+  color:#fff;
+  padding:18px 16px;
+  border-radius:0 0 24px 24px;
+}
+
+.brand{
+  font-size:26px;
+  font-weight:800;
+}
+
+.subtitle{
+  opacity:.85;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.user-email{
+  font-size:12px;
+  opacity:.8;
+  margin-top:5px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 5px 20px rgba(91,33,182,.08);
+}
+
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  color:#6d28d9;
+  margin:8px 0;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.stat{
+  background:#f4efff;
+  border-radius:14px;
+  padding:14px;
+}
+
+.stat small{
+  color:#777;
+}
+
+.stat b{
+  display:block;
+  margin-top:6px;
+  color:#5b21b6;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin:20px 0 10px;
+}
+
+.plan{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+  border:1px solid #e9ddff;
+}
+
+.plan-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.rank{
+  font-weight:bold;
+  font-size:18px;
+  color:#5b21b6;
+}
+
+.price{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.plan-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:14px 0;
+}
+
+.info{
+  background:#f7f3ff;
+  padding:10px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.info b{
+  display:block;
+  color:#5b21b6;
+  margin-top:4px;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.primary{
+  background:#6d28d9;
+  color:#fff;
+  width:100%;
+}
+
+.secondary{
+  background:#ede9fe;
+  color:#5b21b6;
+  width:100%;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+  width:100%;
+}
+
+.flex{
+  display:flex;
+  gap:10px;
+}
+
+.flex>*{
+  flex:1;
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 4px 14px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.1);
+  z-index:20;
+}
+
+.nav button{
+  background:transparent;
+  color:#777;
+  font-size:11px;
+  padding:5px;
+}
+
+.nav button.active{
+  color:#6d28d9;
+}
+
+.nav span{
+  display:block;
+  font-size:20px;
+  margin-bottom:2px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,40,.55);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:700px;
+  border-radius:24px 24px 0 0;
+  padding:20px;
+  max-height:92vh;
+  overflow:auto;
+}
+
+.modal-title{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.modal-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:16px;
+}
+
+.confirm-row{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+}
+
+.confirm-row b{
+  color:#5b21b6;
+}
+
+.notice{
+  background:#fff7ed;
+  color:#9a3412;
+  padding:12px;
+  border-radius:12px;
+  font-size:13px;
+  margin:14px 0;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin:7px 0 12px;
+  font-size:15px;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+  color:#555;
+}
+
+.task{
+  background:#fff;
+  border-radius:16px;
+  padding:15px;
+  margin:10px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.task-left b{
+  display:block;
+  margin-bottom:6px;
+}
+
+.task-left small{
+  color:#777;
+}
+
+.task button{
+  background:#6d28d9;
+  color:#fff;
+  padding:10px 13px;
+  width:auto;
+}
+
+.progress{
+  height:12px;
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress>div{
+  height:100%;
+  background:#7c3aed;
+  width:0%;
+  transition:.3s;
+}
+
+.status{
+  font-size:12px;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.history{
+  font-size:13px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.history:last-child{
+  border:0;
+}
+
+.pending{
+  color:#b45309;
+}
+
+.success-text{
+  color:#15803d;
+}
+
+.center{
+  text-align:center;
+}
+
+.big-icon{
+  font-size:40px;
+  text-align:center;
+  margin:10px;
+}
+
+.method-card{
+  border:1px solid #e5d9ff;
+  background:#faf8ff;
+  padding:14px;
+  border-radius:14px;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.method-card.selected{
+  border:2px solid #6d28d9;
+  background:#f4efff;
+}
+
+.method-card b{
+  display:block;
+  color:#5b21b6;
+}
+
+.payment-number{
+  background:#f4efff;
+  border:2px dashed #8b5cf6;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  font-size:21px;
+  font-weight:bold;
+  color:#5b21b6;
+  margin:10px 0;
+}
+
+.sender-box{
+  background:#f7f3ff;
+  padding:14px;
+  border-radius:14px;
+  margin:12px 0;
+  border:1px solid #e5d9ff;
+}
+
+.small-note{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+}
+
+/* AUTH */
+
+#authPage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#f6f2ff,#ede9fe);
+}
+
+.auth-box{
+  width:100%;
+  max-width:430px;
+}
+
+.auth-logo{
+  text-align:center;
+  font-size:34px;
+  font-weight:800;
+  color:#5b21b6;
+  margin-bottom:5px;
+}
+
+.auth-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.auth-tabs button{
+  flex:1;
+  background:#eee;
+  color:#666;
+}
+
+.auth-tabs button.active{
+  background:#6d28d9;
+  color:#fff;
+}
+
+.auth-error{
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:11px;
+  border-radius:10px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+.auth-success{
+  background:#dcfce7;
+  color:#15803d;
+  padding:11px;
+  border-radius:10px;
+  font-size:13px;
+  margin-bottom:12px;
+}
+
+@media(max-width:500px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .flex{
+    flex-direction:column;
+  }
+
+  .nav button{
+    font-size:10px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+
+<!-- ==================================================
+     AUTH PAGE
+================================================== -->
+
+<div id="authPage">
+
+  <div class="auth-box">
+
+    <div class="card">
+
+      <div class="auth-logo">
+        💜 Elyvion
+      </div>
+
+      <div class="auth-sub">
+        Task & Reward Platform
+      </div>
+
+
+      <!-- AUTH TABS -->
+
+      <div class="auth-tabs">
+
+        <button
+          id="loginTab"
+          class="active"
+          onclick="showAuth('login')">
+          Login
+        </button>
+
+        <button
+          id="registerTab"
+          onclick="showAuth('register')">
+          Register
+        </button>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div
+        id="authError"
+        class="auth-error hidden">
+      </div>
+
+      <div
+        id="authSuccess"
+        class="auth-success hidden">
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <div id="loginForm">
+
+        <label>Email</label>
+
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="আপনার Email">
+
+
+        <label>Password</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Password">
+
+
+        <button
+          class="primary"
+          onclick="loginUser()">
+          🔐 Login
+        </button>
+
+
+        <p
+          style="text-align:center;margin-top:14px;font-size:13px;color:#777">
+
+          নতুন account?
+
+          <span
+            onclick="showAuth('register')"
+            style="color:#6d28d9;font-weight:bold;cursor:pointer">
+            Register করুন
+          </span>
+
+        </p>
+
+      </div>
+
+
+      <!-- REGISTER -->
+
+      <div id="registerForm" class="hidden">
+
+        <label>Name</label>
+
+        <input
+          id="registerName"
+          type="text"
+          placeholder="আপনার নাম">
+
+
+        <label>Email</label>
+
+        <input
+          id="registerEmail"
+          type="email"
+          placeholder="আপনার Email">
+
+
+        <label>Password</label>
+
+        <input
+          id="registerPassword"
+          type="password"
+          placeholder="কমপক্ষে ৬ অক্ষর">
+
+
+        <label>Confirm Password</label>
+
+        <input
+          id="registerConfirm"
+          type="password"
+          placeholder="Password আবার লিখুন">
+
+
+        <button
+          class="primary"
+          onclick="registerUser()">
+          📝 Create Account
+        </button>
+
+
+        <p
+          style="text-align:center;margin-top:14px;font-size:13px;color:#777">
+
+          আগে থেকেই account আছে?
+
+          <span
+            onclick="showAuth('login')"
+            style="color:#6d28d9;font-weight:bold;cursor:pointer">
+            Login করুন
+          </span>
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     MAIN APP
+================================================== -->
+
+<div id="appPage" class="hidden">
+
+
 <header>
-  <div class="brand">💜 Elyvion</div>
-  <div class="subtitle">Task & Reward Platform</div>
-  <div class="user-email" id="headerEmail"></div>
+
+  <div class="brand">
+    💜 Elyvion
+  </div>
+
+  <div class="subtitle">
+    Task & Reward Platform
+  </div>
+
+  <div
+    class="user-email"
+    id="headerEmail">
+  </div>
+
 </header>
 
+
 <!-- HOME -->
-<div id="homePage" class="page container">
+
+<div
+  id="homePage"
+  class="page container">
 
   <div class="card">
-    <small>Available Balance</small>
-    <div class="balance">৳<span id="balance">0</span></div>
+
+    <small>
+      Available Balance
+    </small>
+
+    <div class="balance">
+      ৳<span id="balance">0</span>
+    </div>
 
     <div class="flex">
-      <button class="primary" onclick="openDeposit()">＋ Deposit</button>
-      <button class="secondary" onclick="showPage('withdrawPage')">💸 Withdraw</button>
+
+      <button
+        class="primary"
+        onclick="openDeposit()">
+        ＋ Deposit
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showPage('withdrawPage')">
+        💸 Withdraw
+      </button>
+
     </div>
+
   </div>
+
 
   <div class="stats">
-    <div class="stat"><small>Active Plan</small><b id="activePlan">কোনো Plan নেই</b></div>
-    <div class="stat"><small>Today's Reward</small><b>৳<span id="todayEarn">0</span></b></div>
-    <div class="stat"><small>Completed Tasks</small><b><span id="completed">0</span></b></div>
-    <div class="stat"><small>Plan Status</small><b id="planStatus">Inactive</b></div>
+
+    <div class="stat">
+      <small>Active Plan</small>
+      <b id="activePlan">
+        কোনো Plan নেই
+      </b>
+    </div>
+
+    <div class="stat">
+      <small>Today's Reward</small>
+      <b>
+        ৳<span id="todayEarn">0</span>
+      </b>
+    </div>
+
+    <div class="stat">
+      <small>Completed Tasks</small>
+      <b>
+        <span id="completed">0</span>
+      </b>
+    </div>
+
+    <div class="stat">
+      <small>Plan Status</small>
+      <b id="planStatus">
+        Inactive
+      </b>
+    </div>
+
   </div>
 
-  <div class="section-title">দ্রুত শুরু করুন</div>
+
+  <div class="section-title">
+    দ্রুত শুরু করুন
+  </div>
+
 
   <div class="card">
-    <b>📦 একটি Plan নির্বাচন করুন</b>
-    <p style="font-size:13px;color:#777;margin:8px 0">
+
+    <b>
+      📦 একটি Plan নির্বাচন করুন
+    </b>
+
+    <p
+      style="font-size:13px;color:#777;margin:8px 0">
+
       আপনার উপযোগী plan নির্বাচন করে request দিন।
+
     </p>
-    <button class="primary" onclick="showPage('packagesPage')">
+
+    <button
+      class="primary"
+      onclick="showPage('packagesPage')">
+
       Packages দেখুন
+
     </button>
+
   </div>
 
 </div>
+
 
 <!-- PACKAGES -->
-<div id="packagesPage" class="page container hidden">
-  <div class="section-title">প্যাকেজ</div>
-  <div id="plans"></div>
-</div>
 
-<!-- TASKS -->
-<div id="tasksPage" class="page container hidden">
+<div
+  id="packagesPage"
+  class="page container hidden">
 
-  <div class="section-title">কাজ</div>
-
-  <div id="taskEmpty" class="card center">
-    <div class="big-icon">📦</div>
-    <b>কোনো Active Plan নেই</b>
-    <p style="font-size:13px;color:#777;margin:10px 0">
-      Task শুরু করতে একটি plan activate করুন।
-    </p>
-    <button class="primary" onclick="showPage('packagesPage')">
-      Plan দেখুন
-    </button>
+  <div class="section-title">
+    প্যাকেজ
   </div>
 
-  <div id="taskContent" class="hidden">
+  <div id="plans"></div>
+
+</div>
+
+
+<!-- TASKS -->
+
+<div
+  id="tasksPage"
+  class="page container hidden">
+
+  <div class="section-title">
+    কাজ
+  </div>
+
+
+  <div
+    id="taskEmpty"
+    class="card center">
+
+    <div class="big-icon">
+      📦
+    </div>
+
+    <b>
+      কোনো Active Plan নেই
+    </b>
+
+    <p
+      style="font-size:13px;color:#777;margin:10px 0">
+
+      Task শুরু করতে একটি plan activate করুন।
+
+    </p>
+
+    <button
+      class="primary"
+      onclick="showPage('packagesPage')">
+
+      Plan দেখুন
+
+    </button>
+
+  </div>
+
+
+  <div
+    id="taskContent"
+    class="hidden">
 
     <div class="card">
+
       <div class="flex">
+
         <div>
-          <small>Active Plan</small>
+
+          <small>
+            Active Plan
+          </small>
+
           <b id="taskRank"></b>
+
         </div>
+
         <div style="text-align:right">
-          <small>আজকের আয়</small>
-          <b>৳<span id="taskEarn">0</span></b>
+
+          <small>
+            আজকের আয়
+          </small>
+
+          <b>
+            ৳<span id="taskEarn">0</span>
+          </b>
+
         </div>
+
       </div>
+
 
       <div class="progress">
+
         <div id="progressBar"></div>
+
       </div>
 
-      <div class="center" style="font-size:13px">
-        <span id="taskDone">0</span> /
-        <span id="taskTotal">0</span> টি সম্পন্ন
+
+      <div
+        class="center"
+        style="font-size:13px">
+
+        <span id="taskDone">0</span>
+        /
+        <span id="taskTotal">0</span>
+        টি সম্পন্ন
+
       </div>
+
     </div>
+
 
     <div class="card">
-      <small>প্রতি Task Reward</small>
-      <div class="balance" style="font-size:22px">
+
+      <small>
+        প্রতি Task Reward
+      </small>
+
+      <div
+        class="balance"
+        style="font-size:22px">
+
         ৳<span id="perTask">0</span>
+
       </div>
-      <small>Daily Target: ৳<span id="dailyTarget">0</span></small>
+
+      <small>
+        Daily Target:
+        ৳<span id="dailyTarget">0</span>
+      </small>
+
     </div>
 
-    <div class="section-title">আজকের টাস্ক</div>
+
+    <div class="section-title">
+      আজকের টাস্ক
+    </div>
+
     <div id="taskList"></div>
 
   </div>
+
 </div>
+
 
 <!-- WITHDRAW -->
-<div id="withdrawPage" class="page container hidden">
 
-  <div class="section-title">💸 Withdraw</div>
+<div
+  id="withdrawPage"
+  class="page container hidden">
 
-  <div class="card">
-    <small>Available Balance</small>
-    <div class="balance">৳<span id="withdrawBalance">0</span></div>
+  <div class="section-title">
+    💸 Withdraw
   </div>
 
+
   <div class="card">
 
-    <label>Withdrawal Amount</label>
-    <input id="withdrawAmount" type="number" placeholder="Amount লিখুন">
+    <small>
+      Available Balance
+    </small>
 
-    <label>Payment Method</label>
+    <div class="balance">
+      ৳<span id="withdrawBalance">0</span>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <label>
+      Withdrawal Amount
+    </label>
+
+    <input
+      id="withdrawAmount"
+      type="number"
+      placeholder="Amount লিখুন">
+
+
+    <label>
+      Payment Method
+    </label>
+
     <select id="withdrawMethod">
-      <option>bKash</option>
-      <option>Nagad</option>
-      <option>Rocket</option>
+
+      <option>
+        bKash
+      </option>
+
+      <option>
+        Nagad
+      </option>
+
+      <option>
+        Rocket
+      </option>
+
     </select>
 
-    <label>Account Number</label>
-    <input id="withdrawNumber" placeholder="আপনার নম্বর">
 
-    <label>Account Holder Name</label>
-    <input id="withdrawName" placeholder="নাম লিখুন">
+    <label>
+      Account Number
+    </label>
 
-    <button class="primary" onclick="submitWithdraw()">
+    <input
+      id="withdrawNumber"
+      placeholder="আপনার নম্বর">
+
+
+    <label>
+      Account Holder Name
+    </label>
+
+    <input
+      id="withdrawName"
+      placeholder="নাম লিখুন">
+
+
+    <button
+      class="primary"
+      onclick="submitWithdraw()">
+
       Withdraw Request Submit
+
     </button>
 
   </div>
 
-  <div class="section-title">Withdrawal History</div>
-  <div class="card" id="withdrawHistory"></div>
+
+  <div class="section-title">
+    Withdrawal History
+  </div>
+
+  <div
+    class="card"
+    id="withdrawHistory">
+
+  </div>
 
 </div>
+
 
 <!-- SUPPORT -->
-<div id="supportPage" class="page container hidden">
 
-  <div class="section-title">🎧 Customer Service</div>
+<div
+  id="supportPage"
+  class="page container hidden">
+
+  <div class="section-title">
+    🎧 Customer Service
+  </div>
+
 
   <div class="card">
 
-    <label>Subject</label>
-    <input id="supportSubject" placeholder="সমস্যার বিষয়">
+    <label>
+      Subject
+    </label>
 
-    <label>Message</label>
-    <textarea id="supportMessage" rows="5" placeholder="আপনার বিস্তারিত লিখুন"></textarea>
+    <input
+      id="supportSubject"
+      placeholder="সমস্যার বিষয়">
 
-    <button class="primary" onclick="submitTicket()">
+
+    <label>
+      Message
+    </label>
+
+    <textarea
+      id="supportMessage"
+      rows="5"
+      placeholder="আপনার বিস্তারিত লিখুন"></textarea>
+
+
+    <button
+      class="primary"
+      onclick="submitTicket()">
+
       Support Ticket Submit
+
     </button>
 
   </div>
 
-  <div class="section-title">My Tickets</div>
-  <div class="card" id="ticketHistory"></div>
+
+  <div class="section-title">
+    My Tickets
+  </div>
+
+  <div
+    class="card"
+    id="ticketHistory">
+
+  </div>
 
 </div>
+
 
 <!-- PROFILE -->
-<div id="profilePage" class="page container hidden">
+
+<div
+  id="profilePage"
+  class="page container hidden">
 
   <div class="card center">
-    <div class="big-icon">👤</div>
-    <h3 id="profileName">User</h3>
-    <p id="profileEmail" style="color:#777;font-size:13px;margin-top:5px"></p>
+
+    <div class="big-icon">
+      👤
+    </div>
+
+    <h3 id="profileName">
+      User
+    </h3>
+
+    <p
+      id="profileEmail"
+      style="color:#777;font-size:13px;margin-top:5px">
+    </p>
+
   </div>
+
 
   <div class="card">
-    <div class="history">
-      <b>Current Plan:</b>
-      <span id="profilePlan">কোনো Plan নেই</span>
-    </div>
 
     <div class="history">
-      <b>Balance:</b>
-      ৳<span id="profileBalance">0</span>
+
+      <b>
+        Current Plan:
+      </b>
+
+      <span id="profilePlan">
+        কোনো Plan নেই
+      </span>
+
     </div>
 
+
     <div class="history">
-      <b>Total Task Completed:</b>
-      <span id="profileTasks">0</span>
+
+      <b>
+        Balance:
+      </b>
+
+      ৳<span id="profileBalance">
+        0
+      </span>
+
     </div>
+
+
+    <div class="history">
+
+      <b>
+        Total Task Completed:
+      </b>
+
+      <span id="profileTasks">
+        0
+      </span>
+
+    </div>
+
   </div>
 
-  <button class="danger" onclick="logoutUser()">Logout</button>
+
+  <button
+    class="danger"
+    onclick="logoutUser()">
+
+    Logout
+
+  </button>
+
 </div>
+
 
 <!-- NAV -->
+
 <div class="nav">
 
-  <button class="active" onclick="showPage('homePage',this)">
-    <span>🏠</span>হোম
+  <button
+    class="active"
+    onclick="showPage('homePage',this)">
+
+    <span>🏠</span>
+    হোম
+
   </button>
 
-  <button onclick="showPage('packagesPage',this)">
-    <span>📦</span>প্যাকেজ
+
+  <button
+    onclick="showPage('packagesPage',this)">
+
+    <span>📦</span>
+    প্যাকেজ
+
   </button>
 
-  <button onclick="showPage('tasksPage',this)">
-    <span>✅</span>টাস্ক
+
+  <button
+    onclick="showPage('tasksPage',this)">
+
+    <span>✅</span>
+    টাস্ক
+
   </button>
 
-  <button onclick="showPage('withdrawPage',this)">
-    <span>💸</span>Withdraw
+
+  <button
+    onclick="showPage('withdrawPage',this)">
+
+    <span>💸</span>
+    Withdraw
+
   </button>
 
-  <button onclick="showPage('supportPage',this)">
-    <span>🎧</span>Service
+
+  <button
+    onclick="showPage('supportPage',this)">
+
+    <span>🎧</span>
+    Service
+
   </button>
 
-  <button onclick="showPage('profilePage',this)">
-    <span>👤</span>প্রোফাইল
+
+  <button
+    onclick="showPage('profilePage',this)">
+
+    <span>👤</span>
+    Profile
+
   </button>
 
 </div>
 
+
 <!-- PLAN MODAL -->
-<div id="planModal" class="modal hidden">
+
+<div
+  id="planModal"
+  class="modal hidden">
 
   <div class="modal-box">
 
-    <div class="modal-title">প্যাকেজ নিশ্চিত করুন</div>
-    <div class="modal-sub">নিচের তথ্য যাচাই করে request দিন</div>
+    <div class="modal-title">
+      প্যাকেজ নিশ্চিত করুন
+    </div>
+
+    <div class="modal-sub">
+      নিচের তথ্য যাচাই করে request দিন
+    </div>
+
 
     <div class="confirm-row">
-      <span>প্যাকেজ</span>
+
+      <span>
+        প্যাকেজ
+      </span>
+
       <b id="modalRank"></b>
+
     </div>
 
-    <div class="confirm-row">
-      <span>পরিমাণ</span>
-      <b>৳<span id="modalPrice"></span></b>
-    </div>
 
     <div class="confirm-row">
-      <span>Daily Reward</span>
-      <b>৳<span id="modalDaily"></span></b>
+
+      <span>
+        পরিমাণ
+      </span>
+
+      <b>
+        ৳<span id="modalPrice"></span>
+      </b>
+
     </div>
 
+
     <div class="confirm-row">
-      <span>মেয়াদ</span>
-      <b>21 দিন</b>
+
+      <span>
+        Daily Reward
+      </span>
+
+      <b>
+        ৳<span id="modalDaily"></span>
+      </b>
+
     </div>
+
 
     <div class="notice">
-      Plan activation/payment request admin verification-এর মাধ্যমে হবে।
+
+      Plan request admin verification-এর মাধ্যমে হবে।
+
     </div>
 
+
     <div class="flex">
-      <button class="secondary" onclick="closePlanModal()">বাতিল</button>
-      <button id="modalAction" class="primary"></button>
+
+      <button
+        class="secondary"
+        onclick="closePlanModal()">
+
+        বাতিল
+
+      </button>
+
+      <button
+        id="modalAction"
+        class="primary">
+
+      </button>
+
     </div>
 
   </div>
+
 </div>
 
-<!-- DEPOSIT -->
-<div id="depositModal" class="modal hidden">
+
+<!-- DEPOSIT MODAL -->
+
+<div
+  id="depositModal"
+  class="modal hidden">
 
   <div class="modal-box">
 
-    <div class="modal-title">💜 Elyvion</div>
-    <div class="modal-sub">ব্যালেন্স যোগ করার Request</div>
+    <div class="modal-title">
+      💜 Deposit
+    </div>
 
-    <label>Deposit Amount</label>
+    <div class="modal-sub">
+      ব্যালেন্স যোগ করার Request
+    </div>
+
+
+    <label>
+      Deposit Amount
+    </label>
 
     <input
       id="depositAmount"
       type="number"
       min="1"
-      placeholder="আপনি যে Amount দিতে চান"
-    >
+      placeholder="Amount লিখুন">
+
 
     <div class="notice">
+
       Payment করার পর screenshot upload করে request submit করতে হবে।
-      Admin যাচাই করার পর balance update হবে।
+
     </div>
 
-    <div class="section-title">Payment Method</div>
 
-    <div class="method-card" id="methodBkash" onclick="selectPaymentMethod('bKash')">
-      <b>bKash</b>
-      <small>Send Money</small>
+    <div class="section-title">
+      Payment Method
     </div>
 
-    <div class="method-card" id="methodNagad" onclick="selectPaymentMethod('Nagad')">
-      <b>Nagad</b>
-      <small>Send Money</small>
+
+    <div
+      class="method-card"
+      id="methodBkash"
+      onclick="selectPaymentMethod('bKash')">
+
+      <b>
+        bKash
+      </b>
+
+      <small>
+        Send Money
+      </small>
+
     </div>
 
-    <div class="method-card" id="methodRocket" onclick="selectPaymentMethod('Rocket')">
-      <b>Rocket</b>
-      <small>Send Money</small>
+
+    <div
+      class="method-card"
+      id="methodNagad"
+      onclick="selectPaymentMethod('Nagad')">
+
+      <b>
+        Nagad
+      </b>
+
+      <small>
+        Send Money
+      </small>
+
     </div>
 
-    <button class="primary" onclick="continueDeposit()">
+
+    <div
+      class="method-card"
+      id="methodRocket"
+      onclick="selectPaymentMethod('Rocket')">
+
+      <b>
+        Rocket
+      </b>
+
+      <small>
+        Send Money
+      </small>
+
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="continueDeposit()">
+
       চালিয়ে যান →
+
     </button>
 
-    <button class="secondary" style="margin-top:10px" onclick="closeDeposit()">
+
+    <button
+      class="secondary"
+      style="margin-top:10px"
+      onclick="closeDeposit()">
+
       বাতিল
+
     </button>
 
   </div>
+
 </div>
 
+
 <!-- DEPOSIT CONFIRM -->
-<div id="depositConfirmModal" class="modal hidden">
+
+<div
+  id="depositConfirmModal"
+  class="modal hidden">
 
   <div class="modal-box">
 
-    <div class="modal-title">ডিপোজিট ভেরিফাই করুন</div>
+    <div class="modal-title">
+      ডিপোজিট ভেরিফাই করুন
+    </div>
 
     <div class="modal-sub">
       Payment করার পর screenshot দিন।
     </div>
 
+
     <div class="card">
 
       <div class="confirm-row">
-        <span>Amount</span>
-        <b>৳<span id="confirmDepositAmount">0</span></b>
+
+        <span>
+          Amount
+        </span>
+
+        <b>
+          ৳<span id="confirmDepositAmount">
+            0
+          </span>
+        </b>
+
       </div>
 
+
       <div class="confirm-row">
-        <span>Method</span>
+
+        <span>
+          Method
+        </span>
+
         <b id="confirmMethod"></b>
+
       </div>
 
+
       <div class="confirm-row">
-        <span>Payment Number</span>
+
+        <span>
+          Payment Number
+        </span>
+
         <b id="confirmPaymentNumber"></b>
+
       </div>
 
     </div>
+
 
     <div class="payment-number">
+
       <span id="paymentNumberDisplay"></span>
+
     </div>
 
-    <button class="secondary" onclick="copyPaymentNumber()">
+
+    <button
+      class="secondary"
+      onclick="copyPaymentNumber()">
+
       📋 নম্বর কপি করুন
+
     </button>
+
 
     <div class="sender-box">
 
@@ -424,46 +1487,77 @@ label{font-size:13px;font-weight:bold;color:#555}
         type="text"
         inputmode="numeric"
         maxlength="4"
-        placeholder="যেমন: 1234"
-      >
+        placeholder="যেমন: 1234">
 
     </div>
 
-    <label>Payment Screenshot</label>
+
+    <label>
+      Payment Screenshot
+    </label>
 
     <input
       id="depositScreenshot"
       type="file"
-      accept="image/*"
-    >
+      accept="image/*">
+
 
     <p class="small-note">
+
       Screenshot পরিষ্কার এবং সম্পূর্ণ হতে হবে।
+
     </p>
 
-    <button class="primary" onclick="submitDeposit()">
+
+    <button
+      class="primary"
+      onclick="submitDeposit()">
+
       Deposit Request Submit
+
     </button>
 
-    <button class="secondary" style="margin-top:10px" onclick="backToDepositMethods()">
+
+    <button
+      class="secondary"
+      style="margin-top:10px"
+      onclick="backToDepositMethods()">
+
       ← পরিবর্তন করুন
+
     </button>
 
   </div>
+
 </div>
 
-<!-- FIREBASE -->
+</div>
+
+
+<!-- ==================================================
+     FIREBASE
+================================================== -->
+
 <script type="module">
 
-import { initializeApp } from
+import {
+  initializeApp
+}
+from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
   signOut
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 import {
   getFirestore,
@@ -477,77 +1571,160 @@ import {
   orderBy,
   onSnapshot,
   serverTimestamp
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
 
 import {
   getStorage,
   ref,
   uploadBytes,
   getDownloadURL
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
 
-/* =========================
+/* ==================================================
    FIREBASE CONFIG
-========================= */
+================================================== */
 
 const firebaseConfig = {
 
-  apiKey:"AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
+  apiKey:
+  "AIzaSyDW2cneWncBkDz_iVeUtKpjgl-NRxh0qQA",
 
-  authDomain:"elyvioncom.firebaseapp.com",
+  authDomain:
+  "elyvioncom.firebaseapp.com",
 
-  projectId:"elyvioncom",
+  projectId:
+  "elyvioncom",
 
-  storageBucket:"elyvioncom.firebasestorage.app",
+  storageBucket:
+  "elyvioncom.firebasestorage.app",
 
-  messagingSenderId:"696113174945",
+  messagingSenderId:
+  "696113174945",
 
-  appId:"1:696113174945:web:7dd53b1d9e47d6d05613e0",
+  appId:
+  "1:696113174945:web:7dd53b1d9e47d6d05613e0",
 
-  measurementId:"G-059RB98EPD"
+  measurementId:
+  "G-059RB98EPD"
 
 };
 
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-const storage = getStorage(app);
+const app =
+  initializeApp(firebaseConfig);
 
 
-/* =========================
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+const storage =
+  getStorage(app);
+
+
+/* ==================================================
    DATA
-========================= */
+================================================== */
 
 const plans = [
 
-  {rank:"Rank 01",price:300,daily:200,tasks:2,reward:100},
+  {
+    rank:"Rank 01",
+    price:300,
+    daily:200,
+    tasks:2,
+    reward:100
+  },
 
-  {rank:"Rank 02",price:500,daily:300,tasks:3,reward:100},
+  {
+    rank:"Rank 02",
+    price:500,
+    daily:300,
+    tasks:3,
+    reward:100
+  },
 
-  {rank:"Rank 03",price:1000,daily:600,tasks:6,reward:100},
+  {
+    rank:"Rank 03",
+    price:1000,
+    daily:600,
+    tasks:6,
+    reward:100
+  },
 
-  {rank:"Rank 04",price:1500,daily:900,tasks:6,reward:150},
+  {
+    rank:"Rank 04",
+    price:1500,
+    daily:900,
+    tasks:6,
+    reward:150
+  },
 
-  {rank:"Rank 05",price:2000,daily:1200,tasks:6,reward:200},
+  {
+    rank:"Rank 05",
+    price:2000,
+    daily:1200,
+    tasks:6,
+    reward:200
+  },
 
-  {rank:"Rank 06",price:3000,daily:1800,tasks:6,reward:300},
+  {
+    rank:"Rank 06",
+    price:3000,
+    daily:1800,
+    tasks:6,
+    reward:300
+  },
 
-  {rank:"Rank 07",price:4000,daily:2400,tasks:6,reward:400},
+  {
+    rank:"Rank 07",
+    price:4000,
+    daily:2400,
+    tasks:6,
+    reward:400
+  },
 
-  {rank:"Rank 08",price:5000,daily:3000,tasks:6,reward:500},
+  {
+    rank:"Rank 08",
+    price:5000,
+    daily:3000,
+    tasks:6,
+    reward:500
+  },
 
-  {rank:"Rank 09",price:10000,daily:6000,tasks:6,reward:1000},
+  {
+    rank:"Rank 09",
+    price:10000,
+    daily:6000,
+    tasks:6,
+    reward:1000
+  },
 
-  {rank:"Rank 10",price:15000,daily:9000,tasks:6,reward:1500},
+  {
+    rank:"Rank 10",
+    price:15000,
+    daily:9000,
+    tasks:6,
+    reward:1500
+  },
 
-  {rank:"Rank 11",price:20000,daily:12000,tasks:6,reward:2000}
+  {
+    rank:"Rank 11",
+    price:20000,
+    daily:12000,
+    tasks:6,
+    reward:2000
+  }
 
 ];
 
@@ -572,18 +1749,16 @@ const paymentSettings = {
 };
 
 
+let currentUser = null;
+
 let userData = {
 
   balance:0,
-
   todayEarn:0,
-
   completedTasks:0,
-
   activePlan:null
 
 };
-
 
 let selectedPlan = null;
 
@@ -591,106 +1766,530 @@ let selectedPaymentMethod = "";
 
 let currentDepositAmount = 0;
 
-let currentUser = null;
 
+/* ==================================================
+   GLOBAL FUNCTIONS
+================================================== */
 
-/* =========================
-   HELPERS
-========================= */
-
-function money(n){
-
-  return Number(n || 0)
-    .toLocaleString("en-US");
-
-}
-
-
-function uid(){
-
-  return auth.currentUser?.uid || null;
-
-}
-
-
-/* =========================
-   MAKE FUNCTIONS GLOBAL
-========================= */
+window.showAuth = showAuth;
+window.loginUser = loginUser;
+window.registerUser = registerUser;
+window.logoutUser = logoutUser;
 
 window.showPage = showPage;
 
 window.openDeposit = openDeposit;
-
 window.closeDeposit = closeDeposit;
 
-window.selectPaymentMethod = selectPaymentMethod;
+window.selectPaymentMethod =
+  selectPaymentMethod;
 
-window.continueDeposit = continueDeposit;
+window.continueDeposit =
+  continueDeposit;
 
-window.submitDeposit = submitDeposit;
+window.submitDeposit =
+  submitDeposit;
 
-window.backToDepositMethods = backToDepositMethods;
+window.backToDepositMethods =
+  backToDepositMethods;
 
-window.copyPaymentNumber = copyPaymentNumber;
+window.copyPaymentNumber =
+  copyPaymentNumber;
 
-window.openPlan = openPlan;
+window.openPlan =
+  openPlan;
 
-window.closePlanModal = closePlanModal;
+window.closePlanModal =
+  closePlanModal;
 
-window.submitWithdraw = submitWithdraw;
+window.submitWithdraw =
+  submitWithdraw;
 
-window.submitTicket = submitTicket;
+window.submitTicket =
+  submitTicket;
 
-window.completeTask = completeTask;
+window.completeTask =
+  completeTask;
 
-window.logoutUser = logoutUser;
+
+/* ==================================================
+   AUTH SCREEN
+================================================== */
+
+function showAuth(type){
+
+  clearMessages();
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const registerForm =
+    document.getElementById("registerForm");
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const registerTab =
+    document.getElementById("registerTab");
 
 
-/* =========================
-   AUTH
-========================= */
+  if(type === "login"){
 
-onAuthStateChanged(auth, async user => {
+    loginForm.classList.remove("hidden");
 
-  if(!user){
+    registerForm.classList.add("hidden");
 
-    currentUser = null;
+    loginTab.classList.add("active");
 
-    showLoginMessage();
+    registerTab.classList.remove("active");
+
+  }
+  else{
+
+    loginForm.classList.add("hidden");
+
+    registerForm.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+
+    registerTab.classList.add("active");
+
+  }
+
+}
+
+
+/* ==================================================
+   MESSAGES
+================================================== */
+
+function clearMessages(){
+
+  document
+    .getElementById("authError")
+    .classList.add("hidden");
+
+  document
+    .getElementById("authSuccess")
+    .classList.add("hidden");
+
+}
+
+
+function showError(message){
+
+  const box =
+    document.getElementById("authError");
+
+  box.innerText = message;
+
+  box.classList.remove("hidden");
+
+}
+
+
+function showSuccess(message){
+
+  const box =
+    document.getElementById("authSuccess");
+
+  box.innerText = message;
+
+  box.classList.remove("hidden");
+
+}
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+async function loginUser(){
+
+  clearMessages();
+
+
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
+
+
+  if(!email || !password){
+
+    showError(
+      "Email এবং Password দিন।"
+    );
 
     return;
 
   }
 
-  currentUser = user;
 
-  document.getElementById("headerEmail").innerText =
-    user.email || "";
+  try{
 
-  document.getElementById("profileEmail").innerText =
-    user.email || "";
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-  document.getElementById("profileName").innerText =
-    user.displayName || "User";
+  }
+  catch(error){
 
-  await loadUser();
+    console.error(error);
 
-  loadRequests();
+    let message =
+      "Login failed।";
 
-});
+
+    if(
+      error.code ===
+      "auth/invalid-credential"
+    ){
+
+      message =
+        "Email অথবা Password সঠিক নয়।";
+
+    }
+
+    else if(
+      error.code ===
+      "auth/user-not-found"
+    ){
+
+      message =
+        "এই Email দিয়ে account পাওয়া যায়নি।";
+
+    }
+
+    else if(
+      error.code ===
+      "auth/wrong-password"
+    ){
+
+      message =
+        "Password সঠিক নয়।";
+
+    }
+
+    else if(
+      error.code ===
+      "auth/too-many-requests"
+    ){
+
+      message =
+        "অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পরে চেষ্টা করুন।";
+
+    }
+
+    else{
+
+      message =
+        error.message;
+
+    }
 
 
-/* =========================
+    showError(message);
+
+  }
+
+}
+
+
+/* ==================================================
+   REGISTER
+================================================== */
+
+async function registerUser(){
+
+  clearMessages();
+
+
+  const name =
+    document
+      .getElementById("registerName")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("registerPassword")
+      .value;
+
+  const confirm =
+    document
+      .getElementById("registerConfirm")
+      .value;
+
+
+  if(!name){
+
+    showError(
+      "আপনার নাম লিখুন।"
+    );
+
+    return;
+
+  }
+
+
+  if(!email){
+
+    showError(
+      "Email লিখুন।"
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    showError(
+      "Password কমপক্ষে ৬ অক্ষরের হতে হবে।"
+    );
+
+    return;
+
+  }
+
+
+  if(password !== confirm){
+
+    showError(
+      "দুইটি Password একই নয়।"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const credential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    await updateProfile(
+      credential.user,
+      {
+        displayName:name
+      }
+    );
+
+
+    await setDoc(
+
+      doc(
+        db,
+        "users",
+        credential.user.uid
+      ),
+
+      {
+
+        uid:
+          credential.user.uid,
+
+        name:name,
+
+        email:email,
+
+        balance:0,
+
+        todayEarn:0,
+
+        completedTasks:0,
+
+        activePlan:null,
+
+        createdAt:
+          serverTimestamp(),
+
+        updatedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    showSuccess(
+      "Account তৈরি হয়েছে। Dashboard খুলছে..."
+    );
+
+
+    document
+      .getElementById("registerName")
+      .value="";
+
+    document
+      .getElementById("registerEmail")
+      .value="";
+
+    document
+      .getElementById("registerPassword")
+      .value="";
+
+    document
+      .getElementById("registerConfirm")
+      .value="";
+
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    let message =
+      "Registration failed।";
+
+
+    if(
+      error.code ===
+      "auth/email-already-in-use"
+    ){
+
+      message =
+        "এই Email দিয়ে আগে থেকেই account আছে।";
+
+    }
+
+    else if(
+      error.code ===
+      "auth/invalid-email"
+    ){
+
+      message =
+        "সঠিক Email দিন।";
+
+    }
+
+    else if(
+      error.code ===
+      "auth/weak-password"
+    ){
+
+      message =
+        "Password আরও শক্তিশালী দিন।";
+
+    }
+
+    else{
+
+      message =
+        error.message;
+
+    }
+
+
+    showError(message);
+
+  }
+
+}
+
+
+/* ==================================================
+   AUTH STATE
+================================================== */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if(!user){
+
+      currentUser = null;
+
+      document
+        .getElementById("authPage")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("appPage")
+        .classList.add("hidden");
+
+      return;
+
+    }
+
+
+    currentUser = user;
+
+
+    document
+      .getElementById("authPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("appPage")
+      .classList.remove("hidden");
+
+
+    document
+      .getElementById("headerEmail")
+      .innerText =
+      user.email || "";
+
+
+    document
+      .getElementById("profileEmail")
+      .innerText =
+      user.email || "";
+
+
+    document
+      .getElementById("profileName")
+      .innerText =
+      user.displayName || "User";
+
+
+    await loadUser();
+
+    loadRequests();
+
+  }
+);
+
+
+/* ==================================================
    USER LOAD
-========================= */
+================================================== */
 
 async function loadUser(){
 
-  const refUser =
-    doc(db,"users",uid());
+  const userRef =
+    doc(
+      db,
+      "users",
+      currentUser.uid
+    );
+
 
   const snap =
-    await getDoc(refUser);
+    await getDoc(userRef);
+
 
   if(!snap.exists()){
 
@@ -706,23 +2305,39 @@ async function loadUser(){
 
     };
 
-    await setDoc(refUser,{
 
-      email:currentUser.email,
+    await setDoc(
 
-      balance:0,
+      userRef,
 
-      todayEarn:0,
+      {
 
-      completedTasks:0,
+        uid:
+          currentUser.uid,
 
-      activePlan:null,
+        name:
+          currentUser.displayName || "User",
 
-      createdAt:serverTimestamp()
+        email:
+          currentUser.email,
 
-    });
+        balance:0,
+
+        todayEarn:0,
+
+        completedTasks:0,
+
+        activePlan:null,
+
+        createdAt:
+          serverTimestamp()
+
+      }
+
+    );
 
   }
+
   else{
 
     userData = {
@@ -735,159 +2350,198 @@ async function loadUser(){
 
   }
 
+
   updateUI();
 
 }
 
 
-/* =========================
-   SAVE USER
-========================= */
+/* ==================================================
+   FORMAT
+================================================== */
 
-async function saveUser(){
+function money(number){
 
-  if(!uid()) return;
-
-  await setDoc(
-
-    doc(db,"users",uid()),
-
-    {
-
-      email:currentUser.email,
-
-      balance:Number(userData.balance || 0),
-
-      todayEarn:Number(userData.todayEarn || 0),
-
-      completedTasks:Number(userData.completedTasks || 0),
-
-      activePlan:userData.activePlan || null,
-
-      updatedAt:serverTimestamp()
-
-    },
-
-    {merge:true}
-
-  );
+  return Number(
+    number || 0
+  ).toLocaleString("en-US");
 
 }
 
 
-/* =========================
-   PLANS
-========================= */
+/* ==================================================
+   PAGE
+================================================== */
+
+function showPage(id,btn){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      p =>
+      p.classList.add("hidden")
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.remove("hidden");
+
+
+  if(btn){
+
+    document
+      .querySelectorAll(".nav button")
+      .forEach(
+        b =>
+        b.classList.remove("active")
+      );
+
+    btn.classList.add("active");
+
+  }
+
+
+  updateUI();
+
+}
+
+
+/* ==================================================
+   RENDER PLANS
+================================================== */
 
 function renderPlans(){
 
   const box =
     document.getElementById("plans");
 
-  box.innerHTML = plans.map((p,i)=>`
 
-    <div class="plan">
+  box.innerHTML =
+    plans.map(
+      (p,i) => `
 
-      <div class="plan-top">
+      <div class="plan">
 
-        <div class="rank">${p.rank}</div>
+        <div class="plan-top">
 
-        <div class="price">
-          ৳${money(p.price)}
+          <div class="rank">
+            ${p.rank}
+          </div>
+
+          <div class="price">
+            ৳${money(p.price)}
+          </div>
+
         </div>
+
+
+        <div class="plan-info">
+
+          <div class="info">
+
+            Daily Reward
+
+            <b>
+              ৳${money(p.daily)}
+            </b>
+
+          </div>
+
+
+          <div class="info">
+
+            Daily Tasks
+
+            <b>
+              ${p.tasks} টি
+            </b>
+
+          </div>
+
+
+          <div class="info">
+
+            প্রতি Task
+
+            <b>
+              ৳${money(p.reward)}
+            </b>
+
+          </div>
+
+
+          <div class="info">
+
+            মেয়াদ
+
+            <b>
+              21 দিন
+            </b>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="primary"
+          onclick="openPlan(${i})">
+
+          Request করুন
+
+        </button>
 
       </div>
 
-      <div class="plan-info">
-
-        <div class="info">
-          দৈনিক রিওয়ার্ড
-          <b>৳${money(p.daily)}</b>
-        </div>
-
-        <div class="info">
-          মেয়াদ
-          <b>21 দিন</b>
-        </div>
-
-        <div class="info">
-          Daily Tasks
-          <b>${p.tasks} টি</b>
-        </div>
-
-        <div class="info">
-          প্রতি Task
-          <b>৳${money(p.reward)}</b>
-        </div>
-
-      </div>
-
-      <button
-        class="primary"
-        onclick="openPlan(${i})">
-        কিনুন
-      </button>
-
-    </div>
-
-  `).join("");
+    `
+    ).join("");
 
 }
 
 
-/* =========================
-   PAGE
-========================= */
+/* ==================================================
+   PLAN
+================================================== */
 
-function showPage(id,btn){
+function openPlan(index){
 
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.add("hidden"));
-
-  document.getElementById(id)
-    .classList.remove("hidden");
-
-  if(btn){
-
-    document.querySelectorAll(".nav button")
-      .forEach(b=>b.classList.remove("active"));
-
-    btn.classList.add("active");
-
-  }
-
-  updateUI();
-
-}
+  selectedPlan =
+    plans[index];
 
 
-/* =========================
-   PLAN REQUEST
-========================= */
-
-function openPlan(i){
-
-  selectedPlan = plans[i];
-
-  document.getElementById("modalRank").innerText =
+  document
+    .getElementById("modalRank")
+    .innerText =
     selectedPlan.rank;
 
-  document.getElementById("modalPrice").innerText =
+
+  document
+    .getElementById("modalPrice")
+    .innerText =
     money(selectedPlan.price);
 
-  document.getElementById("modalDaily").innerText =
+
+  document
+    .getElementById("modalDaily")
+    .innerText =
     money(selectedPlan.daily);
 
-  const action =
-    document.getElementById("modalAction");
 
-  action.innerText =
+  document
+    .getElementById("modalAction")
+    .innerText =
     "Plan Request দিন";
 
-  action.onclick =
+
+  document
+    .getElementById("modalAction")
+    .onclick =
     submitPlanRequest;
 
-  document.getElementById("planModal")
+
+  document
+    .getElementById("planModal")
     .classList.remove("hidden");
 
 }
@@ -895,7 +2549,8 @@ function openPlan(i){
 
 function closePlanModal(){
 
-  document.getElementById("planModal")
+  document
+    .getElementById("planModal")
     .classList.add("hidden");
 
 }
@@ -903,49 +2558,69 @@ function closePlanModal(){
 
 async function submitPlanRequest(){
 
-  if(!currentUser || !selectedPlan){
+  if(!currentUser){
 
-    alert("Login প্রয়োজন।");
+    alert("আগে Login করুন।");
 
     return;
 
   }
 
+
+  if(!selectedPlan){
+
+    return;
+
+  }
+
+
   try{
 
     await addDoc(
 
-      collection(db,"planRequests"),
+      collection(
+        db,
+        "planRequests"
+      ),
 
       {
 
-        uid:uid(),
+        uid:
+          currentUser.uid,
 
-        email:currentUser.email,
+        email:
+          currentUser.email,
 
-        plan:selectedPlan,
+        plan:
+          selectedPlan,
 
-        status:"Pending",
+        status:
+          "Pending",
 
-        createdAt:serverTimestamp()
+        createdAt:
+          serverTimestamp()
 
       }
 
     );
 
+
     closePlanModal();
 
+
     alert(
-      "✅ Plan request submit হয়েছে। Admin verification-এর পর plan activate হবে।"
+      "Plan request submit হয়েছে। Admin verification-এর পর status update হবে।"
     );
 
   }
+
   catch(error){
 
     console.error(error);
 
     alert(
-      "Request submit হয়নি: " + error.message
+      "Request submit হয়নি: " +
+      error.message
     );
 
   }
@@ -953,24 +2628,29 @@ async function submitPlanRequest(){
 }
 
 
-/* =========================
+/* ==================================================
    DEPOSIT
-========================= */
+================================================== */
 
-function openDeposit(amount=0){
+function openDeposit(){
 
-  currentDepositAmount =
-    Number(amount || 0);
+  document
+    .getElementById("depositAmount")
+    .value="";
 
-  document.getElementById("depositAmount").value =
-    amount > 0 ? amount : "";
 
   selectedPaymentMethod = "";
 
-  document.querySelectorAll(".method-card")
-    .forEach(x=>x.classList.remove("selected"));
+  document
+    .querySelectorAll(".method-card")
+    .forEach(
+      x =>
+      x.classList.remove("selected")
+    );
 
-  document.getElementById("depositModal")
+
+  document
+    .getElementById("depositModal")
     .classList.remove("hidden");
 
 }
@@ -978,7 +2658,8 @@ function openDeposit(amount=0){
 
 function closeDeposit(){
 
-  document.getElementById("depositModal")
+  document
+    .getElementById("depositModal")
     .classList.add("hidden");
 
 }
@@ -986,19 +2667,43 @@ function closeDeposit(){
 
 function selectPaymentMethod(method){
 
-  selectedPaymentMethod = method;
+  selectedPaymentMethod =
+    method;
 
-  document.querySelectorAll(".method-card")
-    .forEach(x=>x.classList.remove("selected"));
 
-  if(method==="bKash")
-    document.getElementById("methodBkash").classList.add("selected");
+  document
+    .querySelectorAll(".method-card")
+    .forEach(
+      x =>
+      x.classList.remove("selected")
+    );
 
-  if(method==="Nagad")
-    document.getElementById("methodNagad").classList.add("selected");
 
-  if(method==="Rocket")
-    document.getElementById("methodRocket").classList.add("selected");
+  if(method === "bKash"){
+
+    document
+      .getElementById("methodBkash")
+      .classList.add("selected");
+
+  }
+
+
+  if(method === "Nagad"){
+
+    document
+      .getElementById("methodNagad")
+      .classList.add("selected");
+
+  }
+
+
+  if(method === "Rocket"){
+
+    document
+      .getElementById("methodRocket")
+      .classList.add("selected");
+
+  }
 
 }
 
@@ -1007,46 +2712,87 @@ function continueDeposit(){
 
   const amount =
     Number(
-      document.getElementById("depositAmount").value
+      document
+        .getElementById("depositAmount")
+        .value
     );
 
-  if(!amount || amount<=0){
 
-    alert("Deposit amount লিখুন।");
+  if(!amount || amount <= 0){
+
+    alert(
+      "Deposit amount লিখুন।"
+    );
 
     return;
 
   }
+
 
   if(!selectedPaymentMethod){
 
-    alert("Payment method নির্বাচন করুন।");
+    alert(
+      "Payment method নির্বাচন করুন।"
+    );
 
     return;
 
   }
 
-  currentDepositAmount = amount;
+
+  currentDepositAmount =
+    amount;
+
 
   const payment =
-    paymentSettings[selectedPaymentMethod];
+    paymentSettings[
+      selectedPaymentMethod
+    ];
 
-  document.getElementById("confirmDepositAmount")
-    .innerText = money(amount);
 
-  document.getElementById("confirmMethod")
-    .innerText = payment.name;
+  document
+    .getElementById(
+      "confirmDepositAmount"
+    )
+    .innerText =
+    money(amount);
 
-  document.getElementById("confirmPaymentNumber")
-    .innerText = payment.number;
 
-  document.getElementById("paymentNumberDisplay")
-    .innerText = payment.number;
+  document
+    .getElementById(
+      "confirmMethod"
+    )
+    .innerText =
+    payment.name;
 
-  document.getElementById("depositModal")
+
+  document
+    .getElementById(
+      "confirmPaymentNumber"
+    )
+    .innerText =
+    payment.number;
+
+
+  document
+    .getElementById(
+      "paymentNumberDisplay"
+    )
+    .innerText =
+    payment.number;
+
+
+  document
+    .getElementById(
+      "depositModal"
+    )
     .classList.add("hidden");
 
-  document.getElementById("depositConfirmModal")
+
+  document
+    .getElementById(
+      "depositConfirmModal"
+    )
     .classList.remove("hidden");
 
 }
@@ -1054,10 +2800,17 @@ function continueDeposit(){
 
 function backToDepositMethods(){
 
-  document.getElementById("depositConfirmModal")
+  document
+    .getElementById(
+      "depositConfirmModal"
+    )
     .classList.add("hidden");
 
-  document.getElementById("depositModal")
+
+  document
+    .getElementById(
+      "depositModal"
+    )
     .classList.remove("hidden");
 
 }
@@ -1066,119 +2819,199 @@ function backToDepositMethods(){
 function copyPaymentNumber(){
 
   const number =
-    paymentSettings[selectedPaymentMethod]?.number;
+    paymentSettings[
+      selectedPaymentMethod
+    ]?.number;
 
-  if(!number) return;
 
-  navigator.clipboard.writeText(number);
+  if(!number){
 
-  alert("Payment number copied.");
+    return;
+
+  }
+
+
+  navigator
+    .clipboard
+    .writeText(number)
+    .then(
+      () =>
+      alert(
+        "Payment number copied."
+      )
+    );
 
 }
 
 
-/* =========================
+/* ==================================================
    DEPOSIT SUBMIT
-========================= */
+================================================== */
 
 async function submitDeposit(){
 
   const last4 =
-    document.getElementById("senderLast4")
-      .value.trim();
+    document
+      .getElementById("senderLast4")
+      .value
+      .trim();
+
 
   const file =
-    document.getElementById("depositScreenshot")
+    document
+      .getElementById(
+        "depositScreenshot"
+      )
       .files[0];
+
 
   if(!/^\d{4}$/.test(last4)){
 
-    alert("শেষ ৪ digit সঠিকভাবে দিন।");
+    alert(
+      "শেষ ৪ digit সঠিকভাবে দিন।"
+    );
 
     return;
 
   }
+
 
   if(!file){
 
-    alert("Payment screenshot upload করুন।");
+    alert(
+      "Payment screenshot upload করুন।"
+    );
 
     return;
 
   }
 
-  if(!currentDepositAmount || !selectedPaymentMethod){
 
-    alert("Deposit information অসম্পূর্ণ।");
+  if(
+    !currentDepositAmount ||
+    !selectedPaymentMethod
+  ){
+
+    alert(
+      "Deposit information অসম্পূর্ণ।"
+    );
 
     return;
 
   }
+
 
   try{
 
     const fileRef =
       ref(
+
         storage,
-        `depositScreenshots/${uid()}/${Date.now()}_${file.name}`
+
+        "depositScreenshots/" +
+        currentUser.uid +
+        "/" +
+        Date.now() +
+        "_" +
+        file.name
+
       );
 
-    await uploadBytes(fileRef,file);
+
+    await uploadBytes(
+      fileRef,
+      file
+    );
+
 
     const screenshotURL =
-      await getDownloadURL(fileRef);
+      await getDownloadURL(
+        fileRef
+      );
+
 
     await addDoc(
 
-      collection(db,"depositRequests"),
+      collection(
+        db,
+        "depositRequests"
+      ),
 
       {
 
-        uid:uid(),
+        uid:
+          currentUser.uid,
 
-        email:currentUser.email,
+        email:
+          currentUser.email,
 
-        amount:currentDepositAmount,
+        amount:
+          currentDepositAmount,
 
-        method:selectedPaymentMethod,
+        method:
+          selectedPaymentMethod,
 
         paymentNumber:
-          paymentSettings[selectedPaymentMethod].number,
+          paymentSettings[
+            selectedPaymentMethod
+          ].number,
 
-        senderLast4:last4,
+        senderLast4:
+          last4,
 
-        screenshotURL:screenshotURL,
+        screenshotURL:
+          screenshotURL,
 
-        status:"Pending",
+        status:
+          "Pending",
 
-        createdAt:serverTimestamp()
+        createdAt:
+          serverTimestamp()
 
       }
 
     );
 
-    document.getElementById("depositConfirmModal")
+
+    document
+      .getElementById(
+        "depositConfirmModal"
+      )
       .classList.add("hidden");
 
-    document.getElementById("senderLast4").value="";
 
-    document.getElementById("depositScreenshot").value="";
+    document
+      .getElementById(
+        "senderLast4"
+      )
+      .value="";
+
+
+    document
+      .getElementById(
+        "depositScreenshot"
+      )
+      .value="";
+
 
     selectedPaymentMethod="";
 
     currentDepositAmount=0;
 
+
     alert(
-      "✅ Deposit request submit হয়েছে। Admin verification-এর পর balance update হবে।"
+      "Deposit request submit হয়েছে। Admin verification-এর পর balance update হবে।"
     );
 
   }
+
   catch(error){
 
     console.error(error);
 
     alert(
-      "Deposit submit হয়নি: " + error.message
+      "Deposit submit হয়নি: " +
+      error.message
     );
 
   }
@@ -1186,467 +3019,851 @@ async function submitDeposit(){
 }
 
 
-/* =========================
+/* ==================================================
    WITHDRAW
-========================= */
+================================================== */
 
 async function submitWithdraw(){
 
   const amount =
     Number(
-      document.getElementById("withdrawAmount").value
+      document
+        .getElementById(
+          "withdrawAmount"
+        )
+        .value
     );
 
+
   const method =
-    document.getElementById("withdrawMethod").value;
+    document
+      .getElementById(
+        "withdrawMethod"
+      )
+      .value;
+
 
   const number =
-    document.getElementById("withdrawNumber").value.trim();
+    document
+      .getElementById(
+        "withdrawNumber"
+      )
+      .value
+      .trim();
+
 
   const name =
-    document.getElementById("withdrawName").value.trim();
+    document
+      .getElementById(
+        "withdrawName"
+      )
+      .value
+      .trim();
 
-  if(!amount || !number || !name){
 
-    alert("সব তথ্য পূরণ করুন।");
+  if(
+    !amount ||
+    !number ||
+    !name
+  ){
+
+    alert(
+      "সব তথ্য পূরণ করুন।"
+    );
 
     return;
 
   }
 
-  if(amount > Number(userData.balance || 0)){
 
-    alert("পর্যাপ্ত balance নেই।");
+  if(
+    amount >
+    Number(
+      userData.balance || 0
+    )
+  ){
+
+    alert(
+      "পর্যাপ্ত balance নেই।"
+    );
 
     return;
 
   }
+
 
   try{
 
     await addDoc(
 
-      collection(db,"withdrawalRequests"),
+      collection(
+        db,
+        "withdrawalRequests"
+      ),
 
       {
 
-        uid:uid(),
+        uid:
+          currentUser.uid,
 
-        email:currentUser.email,
+        email:
+          currentUser.email,
 
-        amount,
+        amount:
+          amount,
 
-        method,
+        method:
+          method,
 
-        number,
+        number:
+          number,
 
-        name,
+        name:
+          name,
 
-        status:"Pending",
+        status:
+          "Pending",
 
-        createdAt:serverTimestamp()
+        createdAt:
+          serverTimestamp()
 
       }
 
     );
 
-    document.getElementById("withdrawAmount").value="";
-    document.getElementById("withdrawNumber").value="";
-    document.getElementById("withdrawName").value="";
+
+    document
+      .getElementById(
+        "withdrawAmount"
+      )
+      .value="";
+
+
+    document
+      .getElementById(
+        "withdrawNumber"
+      )
+      .value="";
+
+
+    document
+      .getElementById(
+        "withdrawName"
+      )
+      .value="";
+
 
     alert(
-      "✅ Withdrawal request submit হয়েছে।"
+      "Withdrawal request submit হয়েছে।"
     );
 
   }
+
   catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================
+/* ==================================================
    SUPPORT
-========================= */
+================================================== */
 
 async function submitTicket(){
 
   const subject =
-    document.getElementById("supportSubject").value.trim();
+    document
+      .getElementById(
+        "supportSubject"
+      )
+      .value
+      .trim();
+
 
   const message =
-    document.getElementById("supportMessage").value.trim();
+    document
+      .getElementById(
+        "supportMessage"
+      )
+      .value
+      .trim();
+
 
   if(!subject || !message){
 
-    alert("Subject এবং Message লিখুন।");
+    alert(
+      "Subject এবং Message লিখুন।"
+    );
 
     return;
 
   }
 
+
   try{
 
     await addDoc(
 
-      collection(db,"supportTickets"),
+      collection(
+        db,
+        "supportTickets"
+      ),
 
       {
 
-        uid:uid(),
+        uid:
+          currentUser.uid,
 
-        email:currentUser.email,
+        email:
+          currentUser.email,
 
-        subject,
+        subject:
+          subject,
 
-        message,
+        message:
+          message,
 
-        status:"Open",
+        status:
+          "Open",
 
-        createdAt:serverTimestamp()
+        createdAt:
+          serverTimestamp()
 
       }
 
     );
 
-    document.getElementById("supportSubject").value="";
-    document.getElementById("supportMessage").value="";
 
-    alert("✅ Support ticket submit হয়েছে।");
+    document
+      .getElementById(
+        "supportSubject"
+      )
+      .value="";
+
+
+    document
+      .getElementById(
+        "supportMessage"
+      )
+      .value="";
+
+
+    alert(
+      "Support ticket submit হয়েছে।"
+    );
 
   }
+
   catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================
+/* ==================================================
    TASK
-========================= */
+================================================== */
 
-async function completeTask(i){
+async function completeTask(index){
 
   if(!userData.activePlan){
 
-    alert("Active plan নেই।");
+    alert(
+      "Active plan নেই।"
+    );
 
     return;
 
   }
+
 
   const total =
-    Number(userData.activePlan.tasks || 0);
+    Number(
+      userData.activePlan.tasks || 0
+    );
+
 
   const done =
-    Number(userData.completedTasks || 0);
+    Number(
+      userData.completedTasks || 0
+    );
 
-  if(i !== done){
 
-    alert("আগের Task আগে সম্পন্ন করুন।");
+  if(index !== done){
+
+    alert(
+      "আগের Task আগে সম্পন্ন করুন।"
+    );
 
     return;
 
   }
+
 
   if(done >= total){
 
-    alert("আজকের সব Task সম্পন্ন হয়েছে।");
+    alert(
+      "আজকের সব Task সম্পন্ন হয়েছে।"
+    );
 
     return;
 
   }
+
 
   try{
 
     await addDoc(
 
-      collection(db,"taskCompletions"),
+      collection(
+        db,
+        "taskCompletions"
+      ),
 
       {
 
-        uid:uid(),
+        uid:
+          currentUser.uid,
 
-        taskNumber:i+1,
+        email:
+          currentUser.email,
 
-        plan:userData.activePlan.rank,
+        taskNumber:
+          index + 1,
 
-        reward:userData.activePlan.reward,
+        plan:
+          userData.activePlan.rank,
 
-        status:"Pending",
+        reward:
+          userData.activePlan.reward,
 
-        createdAt:serverTimestamp()
+        status:
+          "Pending",
+
+        createdAt:
+          serverTimestamp()
 
       }
 
     );
 
+
     alert(
-      "Task completion request submit হয়েছে। Admin verification-এর পর reward যোগ হবে।"
+      "Task completion request submit হয়েছে। Admin verification-এর পর reward update হবে।"
     );
 
   }
+
   catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================
+/* ==================================================
    TASK UI
-========================= */
+================================================== */
 
 function renderTasks(){
 
   const empty =
-    document.getElementById("taskEmpty");
+    document
+      .getElementById(
+        "taskEmpty"
+      );
+
 
   const content =
-    document.getElementById("taskContent");
+    document
+      .getElementById(
+        "taskContent"
+      );
+
 
   if(!userData.activePlan){
 
-    empty.classList.remove("hidden");
+    empty
+      .classList
+      .remove("hidden");
 
-    content.classList.add("hidden");
+    content
+      .classList
+      .add("hidden");
 
     return;
 
   }
 
-  empty.classList.add("hidden");
 
-  content.classList.remove("hidden");
+  empty
+    .classList
+    .add("hidden");
+
+
+  content
+    .classList
+    .remove("hidden");
+
 
   const p =
     userData.activePlan;
 
+
   const done =
-    Number(userData.completedTasks || 0);
+    Number(
+      userData.completedTasks || 0
+    );
 
-  document.getElementById("taskRank").innerText=p.rank;
-  document.getElementById("taskEarn").innerText=money(userData.todayEarn);
-  document.getElementById("taskDone").innerText=done;
-  document.getElementById("taskTotal").innerText=p.tasks;
-  document.getElementById("perTask").innerText=money(p.reward);
-  document.getElementById("dailyTarget").innerText=money(p.daily);
 
-  document.getElementById("progressBar").style.width =
-    Math.min(100,(done/p.tasks)*100)+"%";
+  document
+    .getElementById(
+      "taskRank"
+    )
+    .innerText =
+    p.rank;
+
+
+  document
+    .getElementById(
+      "taskEarn"
+    )
+    .innerText =
+    money(
+      userData.todayEarn
+    );
+
+
+  document
+    .getElementById(
+      "taskDone"
+    )
+    .innerText =
+    done;
+
+
+  document
+    .getElementById(
+      "taskTotal"
+    )
+    .innerText =
+    p.tasks;
+
+
+  document
+    .getElementById(
+      "perTask"
+    )
+    .innerText =
+    money(p.reward);
+
+
+  document
+    .getElementById(
+      "dailyTarget"
+    )
+    .innerText =
+    money(p.daily);
+
+
+  const percentage =
+    p.tasks > 0
+      ? Math.min(
+          100,
+          (done / p.tasks) * 100
+        )
+      : 0;
+
+
+  document
+    .getElementById(
+      "progressBar"
+    )
+    .style
+    .width =
+    percentage + "%";
+
 
   const list =
-    document.getElementById("taskList");
+    document
+      .getElementById(
+        "taskList"
+      );
+
 
   list.innerHTML =
-    Array.from({length:p.tasks},(_,i)=>{
+    Array.from(
+      {length:p.tasks},
+      (_,i)=>{
 
-      const completed=i<done;
+        const completed =
+          i < done;
 
-      return `
 
-        <div class="task">
+        return `
 
-          <div class="task-left">
+          <div class="task">
 
-            <b>Task #${i+1}</b>
+            <div class="task-left">
 
-            <small>
-              ${completed
-                ?"টাস্ক সম্পন্ন হয়েছে"
-                :"Task completion request দিন"}
-              — ৳${money(p.reward)}
-            </small>
+              <b>
+                Task #${i+1}
+              </b>
+
+              <small>
+
+                ${
+                  completed
+                  ?
+                  "টাস্ক সম্পন্ন হয়েছে"
+                  :
+                  "Task completion request দিন"
+                }
+
+                — ৳${money(p.reward)}
+
+              </small>
+
+            </div>
+
+
+            ${
+              completed
+
+              ?
+
+              '<span class="status">✓ সম্পন্ন</span>'
+
+              :
+
+              `
+              <button
+                onclick="completeTask(${i})">
+
+                শুরু করুন
+
+              </button>
+              `
+
+            }
 
           </div>
 
-          ${
-            completed
-            ?'<span class="status">✓ সম্পন্ন</span>'
-            :`<button onclick="completeTask(${i})">শুরু করুন</button>`
-          }
+        `;
 
-        </div>
-
-      `;
-
-    }).join("");
+      }
+    ).join("");
 
 }
 
 
-/* =========================
+/* ==================================================
    REQUEST LISTENERS
-========================= */
+================================================== */
 
 function loadRequests(){
 
-  if(!uid()) return;
+  if(!currentUser){
 
-  const wq =
+    return;
+
+  }
+
+
+  const withdrawalQuery =
     query(
-      collection(db,"withdrawalRequests"),
-      where("uid","==",uid()),
-      orderBy("createdAt","desc")
+
+      collection(
+        db,
+        "withdrawalRequests"
+      ),
+
+      where(
+        "uid",
+        "==",
+        currentUser.uid
+      ),
+
+      orderBy(
+        "createdAt",
+        "desc"
+      )
+
     );
 
-  onSnapshot(wq,snap=>{
 
-    const box =
-      document.getElementById("withdrawHistory");
+  onSnapshot(
 
-    if(snap.empty){
+    withdrawalQuery,
+
+    snapshot => {
+
+      const box =
+        document
+          .getElementById(
+            "withdrawHistory"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div
+            class="center"
+            style="color:#777">
+
+            এখনো কোনো request নেই
+
+          </div>
+          `;
+
+        return;
+
+      }
+
 
       box.innerHTML =
-        '<div class="center" style="color:#777">এখনো কোনো request নেই</div>';
+        snapshot.docs
+          .map(
+            docSnap => {
 
-      return;
+              const x =
+                docSnap.data();
+
+
+              return `
+
+                <div class="history">
+
+                  <b>
+                    ৳${money(x.amount)}
+                  </b>
+
+                  — ${x.method}
+
+                  <br>
+
+                  <small class="pending">
+
+                    ● ${x.status || "Pending"}
+
+                  </small>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
 
     }
 
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x=d.data();
-
-        return `
-
-          <div class="history">
-
-            <b>৳${money(x.amount)}</b>
-            — ${x.method}
-
-            <br>
-
-            <small class="pending">
-              ● ${x.status || "Pending"}
-            </small>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-  });
+  );
 
 
-  const tq =
+  const ticketQuery =
     query(
-      collection(db,"supportTickets"),
-      where("uid","==",uid()),
-      orderBy("createdAt","desc")
+
+      collection(
+        db,
+        "supportTickets"
+      ),
+
+      where(
+        "uid",
+        "==",
+        currentUser.uid
+      ),
+
+      orderBy(
+        "createdAt",
+        "desc"
+      )
+
     );
 
-  onSnapshot(tq,snap=>{
 
-    const box =
-      document.getElementById("ticketHistory");
+  onSnapshot(
 
-    if(snap.empty){
+    ticketQuery,
+
+    snapshot => {
+
+      const box =
+        document
+          .getElementById(
+            "ticketHistory"
+          );
+
+
+      if(snapshot.empty){
+
+        box.innerHTML =
+          `
+          <div
+            class="center"
+            style="color:#777">
+
+            কোনো ticket নেই
+
+          </div>
+          `;
+
+        return;
+
+      }
+
 
       box.innerHTML =
-        '<div class="center" style="color:#777">কোনো ticket নেই</div>';
+        snapshot.docs
+          .map(
+            docSnap => {
 
-      return;
+              const x =
+                docSnap.data();
+
+
+              return `
+
+                <div class="history">
+
+                  <b>
+                    ${x.subject || ""}
+                  </b>
+
+                  <br>
+
+                  <small>
+                    ${x.message || ""}
+                  </small>
+
+                  <br>
+
+                  <small class="pending">
+
+                    ● ${x.status || "Open"}
+
+                  </small>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
 
     }
 
-    box.innerHTML =
-      snap.docs.map(d=>{
-
-        const x=d.data();
-
-        return `
-
-          <div class="history">
-
-            <b>${x.subject}</b>
-
-            <br>
-
-            <small>${x.message}</small>
-
-            <br>
-
-            <small class="pending">
-              ● ${x.status || "Open"}
-            </small>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-  });
+  );
 
 }
 
 
-/* =========================
+/* ==================================================
    UI
-========================= */
+================================================== */
 
 function updateUI(){
 
-  const b =
-    Number(userData.balance || 0);
+  const balance =
+    Number(
+      userData.balance || 0
+    );
 
-  document.getElementById("balance").innerText=money(b);
 
-  document.getElementById("withdrawBalance").innerText=money(b);
+  document
+    .getElementById("balance")
+    .innerText =
+    money(balance);
 
-  document.getElementById("profileBalance").innerText=money(b);
 
-  document.getElementById("todayEarn").innerText=
-    money(userData.todayEarn);
+  document
+    .getElementById("withdrawBalance")
+    .innerText =
+    money(balance);
 
-  document.getElementById("completed").innerText=
+
+  document
+    .getElementById("profileBalance")
+    .innerText =
+    money(balance);
+
+
+  document
+    .getElementById("todayEarn")
+    .innerText =
+    money(
+      userData.todayEarn
+    );
+
+
+  document
+    .getElementById("completed")
+    .innerText =
     userData.completedTasks || 0;
 
-  document.getElementById("profileTasks").innerText=
+
+  document
+    .getElementById("profileTasks")
+    .innerText =
     userData.completedTasks || 0;
 
-  const name =
+
+  const planName =
     userData.activePlan
-      ? userData.activePlan.rank
-      : "কোনো Plan নেই";
+      ?
+      userData.activePlan.rank
+      :
+      "কোনো Plan নেই";
 
-  document.getElementById("activePlan").innerText=name;
 
-  document.getElementById("profilePlan").innerText=name;
+  document
+    .getElementById("activePlan")
+    .innerText =
+    planName;
 
-  document.getElementById("planStatus").innerText=
-    userData.activePlan ? "Active" : "Inactive";
+
+  document
+    .getElementById("profilePlan")
+    .innerText =
+    planName;
+
+
+  document
+    .getElementById("planStatus")
+    .innerText =
+    userData.activePlan
+      ?
+      "Active"
+      :
+      "Inactive";
+
 
   renderTasks();
 
 }
 
 
-function showLoginMessage(){
-
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.add("hidden"));
-
-  document.getElementById("homePage")
-    .classList.remove("hidden");
-
-  alert(
-    "আপনার Login session পাওয়া যায়নি। আগে Login করুন।"
-  );
-
-}
-
+/* ==================================================
+   LOGOUT
+================================================== */
 
 async function logoutUser(){
 
@@ -1654,19 +3871,24 @@ async function logoutUser(){
 
     await signOut(auth);
 
+    showAuth("login");
+
   }
+
   catch(error){
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================
+/* ==================================================
    START
-========================= */
+================================================== */
 
 renderPlans();
 
