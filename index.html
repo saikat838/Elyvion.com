@@ -389,11 +389,12 @@ label{
   font-size:13px;
 }
 
-.file-box{
+.sender-box{
   background:#f7f3ff;
-  padding:12px;
-  border-radius:12px;
-  margin:10px 0;
+  padding:14px;
+  border-radius:14px;
+  margin:12px 0;
+  border:1px solid #e5d9ff;
 }
 
 .small-note{
@@ -416,16 +417,36 @@ label{
 <div id="homePage" class="page container">
 
   <div class="card">
+
     <small>Available Balance</small>
-    <div class="balance">৳<span id="balance">200</span></div>
+
+    <div class="balance">
+      ৳<span id="balance">200</span>
+    </div>
 
     <div class="flex">
-      <button class="primary" onclick="openDeposit()">＋ Deposit</button>
-      <button class="secondary" onclick="showPage('withdrawPage')">💸 Withdraw</button>
+
+      <button
+        class="primary"
+        onclick="openDeposit()"
+      >
+        ＋ Deposit
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showPage('withdrawPage')"
+      >
+        💸 Withdraw
+      </button>
+
     </div>
+
   </div>
 
+
   <div class="stats">
+
     <div class="stat">
       <small>Active Plan</small>
       <b id="activePlan">কোনো Plan নেই</b>
@@ -445,20 +466,30 @@ label{
       <small>Plan Status</small>
       <b id="planStatus">Inactive</b>
     </div>
+
   </div>
 
-  <div class="section-title">দ্রুত শুরু করুন</div>
+
+  <div class="section-title">
+    দ্রুত শুরু করুন
+  </div>
+
 
   <div class="card">
+
     <b>📦 একটি Plan নির্বাচন করুন</b>
 
     <p style="font-size:13px;color:#777;margin:8px 0">
       আপনার উপযোগী plan নির্বাচন করে purchase request দিন।
     </p>
 
-    <button class="primary" onclick="showPage('packagesPage')">
+    <button
+      class="primary"
+      onclick="showPage('packagesPage')"
+    >
       Packages দেখুন
     </button>
+
   </div>
 
 </div>
@@ -467,7 +498,9 @@ label{
 <!-- PACKAGES -->
 <div id="packagesPage" class="page container hidden">
 
-  <div class="section-title">প্যাকেজ</div>
+  <div class="section-title">
+    প্যাকেজ
+  </div>
 
   <div id="plans"></div>
 
@@ -477,7 +510,9 @@ label{
 <!-- TASKS -->
 <div id="tasksPage" class="page container hidden">
 
-  <div class="section-title">কাজ</div>
+  <div class="section-title">
+    কাজ
+  </div>
 
   <p style="color:#777;font-size:13px">
     কাজ সম্পন্ন করুন এবং আপনার নির্ধারিত reward অর্জন করুন।
@@ -486,7 +521,9 @@ label{
 
   <div id="taskEmpty" class="card center">
 
-    <div class="big-icon">📦</div>
+    <div class="big-icon">
+      📦
+    </div>
 
     <b>কোনো Active Plan নেই</b>
 
@@ -494,7 +531,10 @@ label{
       Task শুরু করতে একটি plan activate করুন।
     </p>
 
-    <button class="primary" onclick="showPage('packagesPage')">
+    <button
+      class="primary"
+      onclick="showPage('packagesPage')"
+    >
       Plan দেখুন
     </button>
 
@@ -519,13 +559,17 @@ label{
 
       </div>
 
+
       <div class="progress">
         <div id="progressBar"></div>
       </div>
 
+
       <div class="center" style="font-size:13px">
+
         <span id="taskDone">0</span> /
         <span id="taskTotal">0</span> টি সম্পন্ন
+
       </div>
 
     </div>
@@ -546,7 +590,9 @@ label{
     </div>
 
 
-    <div class="section-title">আজকের টাস্ক</div>
+    <div class="section-title">
+      আজকের টাস্ক
+    </div>
 
     <div id="taskList"></div>
 
@@ -558,7 +604,10 @@ label{
 <!-- WITHDRAW -->
 <div id="withdrawPage" class="page container hidden">
 
-  <div class="section-title">💸 Withdraw</div>
+  <div class="section-title">
+    💸 Withdraw
+  </div>
+
 
   <div class="card">
 
@@ -585,9 +634,11 @@ label{
     <label>Payment Method</label>
 
     <select id="withdrawMethod">
+
       <option>bKash</option>
       <option>Nagad</option>
       <option>Rocket</option>
+
     </select>
 
 
@@ -607,14 +658,20 @@ label{
     >
 
 
-    <button class="primary" onclick="submitWithdraw()">
+    <button
+      class="primary"
+      onclick="submitWithdraw()"
+    >
       Withdraw Request Submit
     </button>
 
   </div>
 
 
-  <div class="section-title">Withdrawal History</div>
+  <div class="section-title">
+    Withdrawal History
+  </div>
+
 
   <div class="card" id="withdrawHistory">
 
@@ -630,7 +687,9 @@ label{
 <!-- SUPPORT -->
 <div id="supportPage" class="page container hidden">
 
-  <div class="section-title">🎧 Customer Service</div>
+  <div class="section-title">
+    🎧 Customer Service
+  </div>
 
 
   <div class="card">
@@ -659,7 +718,10 @@ label{
     ></textarea>
 
 
-    <button class="primary" onclick="submitTicket()">
+    <button
+      class="primary"
+      onclick="submitTicket()"
+    >
       Support Ticket Submit
     </button>
 
@@ -677,7 +739,10 @@ label{
   </div>
 
 
-  <div class="section-title">My Tickets</div>
+  <div class="section-title">
+    My Tickets
+  </div>
+
 
   <div class="card" id="ticketHistory">
 
@@ -695,9 +760,13 @@ label{
 
   <div class="card center">
 
-    <div class="big-icon">👤</div>
+    <div class="big-icon">
+      👤
+    </div>
 
-    <h3>Demo User</h3>
+    <h3>
+      Demo User
+    </h3>
 
     <p style="color:#777;font-size:13px;margin-top:5px">
       demo@elyvion.com
@@ -739,32 +808,45 @@ label{
 <!-- BOTTOM NAV -->
 <div class="nav">
 
-  <button class="active" onclick="showPage('homePage',this)">
+  <button
+    class="active"
+    onclick="showPage('homePage',this)"
+  >
     <span>🏠</span>
     হোম
   </button>
 
-  <button onclick="showPage('packagesPage',this)">
+  <button
+    onclick="showPage('packagesPage',this)"
+  >
     <span>📦</span>
     প্যাকেজ
   </button>
 
-  <button onclick="showPage('tasksPage',this)">
+  <button
+    onclick="showPage('tasksPage',this)"
+  >
     <span>✅</span>
     টাস্ক
   </button>
 
-  <button onclick="showPage('withdrawPage',this)">
+  <button
+    onclick="showPage('withdrawPage',this)"
+  >
     <span>💸</span>
     Withdraw
   </button>
 
-  <button onclick="showPage('supportPage',this)">
+  <button
+    onclick="showPage('supportPage',this)"
+  >
     <span>🎧</span>
     Service
   </button>
 
-  <button onclick="showPage('profilePage',this)">
+  <button
+    onclick="showPage('profilePage',this)"
+  >
     <span>👤</span>
     প্রোফাইল
   </button>
@@ -791,36 +873,30 @@ label{
       <b id="modalRank"></b>
     </div>
 
-
     <div class="confirm-row">
       <span>পরিমাণ</span>
       <b>৳<span id="modalPrice"></span></b>
     </div>
-
 
     <div class="confirm-row">
       <span>দৈনিক রিওয়ার্ড</span>
       <b>৳<span id="modalDaily"></span></b>
     </div>
 
-
     <div class="confirm-row">
       <span>মেয়াদ</span>
       <b>21 দিন</b>
     </div>
-
 
     <div class="confirm-row">
       <span>মোট নির্ধারিত রিওয়ার্ড</span>
       <b>৳<span id="modalTotal"></span></b>
     </div>
 
-
     <div class="confirm-row">
       <span>আপনার ব্যালেন্স</span>
       <b>৳<span id="modalBalance"></span></b>
     </div>
-
 
     <div class="confirm-row">
       <span>প্রয়োজন আরও</span>
@@ -828,7 +904,10 @@ label{
     </div>
 
 
-    <div class="notice" id="balanceNotice"></div>
+    <div
+      class="notice"
+      id="balanceNotice"
+    ></div>
 
 
     <div class="flex">
@@ -843,8 +922,7 @@ label{
       <button
         id="modalAction"
         class="primary"
-      >
-      </button>
+      ></button>
 
     </div>
 
@@ -853,7 +931,7 @@ label{
 </div>
 
 
-<!-- DEPOSIT METHOD PAGE -->
+<!-- DEPOSIT METHOD -->
 <div id="depositModal" class="modal hidden">
 
   <div class="modal-box">
@@ -876,7 +954,9 @@ label{
       </p>
 
 
-      <label>Deposit Amount</label>
+      <label>
+        Deposit Amount
+      </label>
 
       <input
         id="depositAmount"
@@ -886,9 +966,10 @@ label{
         oninput="updateDepositAmount()"
       >
 
+
       <p class="small-note">
         Home Page থেকে আসলে আপনি নিজের পছন্দমতো Amount লিখতে পারবেন।
-        Plan কেনার সময় আসলে প্রয়োজনীয় Amount অটোমেটিক বসে যাবে।
+        Plan কেনার সময় প্রয়োজনীয় Amount অটোমেটিক বসে যাবে।
       </p>
 
     </div>
@@ -904,19 +985,29 @@ label{
       নিচ থেকে আপনার পছন্দের payment method সিলেক্ট করুন।
     </div>
 
+
     <div class="deposit-step">
       <b>2.</b>
-      পরবর্তী পেজে নম্বর দেখে Send Money করুন।
+      পরবর্তী পেজে payment number দেখে Send Money করুন।
     </div>
+
 
     <div class="deposit-step">
       <b>3.</b>
-      Payment Complete করার পর Screenshot Upload করুন।
+      Payment Complete করার পর আপনি যে নম্বর থেকে টাকা পাঠিয়েছেন
+      সেই নম্বরের শেষ ৪ digit দিতে হবে।
     </div>
+
 
     <div class="deposit-step">
       <b>4.</b>
-      Admin যাচাই করার পর আপনার Balance যোগ হবে।
+      Deposit Request Submit করার পর Admin payment যাচাই করবে।
+    </div>
+
+
+    <div class="deposit-step">
+      <b>5.</b>
+      Admin যাচাই ও অনুমোদন করার পর আপনার Balance যোগ হবে।
     </div>
 
 
@@ -987,34 +1078,53 @@ label{
     </div>
 
     <div class="modal-sub">
-      Send Money করার পর Payment Screenshot দিয়ে request submit করুন।
+      Send Money করার পর নিচের তথ্য পূরণ করে Deposit Request Submit করুন।
     </div>
 
 
     <div class="card">
 
-      <small>নিরাপদ জমা দিন</small>
+      <small>
+        নিরাপদে জমা দিন
+      </small>
 
-      <h3 id="selectedMethodTitle" style="margin-top:8px">
+
+      <h3
+        id="selectedMethodTitle"
+        style="margin-top:8px"
+      >
         bKash
       </h3>
 
 
       <div class="confirm-row">
+
         <span>পরিমাণ</span>
-        <b>৳<span id="confirmDepositAmount">0</span></b>
+
+        <b>
+          ৳<span id="confirmDepositAmount">0</span>
+        </b>
+
       </div>
 
 
       <div class="confirm-row">
+
         <span>Payment Method</span>
-        <b id="confirmMethod">bKash</b>
+
+        <b id="confirmMethod">
+          bKash
+        </b>
+
       </div>
 
 
       <div class="confirm-row">
+
         <span>Payment Number</span>
+
         <b id="confirmPaymentNumber"></b>
+
       </div>
 
     </div>
@@ -1026,26 +1136,40 @@ label{
 
 
     <div class="deposit-step">
+
       <b>1.</b>
-      আপনার <span id="instructionMethod1">bKash</span>
+
+      আপনার
+      <span id="instructionMethod1">
+        bKash
+      </span>
       App অথবা Dial Code ব্যবহার করুন।
+
     </div>
 
 
     <div class="deposit-step">
+
       <b>2.</b>
+
       Send Money অপশন সিলেক্ট করুন।
+
     </div>
 
 
     <div class="deposit-step">
+
       <b>3.</b>
+
       প্রাপক নম্বর হিসেবে নিচের নম্বরটি ব্যবহার করুন।
+
     </div>
 
 
     <div class="payment-number">
+
       <span id="paymentNumberDisplay"></span>
+
     </div>
 
 
@@ -1057,41 +1181,56 @@ label{
     </button>
 
 
-    <div class="deposit-step" style="margin-top:12px">
+    <div
+      class="deposit-step"
+      style="margin-top:12px"
+    >
+
       <b>4.</b>
+
       টাকার পরিমাণ:
-      <b>৳<span id="instructionAmount">0</span></b>
+
+      <b>
+        ৳<span id="instructionAmount">0</span>
+      </b>
+
     </div>
 
 
     <div class="deposit-step">
+
       <b>5.</b>
-      Payment Complete হওয়ার পর Confirmation Screenshot নিন।
+
+      Payment Complete করার পর
+      আপনি যে নম্বর থেকে টাকা পাঠিয়েছেন
+      সেই নম্বরের শেষ ৪ digit নিচে লিখুন।
+
     </div>
 
 
-    <div class="deposit-step">
-      <b>6.</b>
-      নিচে Payment Screenshot Upload করুন।
-    </div>
+    <!-- SENDER LAST 4 DIGIT -->
 
+    <div class="sender-box">
 
-    <div class="file-box">
-
-      <label>Payment Screenshot Upload করুন</label>
+      <label>
+        যে নম্বর থেকে টাকা পাঠিয়েছেন — শেষ ৪ digit
+      </label>
 
       <input
-        id="paymentProof"
-        type="file"
-        accept="image/*"
-        onchange="previewScreenshot()"
+        id="senderLast4"
+        type="text"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="যেমন: 1234"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)"
       >
 
-      <div
-        id="screenshotStatus"
-        class="small-note"
-      >
-        এখনো কোনো Screenshot নির্বাচন করা হয়নি।
+      <div class="small-note">
+
+        যে bKash/Nagad/Rocket নম্বর থেকে
+        টাকা পাঠিয়েছেন, সেই নম্বরের
+        শেষ ৪টি সংখ্যা লিখুন।
+
       </div>
 
     </div>
@@ -1239,8 +1378,6 @@ const plans = [
 
 /* =========================
    PAYMENT SETTINGS
-   Firebase/Admin যুক্ত করলে
-   এগুলো Admin থেকে পরিবর্তন করা যাবে
 ========================= */
 
 const paymentSettings = {
@@ -1293,7 +1430,10 @@ let currentDepositAmount = 0;
 ========================= */
 
 function money(n){
-  return Number(n).toLocaleString("en-US");
+
+  return Number(n)
+    .toLocaleString("en-US");
+
 }
 
 
@@ -1303,60 +1443,63 @@ function money(n){
 
 function renderPlans(){
 
-  const box = document.getElementById("plans");
+  const box =
+    document.getElementById("plans");
 
-  box.innerHTML = plans.map((p,i)=>`
 
-    <div class="plan">
+  box.innerHTML =
+    plans.map((p,i)=>`
 
-      <div class="plan-top">
+      <div class="plan">
 
-        <div class="rank">
-          ${p.rank}
+        <div class="plan-top">
+
+          <div class="rank">
+            ${p.rank}
+          </div>
+
+          <div class="price">
+            ৳${money(p.price)}
+          </div>
+
         </div>
 
-        <div class="price">
-          ৳${money(p.price)}
+
+        <div class="plan-info">
+
+          <div class="info">
+            দৈনিক রিওয়ার্ড
+            <b>৳${money(p.daily)}</b>
+          </div>
+
+          <div class="info">
+            মেয়াদ
+            <b>21 দিন</b>
+          </div>
+
+          <div class="info">
+            Daily Tasks
+            <b>${p.tasks} টি</b>
+          </div>
+
+          <div class="info">
+            মোট রিওয়ার্ড
+            <b>৳${money(p.total)}</b>
+          </div>
+
         </div>
+
+
+        <button
+          class="primary"
+          onclick="openPlan(${i})"
+        >
+          কিনুন
+        </button>
 
       </div>
 
-
-      <div class="plan-info">
-
-        <div class="info">
-          দৈনিক রিওয়ার্ড
-          <b>৳${money(p.daily)}</b>
-        </div>
-
-        <div class="info">
-          মেয়াদ
-          <b>21 দিন</b>
-        </div>
-
-        <div class="info">
-          Daily Tasks
-          <b>${p.tasks} টি</b>
-        </div>
-
-        <div class="info">
-          মোট রিওয়ার্ড
-          <b>৳${money(p.total)}</b>
-        </div>
-
-      </div>
-
-
-      <button
-        class="primary"
-        onclick="openPlan(${i})"
-      >
-        কিনুন
-      </button>
-
-    </div>
-
-  `).join("");
+    `).join("");
 
 }
 
@@ -1370,6 +1513,7 @@ function showPage(id,btn){
   document.querySelectorAll(".page")
     .forEach(p=>p.classList.add("hidden"));
 
+
   document.getElementById(id)
     .classList.remove("hidden");
 
@@ -1379,9 +1523,11 @@ function showPage(id,btn){
     document.querySelectorAll(".nav button")
       .forEach(b=>b.classList.remove("active"));
 
+
     btn.classList.add("active");
 
   }
+
 
   updateUI();
 
@@ -1396,26 +1542,32 @@ function openPlan(i){
 
   selectedPlan = plans[i];
 
+
   document.getElementById("modalRank").innerText =
     selectedPlan.rank;
+
 
   document.getElementById("modalPrice").innerText =
     money(selectedPlan.price);
 
+
   document.getElementById("modalDaily").innerText =
     money(selectedPlan.daily);
 
+
   document.getElementById("modalTotal").innerText =
     money(selectedPlan.total);
+
 
   document.getElementById("modalBalance").innerText =
     money(balance);
 
 
-  const need = Math.max(
-    0,
-    selectedPlan.price - balance
-  );
+  const need =
+    Math.max(
+      0,
+      selectedPlan.price - balance
+    );
 
 
   document.getElementById("modalNeed").innerText =
@@ -1424,6 +1576,7 @@ function openPlan(i){
 
   const action =
     document.getElementById("modalAction");
+
 
   const notice =
     document.getElementById("balanceNotice");
@@ -1434,12 +1587,15 @@ function openPlan(i){
     notice.innerText =
       "ব্যালেন্স অপর্যাপ্ত। ডিপোজিট করুন চাপলে প্রয়োজনীয় Amount অটোমেটিক Deposit পেজে বসে যাবে।";
 
+
     action.innerText =
       "ডিপোজিট করুন";
+
 
     action.onclick = ()=>{
 
       closePlanModal();
+
 
       openDeposit(
         selectedPlan.price - balance
@@ -1454,8 +1610,10 @@ function openPlan(i){
     notice.innerText =
       "আপনার ব্যালেন্স যথেষ্ট। Confirm করলে Plan Active হবে।";
 
+
     action.innerText =
       "Confirm করুন";
+
 
     action.onclick =
       activatePlan;
@@ -1485,23 +1643,28 @@ function activatePlan(){
 
   balance -= selectedPlan.price;
 
+
   activePlan = {
     ...selectedPlan
   };
+
 
   completedTasks = 0;
 
   todayEarn = 0;
 
+
   closePlanModal();
 
   updateUI();
+
 
   alert(
     "🎉 অভিনন্দন! " +
     activePlan.rank +
     " সফলভাবে Active হয়েছে।"
   );
+
 
   showPage("tasksPage");
 
@@ -1516,13 +1679,23 @@ function openDeposit(amount=0){
 
   currentDepositAmount = amount;
 
+
   document.getElementById("depositAmount").value =
     amount > 0 ? amount : "";
 
+
   selectedPaymentMethod = "";
 
+
   document.querySelectorAll(".method-card")
-    .forEach(card=>card.classList.remove("selected"));
+    .forEach(card=>
+      card.classList.remove("selected")
+    );
+
+
+  document.getElementById("senderLast4").value =
+    "";
+
 
   document.getElementById("depositModal")
     .classList.remove("hidden");
@@ -1553,8 +1726,23 @@ function closeAllDeposit(){
   document.getElementById("depositModal")
     .classList.add("hidden");
 
+
   document.getElementById("depositConfirmModal")
     .classList.add("hidden");
+
+
+  selectedPaymentMethod = "";
+
+  currentDepositAmount = 0;
+
+
+  const senderInput =
+    document.getElementById("senderLast4");
+
+
+  if(senderInput){
+    senderInput.value = "";
+  }
 
 }
 
@@ -1567,8 +1755,11 @@ function selectPaymentMethod(method){
 
   selectedPaymentMethod = method;
 
+
   document.querySelectorAll(".method-card")
-    .forEach(card=>card.classList.remove("selected"));
+    .forEach(card=>
+      card.classList.remove("selected")
+    );
 
 
   if(method === "bKash"){
@@ -1673,6 +1864,10 @@ function continueDeposit(){
     money(amount);
 
 
+  document.getElementById("senderLast4").value =
+    "";
+
+
   document.getElementById("depositModal")
     .classList.add("hidden");
 
@@ -1730,50 +1925,21 @@ function copyPaymentNumber(){
 
 
 /* =========================
-   SCREENSHOT STATUS
-========================= */
-
-function previewScreenshot(){
-
-  const file =
-    document.getElementById("paymentProof").files[0];
-
-
-  if(file){
-
-    document.getElementById("screenshotStatus")
-      .innerHTML =
-      "✓ Screenshot নির্বাচন করা হয়েছে: <b>" +
-      file.name +
-      "</b>";
-
-  }
-
-  else{
-
-    document.getElementById("screenshotStatus")
-      .innerText =
-      "এখনো কোনো Screenshot নির্বাচন করা হয়নি।";
-
-  }
-
-}
-
-
-/* =========================
    SUBMIT DEPOSIT
 ========================= */
 
 function submitDeposit(){
 
-  const file =
-    document.getElementById("paymentProof").files[0];
+  const senderLast4 =
+    document.getElementById("senderLast4")
+      .value
+      .trim();
 
 
-  if(!file){
+  if(!senderLast4){
 
     alert(
-      "Payment Screenshot Upload করুন।"
+      "যে নম্বর থেকে টাকা পাঠিয়েছেন সেই নম্বরের শেষ ৪ digit দিন।"
     );
 
     return;
@@ -1781,8 +1947,21 @@ function submitDeposit(){
   }
 
 
-  if(!currentDepositAmount ||
-     !selectedPaymentMethod){
+  if(!/^\d{4}$/.test(senderLast4)){
+
+    alert(
+      "শুধু ৪টি সংখ্যা লিখুন। যেমন: 1234"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !currentDepositAmount ||
+    !selectedPaymentMethod
+  ){
 
     alert(
       "Deposit তথ্য সঠিকভাবে নির্বাচন করুন।"
@@ -1799,10 +1978,10 @@ function submitDeposit(){
 
     method:selectedPaymentMethod,
 
-    number:
+    paymentNumber:
       paymentSettings[selectedPaymentMethod].number,
 
-    screenshot:file.name,
+    senderLast4:senderLast4,
 
     status:"Pending",
 
@@ -1811,19 +1990,17 @@ function submitDeposit(){
   });
 
 
-  document.getElementById("paymentProof").value = "";
-
-  document.getElementById("screenshotStatus").innerText =
-    "এখনো কোনো Screenshot নির্বাচন করা হয়নি।";
-
-
   alert(
-    "✅ আপনার Deposit Request Submit হয়েছে। Admin যাচাই করার পর Balance যোগ করা হবে।"
+    "✅ Deposit Request Submit হয়েছে। Admin payment যাচাই করার পর Balance যোগ করা হবে।"
   );
 
 
   document.getElementById("depositConfirmModal")
     .classList.add("hidden");
+
+
+  document.getElementById("senderLast4").value =
+    "";
 
 
   selectedPaymentMethod = "";
@@ -1841,6 +2018,7 @@ function renderTasks(){
 
   const empty =
     document.getElementById("taskEmpty");
+
 
   const content =
     document.getElementById("taskContent");
@@ -1890,7 +2068,8 @@ function renderTasks(){
     (completedTasks / activePlan.tasks) * 100;
 
 
-  document.getElementById("progressBar").style.width =
+  document.getElementById("progressBar")
+    .style.width =
     percent + "%";
 
 
@@ -1916,6 +2095,7 @@ function renderTasks(){
               <b>Task #${i+1}</b>
 
               <small>
+
                 ${
                   done
                   ?
@@ -1974,7 +2154,10 @@ function completeTask(i){
   updateUI();
 
 
-  if(completedTasks === activePlan.tasks){
+  if(
+    completedTasks ===
+    activePlan.tasks
+  ){
 
     alert(
       "🎉 আজকের সব Task সম্পন্ন হয়েছে!"
@@ -2002,11 +2185,15 @@ function submitWithdraw(){
 
 
   const number =
-    document.getElementById("withdrawNumber").value.trim();
+    document.getElementById("withdrawNumber")
+      .value
+      .trim();
 
 
   const name =
-    document.getElementById("withdrawName").value.trim();
+    document.getElementById("withdrawName")
+      .value
+      .trim();
 
 
   if(
@@ -2039,8 +2226,11 @@ function submitWithdraw(){
   withdrawals.unshift({
 
     amount,
+
     method,
+
     number,
+
     name,
 
     status:"Pending",
@@ -2050,11 +2240,16 @@ function submitWithdraw(){
   });
 
 
-  document.getElementById("withdrawAmount").value = "";
+  document.getElementById("withdrawAmount")
+    .value = "";
 
-  document.getElementById("withdrawNumber").value = "";
 
-  document.getElementById("withdrawName").value = "";
+  document.getElementById("withdrawNumber")
+    .value = "";
+
+
+  document.getElementById("withdrawName")
+    .value = "";
 
 
   renderWithdrawHistory();
@@ -2111,11 +2306,15 @@ function renderWithdrawHistory(){
 function submitTicket(){
 
   const subject =
-    document.getElementById("supportSubject").value.trim();
+    document.getElementById("supportSubject")
+      .value
+      .trim();
 
 
   const message =
-    document.getElementById("supportMessage").value.trim();
+    document.getElementById("supportMessage")
+      .value
+      .trim();
 
 
   if(!subject || !message){
@@ -2132,6 +2331,7 @@ function submitTicket(){
   tickets.unshift({
 
     subject,
+
     message,
 
     status:"Open",
@@ -2141,9 +2341,12 @@ function submitTicket(){
   });
 
 
-  document.getElementById("supportSubject").value = "";
+  document.getElementById("supportSubject")
+    .value = "";
 
-  document.getElementById("supportMessage").value = "";
+
+  document.getElementById("supportMessage")
+    .value = "";
 
 
   renderTickets();
@@ -2202,27 +2405,33 @@ function renderTickets(){
 
 function updateUI(){
 
-  document.getElementById("balance").innerText =
+  document.getElementById("balance")
+    .innerText =
     money(balance);
 
 
-  document.getElementById("withdrawBalance").innerText =
+  document.getElementById("withdrawBalance")
+    .innerText =
     money(balance);
 
 
-  document.getElementById("profileBalance").innerText =
+  document.getElementById("profileBalance")
+    .innerText =
     money(balance);
 
 
-  document.getElementById("todayEarn").innerText =
+  document.getElementById("todayEarn")
+    .innerText =
     money(todayEarn);
 
 
-  document.getElementById("completed").innerText =
+  document.getElementById("completed")
+    .innerText =
     completedTasks;
 
 
-  document.getElementById("profileTasks").innerText =
+  document.getElementById("profileTasks")
+    .innerText =
     completedTasks;
 
 
@@ -2234,15 +2443,18 @@ function updateUI(){
     "কোনো Plan নেই";
 
 
-  document.getElementById("activePlan").innerText =
+  document.getElementById("activePlan")
+    .innerText =
     name;
 
 
-  document.getElementById("profilePlan").innerText =
+  document.getElementById("profilePlan")
+    .innerText =
     name;
 
 
-  document.getElementById("planStatus").innerText =
+  document.getElementById("planStatus")
+    .innerText =
     activePlan
     ?
     "Active"
