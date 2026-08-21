@@ -401,8 +401,6 @@ label{
   line-height:1.5;
 }
 
-/* AUTH */
-
 #authPage{
   min-height:100vh;
   display:flex;
@@ -468,6 +466,7 @@ label{
 }
 
 @media(max-width:500px){
+
   .stats{
     grid-template-columns:1fr 1fr;
   }
@@ -479,12 +478,12 @@ label{
   .nav button{
     font-size:10px;
   }
+
 }
 </style>
 </head>
 
 <body>
-
 
 <!-- ==================================================
      AUTH PAGE
@@ -504,9 +503,6 @@ label{
         Task & Reward Platform
       </div>
 
-
-      <!-- AUTH TABS -->
-
       <div class="auth-tabs">
 
         <button
@@ -524,9 +520,6 @@ label{
 
       </div>
 
-
-      <!-- ERROR -->
-
       <div
         id="authError"
         class="auth-error hidden">
@@ -536,7 +529,6 @@ label{
         id="authSuccess"
         class="auth-success hidden">
       </div>
-
 
       <!-- LOGIN -->
 
@@ -549,7 +541,6 @@ label{
           type="email"
           placeholder="আপনার Email">
 
-
         <label>Password</label>
 
         <input
@@ -557,13 +548,11 @@ label{
           type="password"
           placeholder="Password">
 
-
         <button
           class="primary"
           onclick="loginUser()">
           🔐 Login
         </button>
-
 
         <p
           style="text-align:center;margin-top:14px;font-size:13px;color:#777">
@@ -580,7 +569,6 @@ label{
 
       </div>
 
-
       <!-- REGISTER -->
 
       <div id="registerForm" class="hidden">
@@ -592,14 +580,12 @@ label{
           type="text"
           placeholder="আপনার নাম">
 
-
         <label>Email</label>
 
         <input
           id="registerEmail"
           type="email"
           placeholder="আপনার Email">
-
 
         <label>Password</label>
 
@@ -608,7 +594,6 @@ label{
           type="password"
           placeholder="কমপক্ষে ৬ অক্ষর">
 
-
         <label>Confirm Password</label>
 
         <input
@@ -616,13 +601,11 @@ label{
           type="password"
           placeholder="Password আবার লিখুন">
 
-
         <button
           class="primary"
           onclick="registerUser()">
           📝 Create Account
         </button>
-
 
         <p
           style="text-align:center;margin-top:14px;font-size:13px;color:#777">
@@ -651,7 +634,6 @@ label{
 ================================================== -->
 
 <div id="appPage" class="hidden">
-
 
 <header>
 
@@ -1321,7 +1303,8 @@ label{
 
     <div class="notice">
 
-      Payment করার পর screenshot upload করে request submit করতে হবে।
+      আপনার নির্বাচিত payment number-এ Send Money করুন।
+      এরপর যে নম্বর থেকে টাকা পাঠিয়েছেন সেই নম্বরের শেষ ৪ digit দিতে হবে।
 
     </div>
 
@@ -1411,11 +1394,11 @@ label{
   <div class="modal-box">
 
     <div class="modal-title">
-      ডিপোজিট ভেরিফাই করুন
+      ডিপোজিট নিশ্চিত করুন
     </div>
 
     <div class="modal-sub">
-      Payment করার পর screenshot দিন।
+      Payment করার পর নিচের তথ্য দিন।
     </div>
 
 
@@ -1487,26 +1470,15 @@ label{
         type="text"
         inputmode="numeric"
         maxlength="4"
-        placeholder="যেমন: 1234">
+        placeholder="যেমন: 1234"
+        autocomplete="off">
+
+      <p class="small-note">
+        Send Money করার পর যে নম্বর থেকে টাকা পাঠিয়েছেন,
+        সেই নম্বরের শেষ ৪টি digit লিখুন।
+      </p>
 
     </div>
-
-
-    <label>
-      Payment Screenshot
-    </label>
-
-    <input
-      id="depositScreenshot"
-      type="file"
-      accept="image/*">
-
-
-    <p class="small-note">
-
-      Screenshot পরিষ্কার এবং সম্পূর্ণ হতে হবে।
-
-    </p>
 
 
     <button
@@ -1576,16 +1548,6 @@ from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-}
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
-
-
 /* ==================================================
    FIREBASE CONFIG
 ================================================== */
@@ -1626,10 +1588,6 @@ const auth =
 
 const db =
   getFirestore(app);
-
-
-const storage =
-  getStorage(app);
 
 
 /* ==================================================
@@ -2846,6 +2804,7 @@ function copyPaymentNumber(){
 
 /* ==================================================
    DEPOSIT SUBMIT
+   SCREENSHOT REMOVED
 ================================================== */
 
 async function submitDeposit(){
@@ -2857,29 +2816,10 @@ async function submitDeposit(){
       .trim();
 
 
-  const file =
-    document
-      .getElementById(
-        "depositScreenshot"
-      )
-      .files[0];
-
-
   if(!/^\d{4}$/.test(last4)){
 
     alert(
-      "শেষ ৪ digit সঠিকভাবে দিন।"
-    );
-
-    return;
-
-  }
-
-
-  if(!file){
-
-    alert(
-      "Payment screenshot upload করুন।"
+      "যে নম্বর থেকে টাকা পাঠিয়েছেন সেই নম্বরের শেষ ৪ digit দিন।"
     );
 
     return;
@@ -2901,34 +2841,18 @@ async function submitDeposit(){
   }
 
 
-  try{
+  if(!currentUser){
 
-    const fileRef =
-      ref(
-
-        storage,
-
-        "depositScreenshots/" +
-        currentUser.uid +
-        "/" +
-        Date.now() +
-        "_" +
-        file.name
-
-      );
-
-
-    await uploadBytes(
-      fileRef,
-      file
+    alert(
+      "আগে Login করুন।"
     );
 
+    return;
 
-    const screenshotURL =
-      await getDownloadURL(
-        fileRef
-      );
+  }
 
+
+  try{
 
     await addDoc(
 
@@ -2959,9 +2883,6 @@ async function submitDeposit(){
         senderLast4:
           last4,
 
-        screenshotURL:
-          screenshotURL,
-
         status:
           "Pending",
 
@@ -2983,13 +2904,6 @@ async function submitDeposit(){
     document
       .getElementById(
         "senderLast4"
-      )
-      .value="";
-
-
-    document
-      .getElementById(
-        "depositScreenshot"
       )
       .value="";
 
